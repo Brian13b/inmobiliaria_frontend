@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { getPropiedades } from '../services/api';
+import { getActivas } from '../services/api';
 import { getTipoLabel, type Propiedad, TipoPropiedad } from '../types/propiedad';
 import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-react';
 
@@ -26,7 +26,7 @@ export const VentasPage = () => {
     if (query) setFiltroTexto(query);
 
     window.scrollTo(0, 0);
-    getPropiedades().then(data => {
+    getActivas().then(data => {
         const ventas = data.filter((p: { estadoOperacion: string; }) => p.estadoOperacion === "Venta" || !p.estadoOperacion);
         setPropiedades(ventas);
         setFiltradas(ventas);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Hero } from '../components/Hero';
-import { getPropiedades } from '../services/api';
+import { getActivas } from '../services/api';
 import { type Propiedad, getTipoLabel } from '../types/propiedad';
 import { Search, Home, Building, Key, Briefcase, MapPin } from 'lucide-react';
 import { SEO } from '../components/SEO';
@@ -19,7 +19,7 @@ export const HomePage = () => {
     const [busquedaUbicacion, setBusquedaUbicacion] = useState("");
 
     useEffect(() => {
-        getPropiedades().then(data => {
+        getActivas().then(data => {
             const soloDestacadas = data.filter((p: { esDestacada: boolean; }) => p.esDestacada === true);
             setDestacadas(soloDestacadas.slice(0, 4)); 
         });

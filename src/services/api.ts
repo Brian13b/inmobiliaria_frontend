@@ -26,6 +26,11 @@ export const getPropiedadById = async (id: number) => {
     return response.data;
 };
 
+export const getActivas = async () => {
+    const response = await api.get('/Propiedades/activas');
+    return response.data;
+};
+
 export const createPropiedad = async (data: any) => {
     const response = await api.post('/Propiedades', data);
     return response.data;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { getPropiedades } from '../services/api';
+import { getActivas } from '../services/api';
 import { type Propiedad, TipoPropiedad, getTipoLabel } from '../types/propiedad';
 import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-react';
 
@@ -26,7 +26,8 @@ export const AlquileresPage = () => {
     if (query) setFiltroTexto(query);
 
     window.scrollTo(0, 0);
-    getPropiedades().then(data => {
+    getActivas().then(data => {
+        
         const alquileres = data.filter((p: { estadoOperacion: string; }) => p.estadoOperacion === "Alquiler");
         setPropiedades(alquileres);
         setFiltradas(alquileres);
