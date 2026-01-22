@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { getPropiedades } from '../services/api';
-import { type Propiedad, TipoPropiedad, getTipoLabel } from '../types/propiedad';
+import { getTipoLabel, type Propiedad, TipoPropiedad } from '../types/propiedad';
 import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-react';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
 
 export const VentasPage = () => {
   const [propiedades, setPropiedades] = useState<Propiedad[]>([]);
@@ -156,11 +161,37 @@ export const VentasPage = () => {
                     {filtradas.map(prop => (
                         <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden group flex flex-col">
                            <div className="h-56 relative overflow-hidden shrink-0">
-                                <img src={prop.imagenDestacada || "https://placehold.co/600x400"} alt={prop.titulo} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                <div className="absolute top-3 left-3 flex gap-2">
-                                    <span className="bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-gray-800 uppercase">{getTipoLabel(prop.tipo)}</span>
+                                <Swiper
+                                    modules={[Autoplay, EffectFade]}
+                                    effect={'fade'} 
+                                    spaceBetween={0}
+                                    slidesPerView={1}
+                                    loop={true} 
+                                    autoplay={{
+                                        delay: 3000 + Math.random() * 2000, 
+                                        disableOnInteraction: false,
+                                    }}
+                                    className="h-full w-full"
+                                >
+                                    {prop.imagenes?.map((img) => (
+                                        <SwiperSlide key={img.id}>
+                                            <img 
+                                                src={img.url} 
+                                                alt={prop.titulo} 
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                            />
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                                <div className="absolute top-3 left-3 flex gap-2 z-10"> 
+                                    <span className="bg-white/90 backdrop-blur px-2 py-1 rounded text-xs font-bold text-gray-800 uppercase">
+                                        {getTipoLabel(prop.tipo)}
+                                    </span>
                                 </div>
-                                <span className="absolute top-3 right-3 bg-orange-600 text-white px-2 py-1 rounded text-xs font-bold uppercase">Venta</span>
+                                
+                                <span className={`absolute top-3 right-3 px-2 py-1 rounded text-xs font-bold uppercase z-10 text-white ${prop.estadoOperacion === 'Venta' ? 'bg-green-600' : 'bg-orange-600'}`}>
+                                    {prop.estadoOperacion}
+                                </span>
                            </div>
                            <div className="p-5 flex flex-col grow">
                                 <h2 className="text-lg font-bold text-gray-800 mb-1 truncate">{prop.titulo}</h2>

@@ -6,6 +6,11 @@ import { type Propiedad, getTipoLabel } from '../types/propiedad';
 import { Search, Home, Building, Key, Briefcase, MapPin } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+
 export const HomePage = () => {
     const [destacadas, setDestacadas] = useState<Propiedad[]>([]);
     const navigate = useNavigate();
@@ -105,33 +110,61 @@ export const HomePage = () => {
                             <span className="text-orange-600 font-bold tracking-wider uppercase text-sm">Oportunidades</span>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Destacadas del Mes</h2>
                         </div>
-                        <Link to="/ventas" className="hidden md:block text-gray-500 hover:text-orange-600 font-medium transition">Ver todas →</Link>
                     </div>
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {destacadas.map(prop => (
-                             <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 group cursor-pointer overflow-hidden block">
+                            <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 group cursor-pointer overflow-hidden block">
                                 <div className="h-48 bg-gray-200 overflow-hidden relative">
-                                    <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-gray-800 text-[10px] font-bold px-3 py-1 rounded shadow-sm z-10 uppercase tracking-wider">
+                                    <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-gray-800 text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider">
                                         {getTipoLabel(prop.tipo)}
                                     </span>
-                                    <span className="absolute top-3 right-3 bg-orange-600 text-white text-[10px] font-bold px-3 py-1 rounded shadow-sm z-10 uppercase tracking-wider">
+                                    <span className={`absolute top-3 right-3 text-white text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider ${prop.estadoOperacion === 'Venta' ? 'bg-green-600' : 'bg-orange-600'}`}>
                                         {prop.estadoOperacion || "Venta"}
                                     </span>
-                                    <img 
-                                        src={prop.imagenDestacada || "https://placehold.co/600x400?text=Sin+Foto"} 
-                                        alt={prop.titulo}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                    />
-                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                        <span className="bg-white text-gray-900 px-4 py-2 rounded-full font-bold text-sm">Ver Detalle</span>
+
+                                    {prop.imagenes && prop.imagenes.length > 0 ? (
+                                        <Swiper
+                                            modules={[Autoplay, EffectFade]}
+                                            effect={'fade'}
+                                            spaceBetween={0}
+                                            slidesPerView={1}
+                                            loop={true}
+                                            autoplay={{
+                                                delay: 2500 + Math.random() * 1000, 
+                                                disableOnInteraction: false,
+                                            }}
+                                            className="h-full w-full"
+                                        >
+                                            {prop.imagenes.map((img) => (
+                                                <SwiperSlide key={img.id}>
+                                                    <img 
+                                                        src={img.url} 
+                                                        alt={prop.titulo}
+                                                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                                    />
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    ) : (
+                                        <img 
+                                            src={prop.imagenDestacada || "https://placehold.co/600x400?text=Sin+Foto"} 
+                                            alt={prop.titulo}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                        />
+                                    )}
+
+                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+                                        <span className="bg-white text-gray-900 px-4 py-2 rounded-full font-bold text-sm shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                            Ver Detalle
+                                        </span>
                                     </div>
                                 </div>
                                 
                                 <div className="p-5">
                                     <h3 className="text-base font-bold text-gray-800 mb-1 truncate">{prop.titulo}</h3>
                                     <p className="text-gray-500 text-xs mb-4 flex items-center gap-1 truncate">
-                                       <MapPin className="w-3 h-3 text-orange-500" /> {prop.direccion}
+                                        <MapPin className="w-3 h-3 text-orange-500" /> {prop.direccion}
                                     </p>
                                     <div className="flex justify-between items-end border-t border-gray-100 pt-4">
                                         <span className="text-lg font-bold text-orange-600">
