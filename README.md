@@ -1,25 +1,69 @@
-🟢 Versión 1.1 (Estabilidad y Polishing) - Corto Plazo
-Corrección de Errores: Validaciones más fuertes en formularios 
+# 🏡 Inmobiliaria Web - Frontend
 
-Imágenes: Implementar borrado real de Cloudinary desde el backend 
+Cliente web moderno y responsivo para la búsqueda y visualización de propiedades. Construido con **React 19** y **Vite**, enfocado en la velocidad y la experiencia de usuario (UX).
 
-SEO Básico: Usar react-helmet para cambiar el título de la pestaña según la casa 
+![React](https://img.shields.io/badge/React-19-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC)
+![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7)
 
-🟡 Versión 2.0 (Funcionalidades Clave) - Mediano Plazo
-Notificaciones por Email: Integrar SendGrid o Resend en el backend.
+## 🎨 Características
 
-Uso: Cuando alguien llena el formulario de contacto, que te llegue un mail real a tu casilla avisándote.
+* **Diseño Moderno:** UI limpia construida con Tailwind CSS.
+* **Interactivo:** Carruseles de imágenes automáticos (Swiper.js).
+* **Rápido:** Build optimizado con Vite.
+* **Filtros en Tiempo Real:** Búsqueda por ubicación, precio y características.
+* **Responsivo:** Adaptado a móviles, tablets y escritorio.
 
-Filtros en URL: Que al filtrar casas, la URL cambie a /ventas?tipo=casa&precioMin=50000. Así podés compartir el link de la búsqueda con un cliente por WhatsApp.
+## 🛠️ Stack Tecnológico
 
-Mapa Interactivo: Mostrar todas las propiedades como "pines" en un solo mapa grande usando Google Maps o Leaflet.
+* **Framework:** React + Vite.
+* **Lenguaje:** TypeScript.
+* **Estilos:** Tailwind CSS.
+* **Iconos:** Lucide React.
+* **Routing:** React Router DOM v7.
+* **HTTP Client:** Axios.
 
-🔴 Versión 3.0 (Expansión y Usuarios) - Largo Plazo
-Cuentas de Usuario: Permitir que los clientes se registren.
+## 🚀 Instalación y Uso
 
-Feature: Guardar propiedades en "Favoritos".
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone [https://github.com/Brian13b/inmobiliaria_frontend.git](https://github.com/Brian13b/inmobiliaria_frontend.git)
+    cd inmobiliaria_frontend
+    ```
 
-🟣 Versión 4.0 (Inteligencia Artificial & Automatización) - Futurista
-Chatbot con IA: Un bot entrenado con tus propiedades para responder preguntas básicas 24/7 en la web.
+2.  **Instalar dependencias:**
+    ```bash
+    npm install --legacy-peer-deps
+    ```
 
-CRM Integrado: Un sistema para seguir el estado del cliente.
+3.  **Configurar Entorno:**
+    Crear un archivo `.env` en la raíz
+
+4.  **Correr en modo desarrollo:**
+    ```bash
+    npm run dev
+    ```
+
+## 🗺️ Roadmap & Updates
+
+### ✅ Versión 1.0 (Lanzamiento Actual)
+- [x] Landing Page con propiedades destacadas (Swiper Carousel).
+- [x] Página de detalle de propiedad con galería.
+- [x] Conexión full-stack con Backend en Koyeb.
+- [x] Despliegue en Netlify con configuración de redirecciones SPA.
+- [x] Diseño Responsive Mobile-First.
+
+### 🚧 En Progreso (v1.1)
+- [ ] Panel de Administración (Login/ABM de propiedades).
+- [ ] Formulario de contacto funcional con validaciones.
+- [ ] Modo Oscuro (Dark Mode).
+
+### 🔮 Futuro (v2.0)
+- [ ] Vista de mapa interactivo (Leaflet/Google Maps).
+- [ ] Comparador de propiedades.
+- [ ] PWA (Progressive Web App) para instalación en móviles.
+
+## 👤 Autor
+**Brian Battauz** - *Full Stack Developer*
+[Portfolio](https://portfoliobrianbattauz.vercel.app/) | [LinkedIn](www.linkedin.com/in/brian-battauz-75691a217)
