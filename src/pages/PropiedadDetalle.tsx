@@ -14,7 +14,7 @@ import 'swiper/css/pagination';
 export const PropiedadDetalle = () => {
     const { id } = useParams();
     const [propiedad, setPropiedad] = useState<Propiedad | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [_loading, setLoading] = useState(true);
     const [fotoActual, setFotoActual] = useState(1); 
 
     useEffect(() => {
