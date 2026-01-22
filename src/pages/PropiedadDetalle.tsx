@@ -68,7 +68,7 @@ export const PropiedadDetalle = () => {
             
             {/* Breadcrumb pequeño */}
             <div className="container mx-auto px-8 md:px-16 lg:px-32 mb-6">
-                <Link to="/ventas" className="flex items-center gap-2 text-gray-500 hover:text-orange-600 text-sm font-medium">
+                <Link to="/ventas" className="flex items-center gap-2 text-gray-500 hover:text-orange-700 text-sm font-medium">
                     <ArrowLeft className="w-4 h-4" /> Volver al listado
                 </Link>
             </div>
@@ -84,9 +84,9 @@ export const PropiedadDetalle = () => {
                             </span>
                             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mt-4 mb-2">{propiedad.titulo}</h1>
                             <p className="text-gray-500 text-lg flex items-center gap-2">
-                                <MapPin className="w-5 h-5 text-orange-600" /> {propiedad.direccion}, {propiedad.ciudad}
+                                <MapPin className="w-5 h-5 text-orange-700" /> {propiedad.direccion}, {propiedad.ciudad}
                             </p>
-                            <p className="text-4xl font-bold text-orange-600 mt-4">{propiedad.moneda} {propiedad.precio.toLocaleString()}</p>
+                            <p className="text-4xl font-bold text-orange-700 mt-4">{propiedad.moneda} {propiedad.precio.toLocaleString()}</p>
                         </div>
 
                         {/* Características */}
@@ -113,13 +113,13 @@ export const PropiedadDetalle = () => {
                                 </div>
                                 <input type="email" placeholder="Email" className="w-full p-3 rounded-lg border border-gray-200 outline-none focus:border-orange-500" />
                                 <textarea rows={3} placeholder="Mensaje..." defaultValue={`Hola, me interesa ${propiedad.titulo}...`} className="w-full p-3 rounded-lg border border-gray-200 outline-none focus:border-orange-500"></textarea>
-                                <button className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">ENVIAR CONSULTA</button>
+                                <button className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-orange-700 transition">ENVIAR CONSULTA</button>
                             </form>
                         </div>
 
                          {/* Botones Compartir */}
                          <div className="flex gap-4">
-                            <button onClick={copiarLink} className="flex-1 border border-gray-200 py-3 rounded-lg font-medium text-gray-600 hover:border-orange-500 hover:text-orange-600 transition flex justify-center gap-2">
+                            <button onClick={copiarLink} className="flex-1 border border-gray-200 py-3 rounded-lg font-medium text-gray-600 hover:border-orange-500 hover:text-orange-700 transition flex justify-center gap-2">
                                 <Copy className="w-4 h-4" /> Copiar Link
                             </button>
                             <button onClick={compartirWsp} className="flex-1 border border-gray-200 py-3 rounded-lg font-medium text-gray-600 hover:border-green-500 hover:text-green-600 transition flex justify-center gap-2">

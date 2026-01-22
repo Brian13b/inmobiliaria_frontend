@@ -25,7 +25,7 @@ export const LoginPage = () => {
             <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
                 <div className="flex justify-center mb-6">
                     <div className="bg-orange-100 p-4 rounded-full">
-                        <Lock className="w-8 h-8 text-orange-600" />
+                        <Lock className="w-8 h-8 text-orange-700" />
                     </div>
                 </div>
                 <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Acceso Administrador</h2>
@@ -51,7 +51,7 @@ export const LoginPage = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <button className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-orange-600 transition">
+                    <button className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-orange-700 transition">
                         INGRESAR
                     </button>
                 </form>

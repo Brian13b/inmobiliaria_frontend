@@ -63,7 +63,7 @@ export const Hero = () => {
             <h1 className="text-4xl md:text-7xl font-bold tracking-tighter drop-shadow-lg mb-4 animate-fade-in-up">
               {slide.title}
             </h1>
-            <p className="text-lg md:text-xl font-medium tracking-widest uppercase bg-orange-600/90 px-6 py-2 rounded-sm inline-block">
+            <p className="text-lg md:text-xl font-medium tracking-widest uppercase bg-orange-700/90 px-6 py-2 rounded-sm inline-block">
               {slide.subtitle}
             </p>
           </div>

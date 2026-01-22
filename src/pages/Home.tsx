@@ -75,7 +75,7 @@ export const HomePage = () => {
                     </div>
                     <button 
                         onClick={handleBuscar}
-                        className="bg-orange-600 text-white p-3 rounded-lg font-bold hover:bg-orange-700 transition flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30"
+                        className="bg-orange-700 text-white p-3 rounded-lg font-bold hover:bg-orange-700 transition flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30"
                     >
                         <Search className="w-5 h-5" /> BUSCAR
                     </button>
@@ -92,8 +92,8 @@ export const HomePage = () => {
                         { icon: Key, title: "Administración", text: "Gestionamos tus rentas sin preocupaciones." },
                     ].map((item, i) => (
                         <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group text-center">
-                            <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-600 transition-colors duration-300">
-                                <item.icon className="w-8 h-8 text-orange-600 group-hover:text-white transition-colors duration-300" />
+                            <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-700 transition-colors duration-300">
+                                <item.icon className="w-8 h-8 text-orange-700 group-hover:text-white transition-colors duration-300" />
                             </div>
                             <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
                             <p className="text-gray-500 text-sm leading-relaxed">{item.text}</p>
@@ -107,7 +107,7 @@ export const HomePage = () => {
                 <div className="container mx-auto px-8 md:px-16 lg:px-32">
                     <div className="flex justify-between items-end mb-12">
                         <div>
-                            <span className="text-orange-600 font-bold tracking-wider uppercase text-sm">Oportunidades</span>
+                            <span className="text-orange-700 font-bold tracking-wider uppercase text-sm">Oportunidades</span>
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Destacadas del Mes</h2>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ export const HomePage = () => {
                                     <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-gray-800 text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider">
                                         {getTipoLabel(prop.tipo)}
                                     </span>
-                                    <span className={`absolute top-3 right-3 text-white text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider ${prop.estadoOperacion === 'Venta' ? 'bg-green-600' : 'bg-orange-600'}`}>
+                                    <span className={`absolute top-3 right-3 text-white text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider ${prop.estadoOperacion === 'Venta' ? 'bg-green-600' : 'bg-orange-700'}`}>
                                         {prop.estadoOperacion || "Venta"}
                                     </span>
 
@@ -167,7 +167,7 @@ export const HomePage = () => {
                                         <MapPin className="w-3 h-3 text-orange-500" /> {prop.direccion}
                                     </p>
                                     <div className="flex justify-between items-end border-t border-gray-100 pt-4">
-                                        <span className="text-lg font-bold text-orange-600">
+                                        <span className="text-lg font-bold text-orange-700">
                                             {prop.moneda} {prop.precio.toLocaleString()}
                                         </span>
                                         <div className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">

@@ -20,7 +20,7 @@ export const Navbar = () => {
     ${location.pathname === path ? 'text-orange-500' : isScrolled ? 'text-gray-600' : 'text-white'}
   `;
 
-  const mobileLinkClass = "text-2xl font-light text-gray-800 hover:text-orange-600 transition block py-2 border-b border-gray-100";
+  const mobileLinkClass = "text-2xl font-light text-gray-800 hover:text-orange-700 transition block py-2 border-b border-gray-100";
 
   return (
     <>
@@ -28,7 +28,7 @@ export const Navbar = () => {
         <div className="container mx-auto px-6 flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 text-2xl font-bold tracking-tighter">
-            <div className="bg-orange-600 p-2 rounded-lg shadow-lg">
+            <div className="bg-orange-700 p-2 rounded-lg shadow-lg">
               <Home className="w-5 h-5 text-white" />
             </div>
             <span className={isScrolled ? 'text-gray-800' : 'text-white'}>Inmobiliaria</span>
@@ -43,7 +43,7 @@ export const Navbar = () => {
           </div>
 
           {/* Botón Mobile */}
-          <button className="md:hidden text-orange-600" onClick={() => setIsOpen(true)}>
+          <button className="md:hidden text-orange-700" onClick={() => setIsOpen(true)}>
             <Menu className="w-8 h-8" />
           </button>
         </div>

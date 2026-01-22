@@ -133,7 +133,7 @@ export const AdminFormulario = () => {
     const sectionTitleClass = "text-lg font-bold text-gray-800 mb-4 flex items-center gap-2 border-b pb-2";
     const labelClass = "block text-xs font-bold text-gray-500 uppercase mb-1 tracking-wide";
     const inputClass = "w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2.5 transition-colors placeholder-gray-400";
-    const checkClass = "w-5 h-5 text-orange-600 bg-gray-100 border-gray-300 rounded focus:ring-orange-500";
+    const checkClass = "w-5 h-5 text-orange-700 bg-gray-100 border-gray-300 rounded focus:ring-orange-500";
 
     return (
         <div className="min-h-screen bg-gray-50 p-6 md:p-8 pb-32">
@@ -141,7 +141,7 @@ export const AdminFormulario = () => {
                 {/* Header Flotante */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div className="flex flex-col gap-1">
-                        <Link to="/admin/propiedades" className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-600 font-medium text-sm transition-colors w-fit">
+                        <Link to="/admin/propiedades" className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-700 font-medium text-sm transition-colors w-fit">
                             <ArrowLeft className="w-4 h-4" /> Volver al listado
                         </Link>
                         <h1 className="text-3xl font-bold text-gray-900">
@@ -152,7 +152,7 @@ export const AdminFormulario = () => {
                     <button 
                         onClick={handleSubmit}
                         disabled={loading} 
-                        className="bg-gray-900 text-white font-bold py-3 px-6 rounded-lg hover:bg-orange-600 transition shadow-lg flex items-center gap-2 disabled:opacity-50"
+                        className="bg-gray-900 text-white font-bold py-3 px-6 rounded-lg hover:bg-orange-700 transition shadow-lg flex items-center gap-2 disabled:opacity-50"
                     >
                         <Save className="w-5 h-5" /> 
                         {loading ? "GUARDANDO..." : "GUARDAR CAMBIOS"}
@@ -167,7 +167,7 @@ export const AdminFormulario = () => {
                             
                             {/* Información Basica */}
                             <div className={cardClass}>
-                                <h3 className={sectionTitleClass}><Home className="w-5 h-5 text-orange-600" /> Datos Principales</h3>
+                                <h3 className={sectionTitleClass}><Home className="w-5 h-5 text-orange-700" /> Datos Principales</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label className={labelClass}>Título de la publicación</label>
@@ -198,7 +198,7 @@ export const AdminFormulario = () => {
 
                             {/* Ubicacion */}
                             <div className={cardClass}>
-                                <h3 className={sectionTitleClass}><MapPin className="w-5 h-5 text-orange-600" /> Ubicación</h3>
+                                <h3 className={sectionTitleClass}><MapPin className="w-5 h-5 text-orange-700" /> Ubicación</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label className={labelClass}>Dirección / Calle</label>
@@ -214,7 +214,7 @@ export const AdminFormulario = () => {
                             {/* Galeria */}
                             {esEdicion && (
                                 <div className={cardClass}>
-                                    <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-orange-600" /> Galería de Fotos</h3>
+                                    <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-orange-700" /> Galería de Fotos</h3>
                                     
                                     <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-orange-50 transition cursor-pointer relative mb-6 group">
                                         <input 
@@ -255,7 +255,7 @@ export const AdminFormulario = () => {
                         {/* Detalles */}
                         <div className="lg:col-span-1">
                             <div className={`${cardClass} border-l-4 border-l-orange-500`}>
-                                <h3 className={sectionTitleClass}><CheckCircle className="w-5 h-5 text-orange-600" /> Estado</h3>
+                                <h3 className={sectionTitleClass}><CheckCircle className="w-5 h-5 text-orange-700" /> Estado</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label className={labelClass}>Operación</label>
@@ -290,7 +290,7 @@ export const AdminFormulario = () => {
 
                             {/* Características */}
                             <div className={cardClass}>
-                                <h3 className={sectionTitleClass}><List className="w-5 h-5 text-orange-600" /> Detalles</h3>
+                                <h3 className={sectionTitleClass}><List className="w-5 h-5 text-orange-700" /> Detalles</h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div><label className={labelClass}>Amb.</label><input type="number" name="ambientes" value={form.ambientes} onChange={handleChange} className={inputClass} /></div>
                                     <div><label className={labelClass}>Dorm.</label><input type="number" name="dormitorios" value={form.dormitorios} onChange={handleChange} className={inputClass} /></div>

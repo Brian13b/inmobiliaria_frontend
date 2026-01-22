@@ -20,8 +20,8 @@ export const Footer = () => {
         <div className="flex flex-col items-center">
           <h3 className="text-orange-700 font-bold mb-4 uppercase tracking-wider">Servicios</h3>
           <ul className="flex flex-col gap-2 text-sm">
-            <li><a href="#" className="hover:text-orange-600 underline decoration-gray-300">Ventas</a></li>
-            <li><a href="#" className="hover:text-orange-600 underline decoration-gray-300">Alquileres</a></li>
+            <li><a href="#" className="hover:text-orange-700 underline decoration-gray-300">Ventas</a></li>
+            <li><a href="#" className="hover:text-orange-700 underline decoration-gray-300">Alquileres</a></li>
           </ul>
         </div>
 
@@ -29,15 +29,15 @@ export const Footer = () => {
         <div className="flex flex-col items-center">
           <h3 className="text-orange-700 font-bold mb-4 uppercase tracking-wider">Links</h3>
           <ul className="flex flex-col gap-2 text-sm mb-6">
-            <li><a href="#" className="hover:text-orange-600 underline decoration-gray-300">Inicio</a></li>
-            <li><a href="#" className="hover:text-orange-600 underline decoration-gray-300">Contacto</a></li>
+            <li><a href="#" className="hover:text-orange-700 underline decoration-gray-300">Inicio</a></li>
+            <li><a href="#" className="hover:text-orange-700 underline decoration-gray-300">Contacto</a></li>
           </ul>
           
           <div className="flex gap-4 justify-center">
-            <div className="bg-gray-300 p-2 rounded-full hover:bg-orange-600 hover:text-white transition cursor-pointer">
+            <div className="bg-gray-300 p-2 rounded-full hover:bg-orange-700 hover:text-white transition cursor-pointer">
                 <Instagram className="w-5 h-5" />
             </div>
-            <div className="bg-gray-300 p-2 rounded-full hover:bg-orange-600 hover:text-white transition cursor-pointer">
+            <div className="bg-gray-300 p-2 rounded-full hover:bg-orange-700 hover:text-white transition cursor-pointer">
                 <Facebook className="w-5 h-5" />
             </div>
           </div>

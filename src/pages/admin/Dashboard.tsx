@@ -53,8 +53,8 @@ export const DashboardPage = () => {
                     </Link>
 
                     <Link to="/admin/mensajes" className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all group border border-gray-100">
-                        <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-600 transition-colors">
-                            <Mail className="w-6 h-6 text-orange-600 group-hover:text-white" />
+                        <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-700 transition-colors">
+                            <Mail className="w-6 h-6 text-orange-700 group-hover:text-white" />
                         </div>
                         <h3 className="text-xl font-bold text-gray-800">Bandeja de Entrada</h3>
                         <p className="text-gray-500 text-sm mt-2">Leer consultas de contacto recibidas.</p>

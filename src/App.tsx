@@ -32,53 +32,55 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/ventas" element={<VentasPage />} />
-          <Route path="/alquileres" element={<AlquileresPage />} />
-          <Route path="/contacto" element={<ContactoPage />} />
-          <Route path="/propiedad/:id" element={<PropiedadDetalle />} />
+    <main>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/ventas" element={<VentasPage />} />
+            <Route path="/alquileres" element={<AlquileresPage />} />
+            <Route path="/contacto" element={<ContactoPage />} />
+            <Route path="/propiedad/:id" element={<PropiedadDetalle />} />
 
-          <Route path="/login" element={<LoginPage />} />
-          
-          <Route path="/admin/dashboard" element={
-            <ProtectedRoute>
-                <DashboardPage />
-            </ProtectedRoute>
-          } />
-
-          <Route path="/admin/mensajes" element={
-            <ProtectedRoute>
-                <AdminMensajes />
-            </ProtectedRoute>
-          } />
-
-          <Route path="/admin/propiedades" element={
+            <Route path="/login" element={<LoginPage />} />
+            
+            <Route path="/admin/dashboard" element={
               <ProtectedRoute>
-                  <AdminPropiedades />
+                  <DashboardPage />
               </ProtectedRoute>
-          } />
-          <Route path="/admin/propiedades/nueva" element={
-              <ProtectedRoute>
-                  <AdminFormulario />
-              </ProtectedRoute>
-          } />
-          <Route path="/admin/propiedades/editar/:id" element={
-              <ProtectedRoute>
-                  <AdminFormulario />
-              </ProtectedRoute>
-          } />
-          <Route path="/admin/configuracion" element={
-            <ProtectedRoute>
-                <AdminConfig />
-            </ProtectedRoute>
-          } />
+            } />
 
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+            <Route path="/admin/mensajes" element={
+              <ProtectedRoute>
+                  <AdminMensajes />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/admin/propiedades" element={
+                <ProtectedRoute>
+                    <AdminPropiedades />
+                </ProtectedRoute>
+            } />
+            <Route path="/admin/propiedades/nueva" element={
+                <ProtectedRoute>
+                    <AdminFormulario />
+                </ProtectedRoute>
+            } />
+            <Route path="/admin/propiedades/editar/:id" element={
+                <ProtectedRoute>
+                    <AdminFormulario />
+                </ProtectedRoute>
+            } />
+            <Route path="/admin/configuracion" element={
+              <ProtectedRoute>
+                  <AdminConfig />
+              </ProtectedRoute>
+            } />
+
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </main>
   );
 }
 

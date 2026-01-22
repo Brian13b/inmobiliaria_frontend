@@ -48,21 +48,21 @@ export const ContactoPage = () => {
                     <h3 className="text-xl font-bold text-gray-800 mb-6">Información de Contacto</h3>
                     <div className="space-y-6">
                         <div className="flex items-start gap-4">
-                            <div className="bg-orange-100 p-3 rounded-full"><MapPin className="w-5 h-5 text-orange-600" /></div>
+                            <div className="bg-orange-100 p-3 rounded-full"><MapPin className="w-5 h-5 text-orange-700" /></div>
                             <div>
                                 <p className="font-bold text-gray-800">Oficina Central</p>
                                 <p className="text-gray-600">25 de Mayo, Paraná, Entre Ríos</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
-                            <div className="bg-orange-100 p-3 rounded-full"><Phone className="w-5 h-5 text-orange-600" /></div>
+                            <div className="bg-orange-100 p-3 rounded-full"><Phone className="w-5 h-5 text-orange-700" /></div>
                             <div>
                                 <p className="font-bold text-gray-800">Teléfonos</p>
                                 <p className="text-gray-600">(343) 123-4567 / (343) 123-654</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-4">
-                            <div className="bg-orange-100 p-3 rounded-full"><Mail className="w-5 h-5 text-orange-600" /></div>
+                            <div className="bg-orange-100 p-3 rounded-full"><Mail className="w-5 h-5 text-orange-700" /></div>
                             <div>
                                 <p className="font-bold text-gray-800">Email</p>
                                 <p className="text-gray-600">contacto@inmobiliaria.com</p>
@@ -110,7 +110,7 @@ export const ContactoPage = () => {
                 
                 <button 
                     disabled={enviando}
-                    className="w-full bg-gray-900 text-white font-bold py-4 rounded-lg hover:bg-orange-600 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gray-900 text-white font-bold py-4 rounded-lg hover:bg-orange-700 transition shadow-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     {enviando ? <Loader2 className="animate-spin" /> : <Send className="w-5 h-5" />}
                     {enviando ? "ENVIANDO..." : "ENVIAR MENSAJE"}

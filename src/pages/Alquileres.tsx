@@ -81,7 +81,7 @@ export const AlquileresPage = () => {
                         <h3 className="font-bold text-gray-800 flex items-center gap-2">
                             <Filter className="w-5 h-5" /> Filtros
                         </h3>
-                        <button onClick={() => {setFiltroTexto(""); setPrecioMin(""); setPrecioMax(""); setDormitorios("Cualquiera");}} className="text-xs text-orange-600 font-bold hover:underline">
+                        <button onClick={() => {setFiltroTexto(""); setPrecioMin(""); setPrecioMax(""); setDormitorios("Cualquiera");}} className="text-xs text-orange-700 font-bold hover:underline">
                             Limpiar
                         </button>
                     </div>
@@ -139,7 +139,7 @@ export const AlquileresPage = () => {
                                     <button 
                                         key={opt}
                                         onClick={() => setDormitorios(opt)}
-                                        className={`flex-1 py-1.5 text-xs rounded border ${dormitorios === opt ? 'bg-orange-600 text-white border-orange-600' : 'bg-white text-gray-600 border-gray-200 hover:border-orange-300'}`}
+                                        className={`flex-1 py-1.5 text-xs rounded border ${dormitorios === opt ? 'bg-orange-700 text-white border-orange-700' : 'bg-white text-gray-600 border-gray-200 hover:border-orange-300'}`}
                                     >
                                         {opt}
                                     </button>
@@ -189,7 +189,7 @@ export const AlquileresPage = () => {
                                     </span>
                                 </div>
                                 
-                                <span className={`absolute top-3 right-3 px-2 py-1 rounded text-xs font-bold uppercase z-10 text-white ${prop.estadoOperacion === 'Venta' ? 'bg-green-600' : 'bg-orange-600'}`}>
+                                <span className={`absolute top-3 right-3 px-2 py-1 rounded text-xs font-bold uppercase z-10 text-white ${prop.estadoOperacion === 'Venta' ? 'bg-green-600' : 'bg-orange-700'}`}>
                                     {prop.estadoOperacion}
                                 </span>
                            </div>
@@ -204,8 +204,8 @@ export const AlquileresPage = () => {
                                 </div>
 
                                 <div className="mt-auto flex justify-between items-center">
-                                    <span className="text-xl font-bold text-orange-600">{prop.moneda} {prop.precio.toLocaleString()}</span>
-                                    <span className="text-sm font-medium text-gray-600 group-hover:text-orange-600">Ver Ficha →</span>
+                                    <span className="text-xl font-bold text-orange-700">{prop.moneda} {prop.precio.toLocaleString()}</span>
+                                    <span className="text-sm font-medium text-gray-600 group-hover:text-orange-700">Ver Ficha →</span>
                                 </div>
                            </div>
                         </Link>

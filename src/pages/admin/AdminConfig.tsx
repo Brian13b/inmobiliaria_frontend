@@ -42,7 +42,7 @@ export const AdminConfig = () => {
     return (
         <div className="min-h-screen bg-gray-100 p-8 pb-32">
             <div className="max-w-6xl mx-auto">
-                <Link to="/admin/dashboard" className="flex items-center gap-2 text-gray-500 hover:text-orange-600 mb-6 w-fit font-medium">
+                <Link to="/admin/dashboard" className="flex items-center gap-2 text-gray-500 hover:text-orange-700 mb-6 w-fit font-medium">
                     <ArrowLeft className="w-4 h-4" /> Volver al Panel
                 </Link>
 
@@ -52,9 +52,9 @@ export const AdminConfig = () => {
                     <form onSubmit={handleSave} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-8">
                         <div className="flex justify-between items-center">
                             <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-                                <Image className="text-orange-600" /> Configurar Hero
+                                <Image className="text-orange-700" /> Configurar Hero
                             </h1>
-                            <button className="bg-gray-900 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 transition shadow-lg flex items-center gap-2 text-sm">
+                            <button className="bg-gray-900 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-700 transition shadow-lg flex items-center gap-2 text-sm">
                                 <Save className="w-4 h-4" /> GUARDAR
                             </button>
                         </div>
@@ -115,7 +115,7 @@ export const AdminConfig = () => {
                                 ) : <div className="flex items-center justify-center h-full text-gray-400 text-xs">Sin imagen</div>}
                                 <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-white p-2 text-center">
                                     <span className="font-bold text-2xl drop-shadow-md">{config.heroTitulo || "Título 1"}</span>
-                                    <span className="text-xs uppercase tracking-widest mt-2 bg-orange-600 px-3 py-1 rounded-sm shadow-sm">{config.heroSubtitulo || "Subtítulo 1"}</span>
+                                    <span className="text-xs uppercase tracking-widest mt-2 bg-orange-700 px-3 py-1 rounded-sm shadow-sm">{config.heroSubtitulo || "Subtítulo 1"}</span>
                                 </div>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ export const AdminConfig = () => {
                                 ) : <div className="flex items-center justify-center h-full text-gray-400 text-xs">Sin imagen</div>}
                                 <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-white p-2 text-center">
                                     <span className="font-bold text-2xl drop-shadow-md">{config.heroTitulo2 || "Título 2"}</span>
-                                    <span className="text-xs uppercase tracking-widest mt-2 bg-orange-600 px-3 py-1 rounded-sm shadow-sm">{config.heroSubtitulo2 || "Subtítulo 2"}</span>
+                                    <span className="text-xs uppercase tracking-widest mt-2 bg-orange-700 px-3 py-1 rounded-sm shadow-sm">{config.heroSubtitulo2 || "Subtítulo 2"}</span>
                                 </div>
                             </div>
                         </div>

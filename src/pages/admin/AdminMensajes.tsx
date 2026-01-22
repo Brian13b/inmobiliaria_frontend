@@ -20,12 +20,12 @@ export const AdminMensajes = () => {
     return (
         <div className="min-h-screen bg-gray-100 p-8">
             <div className="max-w-5xl mx-auto">
-                <Link to="/admin/dashboard" className="flex items-center gap-2 text-gray-500 hover:text-orange-600 mb-6 w-fit">
+                <Link to="/admin/dashboard" className="flex items-center gap-2 text-gray-500 hover:text-orange-700 mb-6 w-fit">
                     <ArrowLeft className="w-4 h-4" /> Volver al Panel
                 </Link>
                 
                 <h1 className="text-3xl font-bold text-gray-800 mb-8 flex items-center gap-3">
-                    <Mail className="w-8 h-8 text-orange-600" /> Bandeja de Entrada
+                    <Mail className="w-8 h-8 text-orange-700" /> Bandeja de Entrada
                 </h1>
 
                 <div className="grid gap-4">
