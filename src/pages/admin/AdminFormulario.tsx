@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen } from '../../services/api';
 import { TipoPropiedad } from '../../types/propiedad';
-import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, List, CheckCircle, Image as ImageIcon } from 'lucide-react';
+import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, List, CheckCircle, Image as ImageIcon, X } from 'lucide-react'; // Agregué 'X'
 
 export const AdminFormulario = () => {
     const { id } = useParams();
@@ -10,7 +10,10 @@ export const AdminFormulario = () => {
     const esEdicion = !!id;
 
     const [loading, setLoading] = useState(false);
-    const [subiendoFoto, setSubiendoFoto] = useState(false);
+    
+    // ESTADOS NUEVOS PARA FOTOS LOCALES
+    const [fotosParaSubir, setFotosParaSubir] = useState<File[]>([]);
+    const [previews, setPreviews] = useState<string[]>([]);
     
     const [form, setForm] = useState({
         titulo: "",
@@ -39,6 +42,7 @@ export const AdminFormulario = () => {
             getPropiedadById(Number(id)).then(data => {
                 setForm({
                     ...data,
+                    // Aseguramos valores por defecto para evitar warnings de react
                     titulo: data.titulo || "",
                     descripcion: data.descripcion || "",
                     direccion: data.direccion || "",
@@ -68,6 +72,26 @@ export const AdminFormulario = () => {
         }));
     };
 
+    // --- NUEVA LÓGICA DE SELECCIÓN DE FOTOS (LOCAL) ---
+    const handleSeleccionarFotos = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const archivos = Array.from(e.target.files);
+            
+            // 1. Guardamos los archivos reales para subirlos después
+            setFotosParaSubir(prev => [...prev, ...archivos]);
+
+            // 2. Generamos URLs temporales para que el usuario vea qué eligió
+            const nuevasPreviews = archivos.map(file => URL.createObjectURL(file));
+            setPreviews(prev => [...prev, ...nuevasPreviews]);
+        }
+    };
+
+    const removerFotoLocal = (index: number) => {
+        setFotosParaSubir(prev => prev.filter((_, i) => i !== index));
+        setPreviews(prev => prev.filter((_, i) => i !== index));
+    };
+
+    // --- LÓGICA DE GUARDADO INTELIGENTE ---
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         setLoading(true);
@@ -83,41 +107,49 @@ export const AdminFormulario = () => {
                 superficieTotal: Number(form.superficieTotal),
             };
 
+            let propiedadId = Number(id);
+
             if (esEdicion) {
-                await updatePropiedad(Number(id), dataToSend);
-                alert("Guardado correctamente");
-            } else {
-                const nueva = await createPropiedad(dataToSend);
-                if(confirm("Propiedad creada. ¿Ir a subir fotos?")) {
-                    navigate(`/admin/propiedades/editar/${nueva.id}`);
-                } else {
-                    navigate("/admin/propiedades");
+                // 1. Actualizamos datos
+                await updatePropiedad(propiedadId, dataToSend);
+                
+                // 2. Si agregó fotos nuevas MIENTRAS editaba, las subimos
+                if (fotosParaSubir.length > 0) {
+                    await subirFotosMasivas(propiedadId);
                 }
+                
+                alert("Propiedad actualizada correctamente");
+                navigate("/admin/propiedades");
+            } else {
+                // 1. Creamos la propiedad primero
+                const nueva = await createPropiedad(dataToSend);
+                propiedadId = nueva.id; // Obtenemos el ID nuevo
+
+                // 2. Subimos las fotos usando ese ID nuevo
+                if (fotosParaSubir.length > 0) {
+                    await subirFotosMasivas(propiedadId);
+                }
+
+                alert("Propiedad creada y fotos subidas con éxito");
+                navigate("/admin/propiedades");
             }
         } catch (error) {
-            alert("Error al guardar");
+            console.error(error);
+            alert("Error al guardar la propiedad");
         } finally {
             setLoading(false);
         }
     };
 
-    const handleSubirFoto = async (e: any) => {
-        if (!e.target.files || e.target.files.length === 0) return;
-        setSubiendoFoto(true);
-        try {
-            const file = e.target.files[0];
-            await uploadImagen(Number(id), file);
-            const updated = await getPropiedadById(Number(id));
-            setForm(prev => ({ ...prev, imagenes: updated.imagenes }));
-        } catch (error) {
-            alert("Error subiendo foto");
-        } finally {
-            setSubiendoFoto(false);
-        }
+    // Helper para subir múltiples fotos en paralelo
+    const subirFotosMasivas = async (idPropiedad: number) => {
+        const promesas = fotosParaSubir.map(file => uploadImagen(idPropiedad, file));
+        await Promise.all(promesas);
     };
 
-    const handleBorrarFoto = async (imagenId: number) => {
-        if (!confirm("¿Eliminar esta foto?")) return;
+    // Borrar fotos YA existentes en la base de datos
+    const handleBorrarFotoExistente = async (imagenId: number) => {
+        if (!confirm("¿Eliminar esta foto permanentemente?")) return;
         try {
             await deleteImagen(Number(id), imagenId);
             setForm(prev => ({
@@ -155,13 +187,12 @@ export const AdminFormulario = () => {
                         className="bg-gray-900 text-white font-bold py-3 px-6 rounded-lg hover:bg-orange-700 transition shadow-lg flex items-center gap-2 disabled:opacity-50"
                     >
                         <Save className="w-5 h-5" /> 
-                        {loading ? "GUARDANDO..." : "GUARDAR CAMBIOS"}
+                        {loading ? "GUARDANDO..." : "GUARDAR TODO"}
                     </button>
                 </div>
 
                 <form onSubmit={handleSubmit}>
                     
-                    {/* GRID PRINCIPAL */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="lg:col-span-2">
                             
@@ -211,45 +242,66 @@ export const AdminFormulario = () => {
                                 </div>
                             </div>
 
-                            {/* Galeria */}
-                            {esEdicion && (
-                                <div className={cardClass}>
-                                    <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-orange-700" /> Galería de Fotos</h3>
-                                    
-                                    <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-orange-50 transition cursor-pointer relative mb-6 group">
-                                        <input 
-                                            type="file" 
-                                            accept="image/*" 
-                                            onChange={handleSubirFoto} 
-                                            disabled={subiendoFoto}
-                                            className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10" 
-                                        />
-                                        <div className="pointer-events-none">
-                                            <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-orange-500 transition-colors" />
-                                            <p className="text-gray-500 font-medium text-sm">
-                                                {subiendoFoto ? "Subiendo..." : "Arrastrá una foto o hacé clic para subir"}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                        {form.imagenes?.map((img) => (
-                                            <div key={img.id} className="relative group rounded-lg overflow-hidden h-24 border border-gray-200 shadow-sm">
-                                                <img src={img.url} className="w-full h-full object-cover" />
-                                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                                    <button 
-                                                        type="button" 
-                                                        onClick={() => handleBorrarFoto(img.id)}
-                                                        className="bg-red-600 text-white p-1.5 rounded-full hover:bg-red-700 transition transform hover:scale-110"
-                                                    >
-                                                        <Trash2 className="w-4 h-4" />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))}
+                            {/* Galeria UNIFICADA (Siempre visible) */}
+                            <div className={cardClass}>
+                                <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-orange-700" /> Galería de Fotos</h3>
+                                
+                                <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-orange-50 transition cursor-pointer relative mb-6 group">
+                                    <input 
+                                        type="file" 
+                                        accept="image/*" 
+                                        multiple // IMPORTANTE: Múltiples archivos
+                                        onChange={handleSeleccionarFotos} 
+                                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10" 
+                                    />
+                                    <div className="pointer-events-none">
+                                        <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-orange-500 transition-colors" />
+                                        <p className="text-gray-500 font-medium text-sm">
+                                            Arrastrá tus fotos o hacé clic para agregar (podés elegir varias)
+                                        </p>
                                     </div>
                                 </div>
-                            )}
+
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {/* 1. MOSTRAR FOTOS YA EXISTENTES (Solo si es edición) */}
+                                    {form.imagenes?.map((img) => (
+                                        <div key={img.id} className="relative group rounded-lg overflow-hidden h-24 border border-gray-200 shadow-sm">
+                                            <img src={img.url} className="w-full h-full object-cover" alt="Existente" />
+                                            <div className="absolute top-1 right-1 z-10">
+                                                <span className="bg-green-500 text-white text-[10px] px-1 rounded shadow">Guardada</span>
+                                            </div>
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                                <button 
+                                                    type="button" 
+                                                    onClick={() => handleBorrarFotoExistente(img.id)}
+                                                    className="bg-red-600 text-white p-1.5 rounded-full hover:bg-red-700 transition transform hover:scale-110"
+                                                >
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    {/* 2. MOSTRAR PREVIEWS DE FOTOS NUEVAS (Locales) */}
+                                    {previews.map((previewUrl, index) => (
+                                        <div key={index} className="relative group rounded-lg overflow-hidden h-24 border-2 border-orange-400 shadow-sm">
+                                            <img src={previewUrl} className="w-full h-full object-cover opacity-90" alt="Nueva" />
+                                            <div className="absolute top-1 right-1 z-10">
+                                                <span className="bg-orange-500 text-white text-[10px] px-1 rounded shadow animate-pulse">Nueva</span>
+                                            </div>
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                                <button 
+                                                    type="button" 
+                                                    onClick={() => removerFotoLocal(index)} 
+                                                    className="bg-red-600 text-white p-1.5 rounded-full hover:bg-red-700"
+                                                >
+                                                    <X className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
                         {/* Detalles */}
