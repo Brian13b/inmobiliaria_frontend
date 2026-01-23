@@ -55,7 +55,7 @@ export const PropiedadDetalle = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white pb-20 pt-24"> {/* pt-24 ajustado para que no choque */}
+        <div className="min-h-screen bg-white pb-20 pt-24">
             <SEO 
                 title={propiedad.titulo} 
                 description={`Propiedad en ${propiedad.estadoOperacion} en ${propiedad.direccion}. ${propiedad.ambientes} ambientes, ${propiedad.dormitorios} dormitorios. Consultanos.`}
@@ -128,7 +128,7 @@ export const PropiedadDetalle = () => {
                         </div>
                     </div>
 
-                    <div className="order-1 lg:order-2 h-[500px] bg-gray-100 rounded-2xl overflow-hidden relative group sticky top-28 shadow-xl">
+                    <div className="order-1 lg:order-2 w-full h-72 md:h-96 lg:h-[500px] bg-gray-100 rounded-2xl overflow-hidden relative group lg:sticky lg:top-28 shadow-xl z-10">
                         <div className="absolute top-4 right-4 bg-black/50 backdrop-blur text-white px-3 py-1 rounded-full text-xs font-bold z-20 flex items-center gap-2">
                             <Camera className="w-3 h-3" /> {fotoActual} / {totalFotos}
                         </div>

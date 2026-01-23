@@ -63,8 +63,8 @@ export const AdminPropiedades = () => {
                 </div>
 
                 {/* Tabla */}
-                <div className="bg-white shadow-sm rounded-b-xl overflow-hidden">
-                    <table className="w-full text-left">
+                <div className="bg-white shadow-sm rounded-b-xl overflow-x-auto">
+                    <table className="w-full text-left min-w-[600px] md:min-w-full"> 
                         <thead className="bg-gray-50 text-gray-500 font-bold text-xs uppercase">
                             <tr>
                                 <th className="p-4">Propiedad</th>

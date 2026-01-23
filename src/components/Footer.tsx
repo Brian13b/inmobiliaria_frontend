@@ -45,7 +45,8 @@ export const Footer = () => {
       </div>
 
       <div className="border-t border-gray-300 pt-8 text-center text-sm text-gray-500">
-        Copyright © 2026. All Rights Reserved. Brian Battauz
+        Copyright © 2026. 
+        <a href="https://wa.me/5493434676232" target="_blank" rel="noopener noreferrer">Brian Battauz</a>
       </div>
     </footer>
   );
