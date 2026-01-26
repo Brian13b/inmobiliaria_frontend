@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
+import { SEO } from '../components/SEO';
 
 export const VentasPage = () => {
   const [propiedades, setPropiedades] = useState<Propiedad[]>([]);
@@ -71,6 +72,11 @@ export const VentasPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-12">
+      <SEO 
+        title="Propiedades en Venta" 
+        description="Descubrí nuestra selección exclusiva de propiedades en venta. Casas, departamentos y terrenos listos para escriturar en las mejores zonas."
+        keywords="venta casas paraná, comprar departamento, terrenos venta oro verde, inversión inmobiliaria, lotes"
+      />
       <div className="container mx-auto px-8 md:px-16 lg:px-32">
         
         <div className="flex flex-col lg:flex-row gap-8">

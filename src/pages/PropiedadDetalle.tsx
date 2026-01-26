@@ -58,8 +58,9 @@ export const PropiedadDetalle = () => {
         <div className="min-h-screen bg-white pb-20 pt-24">
             <SEO 
                 title={propiedad.titulo} 
-                description={`Propiedad en ${propiedad.estadoOperacion} en ${propiedad.direccion}. ${propiedad.ambientes} ambientes, ${propiedad.dormitorios} dormitorios. Consultanos.`}
-                image={propiedad.imagenes?.[0]?.url || propiedad.imagenDestacada}
+                description={`Oportunidad en ${propiedad.estadoOperacion}: ${propiedad.tipo} en ${propiedad.direccion}. ${propiedad.ambientes} ambientes. Precio: ${propiedad.moneda} ${propiedad.precio}.`}
+                image={propiedad.imagenes?.[0]?.url || undefined}
+                keywords={`${propiedad.tipo}, ${propiedad.estadoOperacion}, ${propiedad.ciudad}, inmobiliaria battauz`}
             />
 
             <script type="application/ld+json">

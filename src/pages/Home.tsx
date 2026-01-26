@@ -34,7 +34,8 @@ export const HomePage = () => {
         <div className="min-h-screen bg-gray-50 pb-20">
             <SEO 
                 title="Inicio" 
-                description="Encontrá tu próximo hogar en Paraná y Oro Verde. Venta y alquiler de casas, departamentos y terrenos con Inmobiliaria Battauz." 
+                description="Tu inmobiliaria de confianza en Paraná y Oro Verde. Encontrá las mejores oportunidades en venta y alquiler de casas, departamentos y terrenos."
+                keywords="inmobiliaria paraná, inmobiliaria battauz, bienes raices entre rios, compra venta inmuebles, tasaciones"
             />
             <Hero />
 

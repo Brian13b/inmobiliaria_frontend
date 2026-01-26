@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Send, Loader2 } from 'lucide-react';
 import { enviarMensaje } from '../services/api';
+import { SEO } from '../components/SEO';
 
 export const ContactoPage = () => {
   const [form, setForm] = useState({
@@ -38,6 +39,11 @@ export const ContactoPage = () => {
 
   return (
     <div className="min-h-screen bg-white pt-32 pb-20">
+      <SEO 
+        title="Contacto" 
+        description="¿Querés vender o alquilar tu propiedad? Contactanos hoy para una tasación profesional o visitanos en nuestras oficinas."
+        keywords="contacto inmobiliaria, tasaciones paraná, teléfono inmobiliaria battauz, asesoramiento inmobiliario"
+      />
       <div className="container mx-auto px-8 md:px-16 lg:px-32">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-12">Contacto</h1>
         
