@@ -51,16 +51,20 @@ export const AdminMensajes = () => {
                                         )}
                                     </div>
                                 </div>
-                                <span className="text-[10px] font-bold text-brand-secondary bg-brand-light/20 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
-                                    <Calendar className="w-3 h-3" /> {new Date(msg.fechaEnvio).toLocaleDateString()}
-                                </span>
-                                <button 
-                                    onClick={() => borrar(msg.id)} 
-                                    className="absolute text-brand-light hover:text-red-600 transition-colors p-2 hover:bg-red-50 rounded-lg"
-                                    title="Eliminar mensaje"
-                                >
-                                    <Trash2 className="w-5 h-5" />
-                                </button>
+
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold text-brand-secondary bg-brand-light/20 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1 h-fit">
+                                        <Calendar className="w-3 h-3" /> {new Date(msg.fechaEnvio).toLocaleDateString()}
+                                    </span>
+                                    
+                                    <button 
+                                        onClick={() => borrar(msg.id)} 
+                                        className="text-brand-light hover:text-red-600 transition-colors p-2 hover:bg-red-50 rounded-lg"
+                                        title="Eliminar mensaje"
+                                    >
+                                        <Trash2 className="w-5 h-5" />
+                                    </button>
+                                </div>
                             </div>
                             
                             <div className="relative">
