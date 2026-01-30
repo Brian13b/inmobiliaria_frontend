@@ -66,7 +66,7 @@ export const AdminPropiedades = () => {
 
                     <div className="overflow-x-auto w-full">
                         <table className="w-full text-left min-w-[700px]"> 
-                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-[10px] font-bold tracking-widest border-b border-brand-light/20">
+                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-lg font-bold tracking-widest border-b border-brand-light/20">
                                 <tr>
                                     <th className="p-4">Propiedad</th>
                                     <th className="p-4">Precio</th>
