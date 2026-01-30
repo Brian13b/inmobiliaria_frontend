@@ -66,7 +66,7 @@ export const AdminPropiedades = () => {
 
                     <div className="overflow-x-auto w-full">
                         <table className="w-full text-left min-w-[700px]"> 
-                            <thead className="bg-brand-light/10 text-brand-dark uppercase font-bold tracking-widest border-b border-brand-light/20">
+                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-lg font-bold tracking-widest border-b border-brand-light/20">
                                 <tr>
                                     <th className="p-4">Propiedad</th>
                                     <th className="p-4">Precio</th>
@@ -93,7 +93,7 @@ export const AdminPropiedades = () => {
                                                 {p.estadoOperacion || 'Venta'}
                                             </span>
                                         </td>
-                                        <td className="p-4 text-right flex justify-end gap-2">
+                                        <td className="p-4 text-right flex justify-center align-middle gap-2">
                                             <Link to={`/propiedad/${p.id}`} target="_blank" className="p-2 hover:bg-gray-200 rounded text-gray-500" title="Ver en web">
                                                 <Eye className="w-4 h-4" />
                                             </Link>
