@@ -68,21 +68,21 @@ export const AdminPropiedades = () => {
                         <table className="w-full text-left min-w-[700px]"> 
                             <thead className="bg-brand-light/10 text-brand-dark uppercase text-[10px] font-bold tracking-widest border-b border-brand-light/20">
                                 <tr>
-                                    <th className="p-5">Propiedad</th>
-                                    <th className="p-5">Precio</th>
-                                    <th className="p-5">Tipo</th>
-                                    <th className="p-5">Estado</th>
-                                    <th className="p-5 text-right">Acciones</th>
+                                    <th className="p-4">Propiedad</th>
+                                    <th className="p-4">Precio</th>
+                                    <th className="p-4">Tipo</th>
+                                    <th className="p-4">Estado</th>
+                                    <th className="p-4 text-right">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-brand-light/10">
                                 {filtradas.map(p => (
                                     <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                                         <td className="p-4">
-                                            <div className="p-5 font-display text-lg">{p.titulo}</div>
-                                            <div className="p-5 text-brand-muted text-sm">{p.direccion}</div>
+                                            <div className="p-4 font-display text-xl">{p.titulo}</div>
+                                            <div className="p-4 text-brand-muted text-md">{p.direccion}</div>
                                         </td>
-                                        <td className="p-5 font-medium text-orange-700">
+                                        <td className="p-4 font-medium text-orange-700">
                                             {p.moneda} {p.precio.toLocaleString()}
                                         </td>
                                         <td className="p-4 text-sm text-gray-600">
