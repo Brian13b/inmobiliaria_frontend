@@ -12,11 +12,11 @@ export const SEO = ({
     title, 
     description, 
     keywords = "inmobiliaria, venta, alquiler, casas, departamentos, paraná, entre ríos", 
-    image = "https://images.unsplash.com/photo-1600596542815-e32c53048057?q=80&w=2070", // Tu imagen por defecto (Hero)
+    image = "https://images.unsplash.com/photo-1600596542815-e32c53048057?q=80&w=2070", 
     url = window.location.href 
 }: SEOProps) => {
     
-    const siteTitle = "Inmobiliaria Battauz";
+    const siteTitle = "Inmobiliaria Bottazzi";
     const fullTitle = `${title} | ${siteTitle}`;
 
     return (
