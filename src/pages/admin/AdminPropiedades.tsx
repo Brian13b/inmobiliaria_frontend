@@ -64,49 +64,51 @@ export const AdminPropiedades = () => {
                         </div>
                     </div>
 
-                    <table className="w-full text-left"> 
-                        <thead className="bg-brand-light/10 text-brand-dark uppercase text-[10px] font-bold tracking-widest border-b border-brand-light/20">
-                            <tr>
-                                <th className="p-5">Propiedad</th>
-                                <th className="p-5">Precio</th>
-                                <th className="p-5">Tipo</th>
-                                <th className="p-5">Estado</th>
-                                <th className="p-5 text-right">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-brand-light/10">
-                            {filtradas.map(p => (
-                                <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                                    <td className="p-4">
-                                        <div className="p-5 font-display text-lg">{p.titulo}</div>
-                                        <div className="p-5 text-brand-muted text-sm">{p.direccion}</div>
-                                    </td>
-                                    <td className="p-5 font-medium text-orange-700">
-                                        {p.moneda} {p.precio.toLocaleString()}
-                                    </td>
-                                    <td className="p-4 text-sm text-gray-600">
-                                        {getTipoLabel(p.tipo)}
-                                    </td>
-                                    <td className="p-4">
-                                        <span className={`px-2 py-1 rounded text-xs font-bold ${p.estadoOperacion === 'Alquiler' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
-                                            {p.estadoOperacion || 'Venta'}
-                                        </span>
-                                    </td>
-                                    <td className="p-4 text-right flex justify-end gap-2">
-                                        <Link to={`/propiedad/${p.id}`} target="_blank" className="p-2 hover:bg-gray-200 rounded text-gray-500" title="Ver en web">
-                                            <Eye className="w-4 h-4" />
-                                        </Link>
-                                        <Link to={`/admin/propiedades/editar/${p.id}`} className="p-2 hover:bg-blue-100 rounded text-blue-600" title="Editar">
-                                            <Pencil className="w-4 h-4" />
-                                        </Link>
-                                        <button onClick={() => handleDelete(p.id)} className="p-2 hover:bg-red-100 rounded text-red-600" title="Borrar">
-                                            <Trash2 className="w-4 h-4" />
-                                        </button>
-                                    </td>
+                    <div className="overflow-x-auto w-full">
+                        <table className="w-full text-left min-w-[700px]"> 
+                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-[10px] font-bold tracking-widest border-b border-brand-light/20">
+                                <tr>
+                                    <th className="p-5">Propiedad</th>
+                                    <th className="p-5">Precio</th>
+                                    <th className="p-5">Tipo</th>
+                                    <th className="p-5">Estado</th>
+                                    <th className="p-5 text-right">Acciones</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-brand-light/10">
+                                {filtradas.map(p => (
+                                    <tr key={p.id} className="hover:bg-gray-50 transition-colors">
+                                        <td className="p-4">
+                                            <div className="p-5 font-display text-lg">{p.titulo}</div>
+                                            <div className="p-5 text-brand-muted text-sm">{p.direccion}</div>
+                                        </td>
+                                        <td className="p-5 font-medium text-orange-700">
+                                            {p.moneda} {p.precio.toLocaleString()}
+                                        </td>
+                                        <td className="p-4 text-sm text-gray-600">
+                                            {getTipoLabel(p.tipo)}
+                                        </td>
+                                        <td className="p-4">
+                                            <span className={`px-2 py-1 rounded text-xs font-bold ${p.estadoOperacion === 'Alquiler' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
+                                                {p.estadoOperacion || 'Venta'}
+                                            </span>
+                                        </td>
+                                        <td className="p-4 text-right flex justify-end gap-2">
+                                            <Link to={`/propiedad/${p.id}`} target="_blank" className="p-2 hover:bg-gray-200 rounded text-gray-500" title="Ver en web">
+                                                <Eye className="w-4 h-4" />
+                                            </Link>
+                                            <Link to={`/admin/propiedades/editar/${p.id}`} className="p-2 hover:bg-blue-100 rounded text-blue-600" title="Editar">
+                                                <Pencil className="w-4 h-4" />
+                                            </Link>
+                                            <button onClick={() => handleDelete(p.id)} className="p-2 hover:bg-red-100 rounded text-red-600" title="Borrar">
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                     {filtradas.length === 0 && <div className="p-8 text-center text-gray-500">No se encontraron propiedades.</div>}
                 </div>
             </div>

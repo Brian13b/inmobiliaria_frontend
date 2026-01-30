@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen } from '../../services/api';
 import { TipoPropiedad } from '../../types/propiedad';
-import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, List, CheckCircle, Image as ImageIcon, X } from 'lucide-react'; // Agregué 'X'
+import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, List, CheckCircle, Image as ImageIcon, X } from 'lucide-react'; 
 import { SEO } from '../../components/SEO';
 import toast from 'react-hot-toast';
 
@@ -151,22 +151,22 @@ export const AdminFormulario = () => {
         }
     };
 
-    const cardClass = "bg-white p-6 rounded-xl shadow-sm border border-gray-100 mb-6";
-    const sectionTitleClass = "text-lg font-bold text-gray-800 mb-4 flex items-center gap-2 border-b pb-2";
-    const labelClass = "block text-xs font-bold text-gray-500 uppercase mb-1 tracking-wide";
-    const inputClass = "w-full bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2.5 transition-colors placeholder-gray-400";
-    const checkClass = "w-5 h-5 text-orange-700 bg-gray-100 border-gray-300 rounded focus:ring-orange-500";
+    const cardClass = "bg-white p-6 rounded-xl shadow-sm border border-brand-light/20 mb-6";
+    const sectionTitleClass = "text-lg font-display text-brand-dark mb-4 flex items-center gap-2 border-b border-brand-light/10 pb-2";
+    const labelClass = "block text-xs font-bold text-brand-muted uppercase mb-1 tracking-wide";
+    const inputClass = "w-full bg-gray-50 border border-brand-light/30 text-brand-dark text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block p-2.5 transition-all placeholder-brand-muted/50 font-body";
+    const checkClass = "w-5 h-5 text-brand-primary bg-gray-100 border-brand-light/50 rounded focus:ring-brand-primary transition-all cursor-pointer";
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6 md:p-8 pb-32">
+        <div className="min-h-screen bg-gray-50 p-6 md:p-8 pb-32 font-body">
             <SEO title={esEdicion ? "Editar Propiedad" : "Nueva Propiedad"} description="Carga de inmuebles" />
             <div className="max-w-5xl mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div className="flex flex-col gap-1">
-                        <Link to="/admin/propiedades" className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-700 font-medium text-sm transition-colors w-fit">
+                        <Link to="/admin/propiedades" className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-primary font-bold text-xs uppercase tracking-widest transition-colors w-fit">
                             <ArrowLeft className="w-4 h-4" /> Volver al listado
                         </Link>
-                        <h1 className="text-3xl font-bold text-gray-900">
+                        <h1 className="text-3xl font-display text-brand-dark">
                             {esEdicion ? `Editando: ${form.titulo || 'Sin título'}` : "Nueva Propiedad"}
                         </h1>
                     </div>
@@ -174,7 +174,7 @@ export const AdminFormulario = () => {
                     <button 
                         onClick={handleSubmit}
                         disabled={loading} 
-                        className="bg-gray-900 text-white font-bold py-3 px-6 rounded-lg hover:bg-orange-700 transition shadow-lg flex items-center gap-2 disabled:opacity-50"
+                        className="bg-brand-dark text-white font-bold py-3 px-6 rounded-lg hover:bg-brand-primary transition shadow-xl shadow-brand-primary/10 flex items-center gap-2 disabled:opacity-50 tracking-widest text-sm"
                     >
                         <Save className="w-5 h-5" /> 
                         {loading ? "GUARDANDO..." : "GUARDAR TODO"}
@@ -186,9 +186,8 @@ export const AdminFormulario = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div className="lg:col-span-2">
                             
-                            {/* Información Basica */}
                             <div className={cardClass}>
-                                <h3 className={sectionTitleClass}><Home className="w-5 h-5 text-orange-700" /> Datos Principales</h3>
+                                <h3 className={sectionTitleClass}><Home className="w-5 h-5 text-brand-primary" /> Datos Principales</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label className={labelClass}>Título de la publicación</label>
@@ -217,9 +216,8 @@ export const AdminFormulario = () => {
                                 </div>
                             </div>
 
-                            {/* Ubicacion */}
                             <div className={cardClass}>
-                                <h3 className={sectionTitleClass}><MapPin className="w-5 h-5 text-orange-700" /> Ubicación</h3>
+                                <h3 className={sectionTitleClass}><MapPin className="w-5 h-5 text-brand-primary" /> Ubicación</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label className={labelClass}>Dirección / Calle</label>
@@ -232,35 +230,34 @@ export const AdminFormulario = () => {
                                 </div>
                             </div>
 
-                            {/* Galeria UNIFICADA (Siempre visible) */}
+                            {/* Galeria UNIFICADA */}
                             <div className={cardClass}>
-                                <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-orange-700" /> Galería de Fotos</h3>
+                                <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-brand-primary" /> Galería de Fotos</h3>
                                 
-                                <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center bg-gray-50 hover:bg-orange-50 transition cursor-pointer relative mb-6 group">
+                                <div className="border-2 border-dashed border-brand-light/50 rounded-xl p-6 text-center bg-gray-50 hover:bg-brand-light/10 transition cursor-pointer relative mb-6 group">
                                     <input 
                                         type="file" 
                                         accept="image/*" 
-                                        multiple // IMPORTANTE: Múltiples archivos
+                                        multiple 
                                         onChange={handleSeleccionarFotos} 
                                         className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10" 
                                     />
                                     <div className="pointer-events-none">
-                                        <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-orange-500 transition-colors" />
-                                        <p className="text-gray-500 font-medium text-sm">
-                                            Arrastrá tus fotos o hacé clic para agregar (podés elegir varias)
+                                        <Upload className="w-8 h-8 text-brand-muted mx-auto mb-2 group-hover:text-brand-primary transition-colors" />
+                                        <p className="text-brand-muted font-bold text-xs uppercase tracking-wider">
+                                            Arrastrá tus fotos o hacé clic para agregar (varias)
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {/* 1. MOSTRAR FOTOS YA EXISTENTES (Solo si es edición) */}
                                     {form.imagenes?.map((img) => (
-                                        <div key={img.id} className="relative group rounded-lg overflow-hidden h-24 border border-gray-200 shadow-sm">
+                                        <div key={img.id} className="relative group rounded-lg overflow-hidden h-24 border border-brand-light/20 shadow-sm">
                                             <img src={img.url} className="w-full h-full object-cover" alt="Existente" />
                                             <div className="absolute top-1 right-1 z-10">
-                                                <span className="bg-green-500 text-white text-[10px] px-1 rounded shadow">Guardada</span>
+                                                <span className="bg-brand-primary text-white text-[8px] px-1.5 py-0.5 rounded shadow-sm font-bold uppercase tracking-tighter">Guardada</span>
                                             </div>
-                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                            <div className="absolute inset-0 bg-brand-dark/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
                                                 <button 
                                                     type="button" 
                                                     onClick={() => handleBorrarFotoExistente(img.id)}
@@ -272,14 +269,13 @@ export const AdminFormulario = () => {
                                         </div>
                                     ))}
 
-                                    {/* 2. MOSTRAR PREVIEWS DE FOTOS NUEVAS (Locales) */}
                                     {previews.map((previewUrl, index) => (
-                                        <div key={index} className="relative group rounded-lg overflow-hidden h-24 border-2 border-orange-400 shadow-sm">
+                                        <div key={index} className="relative group rounded-lg overflow-hidden h-24 border-2 border-brand-primary shadow-sm">
                                             <img src={previewUrl} className="w-full h-full object-cover opacity-90" alt="Nueva" />
                                             <div className="absolute top-1 right-1 z-10">
-                                                <span className="bg-orange-500 text-white text-[10px] px-1 rounded shadow animate-pulse">Nueva</span>
+                                                <span className="bg-brand-secondary text-white text-[8px] px-1.5 py-0.5 rounded shadow shadow-brand-dark font-bold uppercase tracking-tighter animate-pulse">Nueva</span>
                                             </div>
-                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                            <div className="absolute inset-0 bg-brand-dark/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
                                                 <button 
                                                     type="button" 
                                                     onClick={() => removerFotoLocal(index)} 
@@ -294,10 +290,9 @@ export const AdminFormulario = () => {
                             </div>
                         </div>
 
-                        {/* Detalles */}
                         <div className="lg:col-span-1">
-                            <div className={`${cardClass} border-l-4 border-l-orange-500`}>
-                                <h3 className={sectionTitleClass}><CheckCircle className="w-5 h-5 text-orange-700" /> Estado</h3>
+                            <div className={`${cardClass} border-l-4 border-l-brand-primary`}>
+                                <h3 className={sectionTitleClass}><CheckCircle className="w-5 h-5 text-brand-primary" /> Estado</h3>
                                 <div className="space-y-4">
                                     <div>
                                         <label className={labelClass}>Operación</label>
@@ -317,28 +312,27 @@ export const AdminFormulario = () => {
                                         </select>
                                     </div>
                                     
-                                    <div className="pt-4 border-t border-gray-100 space-y-3">
-                                        <label className="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded-lg transition">
+                                    <div className="pt-4 border-t border-brand-light/10 space-y-3">
+                                        <label className="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded-lg transition group">
                                             <input type="checkbox" name="activa" checked={form.activa} onChange={handleChange} className={checkClass} />
-                                            <span className="text-sm font-medium text-gray-700">Propiedad Activa</span>
+                                            <span className="text-xs font-bold text-brand-dark uppercase tracking-wider group-hover:text-brand-primary transition-colors">Activa</span>
                                         </label>
-                                        <label className="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded-lg transition">
+                                        <label className="flex items-center gap-3 cursor-pointer p-2 hover:bg-gray-50 rounded-lg transition group">
                                             <input type="checkbox" name="esDestacada" checked={form.esDestacada} onChange={handleChange} className={checkClass} />
-                                            <span className="text-sm font-medium text-gray-700">Destacar en Inicio</span>
+                                            <span className="text-xs font-bold text-brand-dark uppercase tracking-wider group-hover:text-brand-primary transition-colors">Destacar</span>
                                         </label>
                                     </div>
                                 </div>
                             </div>
 
-                            {/* Características */}
                             <div className={cardClass}>
-                                <h3 className={sectionTitleClass}><List className="w-5 h-5 text-orange-700" /> Detalles</h3>
+                                <h3 className={sectionTitleClass}><List className="w-5 h-5 text-brand-primary" /> Detalles</h3>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div><label className={labelClass}>Amb.</label><input type="number" name="ambientes" value={form.ambientes} onChange={handleChange} className={inputClass} /></div>
                                     <div><label className={labelClass}>Dorm.</label><input type="number" name="dormitorios" value={form.dormitorios} onChange={handleChange} className={inputClass} /></div>
                                     <div><label className={labelClass}>Baños</label><input type="number" name="baños" value={form.baños} onChange={handleChange} className={inputClass} /></div>
                                     <div><label className={labelClass}>Cocheras</label><input type="number" name="cocheras" value={form.cocheras} onChange={handleChange} className={inputClass} /></div>
-                                    <div className="col-span-2 border-t pt-2 mt-2">
+                                    <div className="col-span-2 border-t border-brand-light/10 pt-2 mt-2">
                                         <label className={labelClass}>Sup. Total (m²)</label>
                                         <input type="number" name="superficieTotal" value={form.superficieTotal} onChange={handleChange} className={inputClass} />
                                     </div>

@@ -54,6 +54,13 @@ export const AdminMensajes = () => {
                                 <span className="text-[10px] font-bold text-brand-secondary bg-brand-light/20 px-3 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
                                     <Calendar className="w-3 h-3" /> {new Date(msg.fechaEnvio).toLocaleDateString()}
                                 </span>
+                                <button 
+                                    onClick={() => borrar(msg.id)} 
+                                    className="absolute text-brand-light hover:text-red-600 transition-colors p-2 hover:bg-red-50 rounded-lg"
+                                    title="Eliminar mensaje"
+                                >
+                                    <Trash2 className="w-5 h-5" />
+                                </button>
                             </div>
                             
                             <div className="relative">
@@ -61,14 +68,6 @@ export const AdminMensajes = () => {
                                     "{msg.contenido}"
                                 </p>
                             </div>
-
-                            <button 
-                                onClick={() => borrar(msg.id)} 
-                                className="absolute top-8 right-8 text-brand-light hover:text-red-600 transition-colors p-2 hover:bg-red-50 rounded-lg"
-                                title="Eliminar mensaje"
-                            >
-                                <Trash2 className="w-5 h-5" />
-                            </button>
                         </div>
                     ))}
 
