@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { api } from '../services/api';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const Hero = () => {
   const [slides, setSlides] = useState<any[]>([]);
