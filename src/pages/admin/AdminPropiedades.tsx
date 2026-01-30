@@ -72,7 +72,7 @@ export const AdminPropiedades = () => {
                                     <th className="p-4">Precio</th>
                                     <th className="p-4">Tipo</th>
                                     <th className="p-4">Estado</th>
-                                    <th className="p-4 text-right">Acciones</th>
+                                    <th className="p-4">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-brand-light/10">
@@ -85,15 +85,15 @@ export const AdminPropiedades = () => {
                                         <td className="p-4 font-medium text-orange-700">
                                             {p.moneda} {p.precio.toLocaleString()}
                                         </td>
-                                        <td className="p-4 text-sm text-gray-600">
+                                        <td className="p-4 text-md text-gray-600">
                                             {getTipoLabel(p.tipo)}
                                         </td>
                                         <td className="p-4">
-                                            <span className={`px-2 py-1 rounded text-xs font-bold ${p.estadoOperacion === 'Alquiler' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
+                                            <span className={`px-2 py-1 rounded text-md font-bold ${p.estadoOperacion === 'Alquiler' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'}`}>
                                                 {p.estadoOperacion || 'Venta'}
                                             </span>
                                         </td>
-                                        <td className="p-4 text-right flex justify-center align-middle gap-2">
+                                        <td className="p-4 flex justify-center align-middle gap-2">
                                             <Link to={`/propiedad/${p.id}`} target="_blank" className="p-2 hover:bg-gray-200 rounded text-gray-500" title="Ver en web">
                                                 <Eye className="w-4 h-4" />
                                             </Link>
