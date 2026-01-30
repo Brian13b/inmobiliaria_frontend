@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPropiedadById } from '../services/api';
 import { type Propiedad } from '../types/propiedad';
-import { MapPin, ArrowLeft, Camera, Copy, MessageCircle } from 'lucide-react';
+import { MapPin, ArrowLeft, Camera, Copy } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SEO } from '../components/SEO';
