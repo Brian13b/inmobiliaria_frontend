@@ -3,6 +3,8 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen } from '../../services/api';
 import { TipoPropiedad } from '../../types/propiedad';
 import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, List, CheckCircle, Image as ImageIcon, X } from 'lucide-react'; // Agregué 'X'
+import { SEO } from '../../components/SEO';
+import toast from 'react-hot-toast';
 
 export const AdminFormulario = () => {
     const { id } = useParams();
@@ -11,7 +13,6 @@ export const AdminFormulario = () => {
 
     const [loading, setLoading] = useState(false);
     
-    // ESTADOS NUEVOS PARA FOTOS LOCALES
     const [fotosParaSubir, setFotosParaSubir] = useState<File[]>([]);
     const [previews, setPreviews] = useState<string[]>([]);
     
@@ -42,7 +43,6 @@ export const AdminFormulario = () => {
             getPropiedadById(Number(id)).then(data => {
                 setForm({
                     ...data,
-                    // Aseguramos valores por defecto para evitar warnings de react
                     titulo: data.titulo || "",
                     descripcion: data.descripcion || "",
                     direccion: data.direccion || "",
@@ -72,15 +72,12 @@ export const AdminFormulario = () => {
         }));
     };
 
-    // --- NUEVA LÓGICA DE SELECCIÓN DE FOTOS (LOCAL) ---
     const handleSeleccionarFotos = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const archivos = Array.from(e.target.files);
             
-            // 1. Guardamos los archivos reales para subirlos después
             setFotosParaSubir(prev => [...prev, ...archivos]);
 
-            // 2. Generamos URLs temporales para que el usuario vea qué eligió
             const nuevasPreviews = archivos.map(file => URL.createObjectURL(file));
             setPreviews(prev => [...prev, ...nuevasPreviews]);
         }
@@ -91,7 +88,6 @@ export const AdminFormulario = () => {
         setPreviews(prev => prev.filter((_, i) => i !== index));
     };
 
-    // --- LÓGICA DE GUARDADO INTELIGENTE ---
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         setLoading(true);
@@ -110,44 +106,38 @@ export const AdminFormulario = () => {
             let propiedadId = Number(id);
 
             if (esEdicion) {
-                // 1. Actualizamos datos
                 await updatePropiedad(propiedadId, dataToSend);
                 
-                // 2. Si agregó fotos nuevas MIENTRAS editaba, las subimos
                 if (fotosParaSubir.length > 0) {
                     await subirFotosMasivas(propiedadId);
                 }
                 
-                alert("Propiedad actualizada correctamente");
+                toast.success("Propiedad actualizada correctamente");
                 navigate("/admin/propiedades");
             } else {
-                // 1. Creamos la propiedad primero
                 const nueva = await createPropiedad(dataToSend);
-                propiedadId = nueva.id; // Obtenemos el ID nuevo
+                propiedadId = nueva.id; 
 
-                // 2. Subimos las fotos usando ese ID nuevo
                 if (fotosParaSubir.length > 0) {
                     await subirFotosMasivas(propiedadId);
                 }
 
-                alert("Propiedad creada y fotos subidas con éxito");
+                toast.success("Propiedad creada y fotos subidas con éxito");
                 navigate("/admin/propiedades");
             }
         } catch (error) {
             console.error(error);
-            alert("Error al guardar la propiedad");
+            toast.error("Error al guardar la propiedad");
         } finally {
             setLoading(false);
         }
     };
 
-    // Helper para subir múltiples fotos en paralelo
     const subirFotosMasivas = async (idPropiedad: number) => {
         const promesas = fotosParaSubir.map(file => uploadImagen(idPropiedad, file));
         await Promise.all(promesas);
     };
 
-    // Borrar fotos YA existentes en la base de datos
     const handleBorrarFotoExistente = async (imagenId: number) => {
         if (!confirm("¿Eliminar esta foto permanentemente?")) return;
         try {
@@ -157,7 +147,7 @@ export const AdminFormulario = () => {
                 imagenes: prev.imagenes?.filter(img => img.id !== imagenId)
             }));
         } catch (error) {
-            alert("Error al borrar");
+            toast.error("Error al borrar");
         }
     };
 
@@ -169,8 +159,8 @@ export const AdminFormulario = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 p-6 md:p-8 pb-32">
+            <SEO title={esEdicion ? "Editar Propiedad" : "Nueva Propiedad"} description="Carga de inmuebles" />
             <div className="max-w-5xl mx-auto">
-                {/* Header Flotante */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                     <div className="flex flex-col gap-1">
                         <Link to="/admin/propiedades" className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-700 font-medium text-sm transition-colors w-fit">

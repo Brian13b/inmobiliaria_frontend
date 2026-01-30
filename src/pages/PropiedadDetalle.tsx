@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getPropiedadById } from '../services/api';
 import { type Propiedad } from '../types/propiedad';
 import { MapPin, ArrowLeft, Camera, Copy, MessageCircle } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SEO } from '../components/SEO';
 
@@ -10,6 +11,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import toast from 'react-hot-toast';
 
 export const PropiedadDetalle = () => {
     const { id } = useParams();
@@ -27,7 +29,7 @@ export const PropiedadDetalle = () => {
 
     const copiarLink = () => {
         navigator.clipboard.writeText(window.location.href);
-        alert("Link copiado!");
+        toast.success("Link copiado!");
     };
     const compartirWsp = () => {
         const text = `Mirá esta propiedad: ${window.location.href}`;
@@ -124,7 +126,7 @@ export const PropiedadDetalle = () => {
                                 <Copy className="w-4 h-4" /> Copiar Link
                             </button>
                             <button onClick={compartirWsp} className="flex-1 border border-brand-light py-3 rounded-lg font-bold text-brand-muted hover:text-green-600 hover:border-green-500 transition flex justify-center gap-2 items-center text-xs">
-                                <MessageCircle className="w-4 h-4" /> Compartir en WhatsApp
+                                <FaWhatsapp className="w-4 h-4" /> Compartir en WhatsApp
                             </button>
                         </div>
                     </div>

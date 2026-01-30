@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { logout } from '../../services/auth';
 import { LayoutDashboard, PlusCircle, Image, LogOut, Home, Mail } from 'lucide-react';
+import { SEO } from '../../components/SEO';
 
 export const DashboardPage = () => {
     return (
         <div className="min-h-screen bg-gray-100 p-8">
+            <SEO title="Panel de Control" description="Administración" />
             <div className="max-w-5xl mx-auto">
                 {/* Encabezado */}
                 <div className="flex justify-between items-center mb-10">

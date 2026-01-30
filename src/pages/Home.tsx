@@ -32,11 +32,14 @@ export const HomePage = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 pb-20 font-body">
-            <SEO title="Inicio" description="Tu inmobiliaria de confianza." />
+            <SEO 
+                title="Inicio" 
+                description="Tu inmobiliaria de confianza." 
+            />
             
             <Hero />
 
-            {/* Buscador Rápido - Estilo Wealth */}
+            {/* Buscador Rápido */}
             <div className="container mx-auto px-8 md:px-16 lg:px-32 -mt-10 relative z-40">
                 <div className="bg-white p-8 rounded-xl shadow-2xl border border-brand-light/30 grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
                     <div>

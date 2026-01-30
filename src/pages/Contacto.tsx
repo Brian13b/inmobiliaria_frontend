@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { MapPin, Phone, Mail, Send, Loader2 } from 'lucide-react';
 import { enviarMensaje } from '../services/api';
 import { SEO } from '../components/SEO';
+import toast from 'react-hot-toast';
 
 export const ContactoPage = () => {
   const [form, setForm] = useState({
@@ -27,10 +28,10 @@ export const ContactoPage = () => {
             telefono: form.telefono,
             contenido: form.mensaje
         });
-        alert("¡Mensaje enviado con éxito! Te contactaremos a la brevedad.");
+        toast.success("¡Mensaje enviado con éxito! Te contactaremos a la brevedad.");
         setForm({ nombre: "", apellido: "", email: "", telefono: "", mensaje: "" }); 
     } catch (error) {
-        alert("Ocurrió un error al enviar el mensaje. Por favor intenta nuevamente.");
+        toast.error("Ocurrió un error al enviar el mensaje. Por favor intenta nuevamente.");
         console.error(error);
     } finally {
         setEnviando(false);

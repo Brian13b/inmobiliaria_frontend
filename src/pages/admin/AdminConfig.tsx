@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../services/api'; 
 import { Save, ArrowLeft, Image, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export const AdminConfig = () => {
     const [config, setConfig] = useState({
@@ -30,9 +31,9 @@ export const AdminConfig = () => {
         e.preventDefault();
         try {
             await api.post('/Configuracion', config);
-            alert("¡Configuración actualizada!");
+            toast.success("¡Configuración actualizada!");
         } catch (error) {
-            alert("Error al guardar.");
+            toast.error("Error al guardar.");
         }
     };
 

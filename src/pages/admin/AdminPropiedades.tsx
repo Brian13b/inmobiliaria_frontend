@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getPropiedades, deletePropiedad } from '../../services/api';
 import { type Propiedad, getTipoLabel } from '../../types/propiedad';
 import { ArrowLeft, Plus, Pencil, Trash2, Eye, Search } from 'lucide-react';
+import { SEO } from '../../components/SEO';
 
 export const AdminPropiedades = () => {
     const [propiedades, setPropiedades] = useState<Propiedad[]>([]);
@@ -22,7 +23,7 @@ export const AdminPropiedades = () => {
                 await deletePropiedad(id);
                 cargarDatos(); 
             } catch (error) {
-                alert("Error al borrar");
+                ("Error al borrar");
             }
         }
     };
@@ -34,6 +35,7 @@ export const AdminPropiedades = () => {
 
     return (
         <div className="min-h-screen bg-gray-100 p-8">
+            <SEO title="Mis Propiedades" description="Gestión de catálogo" />
             <div className="max-w-6xl mx-auto">
                 <Link to="/admin/dashboard" className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-700 mb-6 font-medium transition">
                     <ArrowLeft className="w-5 h-5" /> Volver al Panel
