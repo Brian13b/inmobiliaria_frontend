@@ -1,67 +1,70 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
-  useEffect(() => setIsOpen(false), [location]);
-
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const linkClass = (path: string) => `
-    hover:text-orange-500 transition font-medium uppercase tracking-wide text-sm
-    ${location.pathname === path ? 'text-orange-500' : isScrolled ? 'text-gray-600' : 'text-white'}
+    hover:text-brand-primary transition font-body font-bold uppercase tracking-widest text-xs
+    ${location.pathname === path 
+      ? 'text-brand-primary' 
+      : isScrolled ? 'text-brand-dark' : 'text-white drop-shadow-md'}
   `;
-
-  const mobileLinkClass = "text-2xl font-light text-gray-800 hover:text-orange-700 transition block py-2 border-b border-gray-100";
 
   return (
     <>
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-3' : 'bg-black/20 backdrop-blur-sm py-5'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-2xl font-bold tracking-tighter">
-            <div className="bg-orange-700 p-2 rounded-lg shadow-lg">
-              <Home className="w-5 h-5 text-white" />
-            </div>
-            <span className={isScrolled ? 'text-gray-800' : 'text-white'}>Inmobiliaria</span>
+      <nav className={`fixed w-full z-50 transition-all duration-500 ${
+        isScrolled 
+        ? 'bg-white/50 backdrop-blur shadow-md py-2' 
+        : 'bg-black/50 backdrop-blur-sm py-4'
+      }`}>
+        <div className="container mx-auto px-8 md:px-16 flex justify-between items-center">
+          
+          {/* Logo Dinámico: Cambia según el scroll */}
+          <Link to="/" className="flex items-center">
+            <img 
+              src={isScrolled ? "/logo-claro-sin-fondo.png" : "/logo-oscuro-sin-fondo.png"} 
+              alt="Bottazzi Inmobiliaria" 
+              className="h-12 md:h-16 w-auto transition-all duration-300"
+            />
           </Link>
 
           {/* Menu Desktop */}
-          <div className="hidden md:flex gap-8 items-center">
+          <div className="hidden md:flex gap-10 items-center">
             <Link to="/" className={linkClass('/')}>Inicio</Link>
             <Link to="/ventas" className={linkClass('/ventas')}>Ventas</Link>
             <Link to="/alquileres" className={linkClass('/alquileres')}>Alquileres</Link>
             <Link to="/contacto" className={linkClass('/contacto')}>Contacto</Link>
           </div>
 
-          {/* Botón Mobile */}
-          <button className="md:hidden text-orange-700" onClick={() => setIsOpen(true)}>
+          <button className={`${isScrolled ? 'text-brand-primary' : 'text-white'} md:hidden`} onClick={() => setIsOpen(true)}>
             <Menu className="w-8 h-8" />
           </button>
         </div>
       </nav>
 
-      {/* Menu Mobile Full Screen */}
-      <div className={`fixed inset-0 bg-white z-60 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="p-6 flex justify-between items-center border-b">
-            <span className="text-xl font-bold text-gray-800">MENÚ</span>
-            <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-red-500">
+      {/* Menu Mobile */}
+      <div className={`fixed inset-0 bg-brand-dark z-60 transform transition-transform duration-500 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="p-8 flex justify-between items-center border-b border-white/10">
+            <img src="/logo-oscuro-sin-fondo.png" alt="Bottazzi" className="h-10" />
+            <button onClick={() => setIsOpen(false)} className="text-white">
                 <X className="w-8 h-8" />
             </button>
         </div>
-        <div className="p-8 flex flex-col gap-4 text-center mt-10">
-            <Link to="/" className={mobileLinkClass}>INICIO</Link>
-            <Link to="/ventas" className={mobileLinkClass}>VENTAS</Link>
-            <Link to="/alquileres" className={mobileLinkClass}>ALQUILERES</Link>
-            <Link to="/contacto" className={mobileLinkClass}>CONTACTO</Link>
+        <div className="p-12 flex flex-col gap-8 text-center">
+            <Link to="/" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Inicio</Link>
+            <Link to="/ventas" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Ventas</Link>
+            <Link to="/alquileres" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Alquileres</Link>
+            <Link to="/contacto" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Contacto</Link>
         </div>
       </div>
     </>

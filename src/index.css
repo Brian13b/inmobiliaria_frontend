@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
+
+@theme {
+  --color-brand-dark: #0F1516;
+  --color-brand-primary: #234C58;
+  --color-brand-secondary: #5E524B;
+  --color-brand-muted: #7F8C94;
+  --color-brand-light: #C9C2C2;
+
+  --font-display: "Playfair Display", serif;
+  --font-body: "Source Sans Pro", sans-serif;
+}

@@ -20,7 +20,7 @@ export const HomePage = () => {
 
     useEffect(() => {
         getActivas().then(data => {
-            const soloDestacadas = data.filter((p: { esDestacada: boolean; }) => p.esDestacada === true);
+            const soloDestacadas = data.filter((p: any) => p.esDestacada === true);
             setDestacadas(soloDestacadas.slice(0, 4)); 
         });
     }, []);
@@ -31,31 +31,28 @@ export const HomePage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-20">
-            <SEO 
-                title="Inicio" 
-                description="Tu inmobiliaria de confianza en Paraná y Oro Verde. Encontrá las mejores oportunidades en venta y alquiler de casas, departamentos y terrenos."
-                keywords="inmobiliaria paraná, inmobiliaria battauz, bienes raices entre rios, compra venta inmuebles, tasaciones"
-            />
+        <div className="min-h-screen bg-gray-50 pb-20 font-body">
+            <SEO title="Inicio" description="Tu inmobiliaria de confianza." />
+            
             <Hero />
 
-            {/* Buscador Rápido */}
+            {/* Buscador Rápido - Estilo Wealth */}
             <div className="container mx-auto px-8 md:px-16 lg:px-32 -mt-10 relative z-40">
-                <div className="bg-white p-8 rounded-xl shadow-xl border border-gray-100 grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+                <div className="bg-white p-8 rounded-xl shadow-2xl border border-brand-light/30 grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
                     <div>
-                        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Operación</label>
+                        <label className="block text-xs font-bold text-brand-muted uppercase mb-2">Operación</label>
                         <select 
                             value={busquedaOperacion}
                             onChange={(e) => setBusquedaOperacion(e.target.value)}
-                            className="w-full bg-gray-50 border border-gray-200 text-gray-700 rounded-lg p-3 outline-none focus:ring-2 focus:ring-orange-500"
+                            className="w-full bg-gray-50 border border-brand-light text-brand-dark rounded-lg p-3 outline-none focus:ring-2 focus:ring-brand-primary transition"
                         >
                             <option value="Venta">Venta</option>
                             <option value="Alquiler">Alquiler</option>
                         </select>
                     </div>
                     <div>
-                        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Tipo</label>
-                        <select className="w-full bg-gray-50 border border-gray-200 text-gray-700 rounded-lg p-3 outline-none focus:ring-2 focus:ring-orange-500">
+                        <label className="block text-xs font-bold text-brand-muted uppercase mb-2">Tipo</label>
+                        <select className="w-full bg-gray-50 border border-brand-light text-brand-dark rounded-lg p-3 outline-none focus:ring-2 focus:ring-brand-primary transition">
                             <option>Todos</option>
                             <option>Casa</option>
                             <option>Departamento</option>
@@ -65,25 +62,25 @@ export const HomePage = () => {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Ubicación</label>
+                        <label className="block text-xs font-bold text-brand-muted uppercase mb-2">Ubicación</label>
                         <input 
                             type="text" 
                             placeholder="Ej: Centro..." 
                             value={busquedaUbicacion}
                             onChange={(e) => setBusquedaUbicacion(e.target.value)}
-                            className="w-full bg-gray-50 border border-gray-200 text-gray-700 rounded-lg p-3 outline-none focus:ring-2 focus:ring-orange-500" 
+                            className="w-full bg-gray-50 border border-brand-light text-brand-dark rounded-lg p-3 outline-none focus:ring-2 focus:ring-brand-primary transition" 
                         />
                     </div>
                     <button 
                         onClick={handleBuscar}
-                        className="bg-orange-700 text-white p-3 rounded-lg font-bold hover:bg-orange-700 transition flex items-center justify-center gap-2 shadow-lg shadow-orange-500/30"
+                        className="bg-brand-primary text-white p-3 rounded-lg font-bold hover:bg-brand-dark transition flex items-center justify-center gap-2 shadow-lg shadow-brand-primary/20"
                     >
                         <Search className="w-5 h-5" /> BUSCAR
                     </button>
                 </div>
             </div>
 
-            {/* Servicios */}
+            {/* Servicios - Colores adaptados */}
             <section className="py-24 container mx-auto px-8 md:px-16 lg:px-32">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {[
@@ -92,35 +89,35 @@ export const HomePage = () => {
                         { icon: Briefcase, title: "Tasación", text: "Valoramos tu propiedad con criterio profesional." },
                         { icon: Key, title: "Administración", text: "Gestionamos tus rentas sin preocupaciones." },
                     ].map((item, i) => (
-                        <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group text-center">
-                            <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-700 transition-colors duration-300">
-                                <item.icon className="w-8 h-8 text-orange-700 group-hover:text-white transition-colors duration-300" />
+                        <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-brand-light/20 group text-center">
+                            <div className="w-16 h-16 bg-brand-light/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-primary transition-colors duration-300">
+                                <item.icon className="w-8 h-8 text-brand-primary group-hover:text-white transition-colors duration-300" />
                             </div>
-                            <h3 className="text-xl font-bold text-gray-800 mb-3">{item.title}</h3>
-                            <p className="text-gray-500 text-sm leading-relaxed">{item.text}</p>
+                            <h3 className="font-display text-xl text-brand-dark mb-3">{item.title}</h3>
+                            <p className="text-brand-muted text-sm leading-relaxed">{item.text}</p>
                         </div>
                     ))}
                 </div>
             </section>
 
-            {/* Destacadas con Links */}
+            {/* Destacadas con Swiper y Estilo Wealth */}
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-8 md:px-16 lg:px-32">
                     <div className="flex justify-between items-end mb-12">
                         <div>
-                            <span className="text-orange-700 font-bold tracking-wider uppercase text-sm">Oportunidades</span>
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2">Destacadas del Mes</h2>
+                            <span className="text-brand-secondary font-bold tracking-wider uppercase text-sm">Oportunidades</span>
+                            <h2 className="font-display text-3xl md:text-5xl text-brand-dark mt-2">Destacadas del Mes</h2>
                         </div>
                     </div>
                     
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {destacadas.map(prop => (
-                            <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 group cursor-pointer overflow-hidden block">
+                            <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white border border-brand-light/20 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 group overflow-hidden block">
                                 <div className="h-48 bg-gray-200 overflow-hidden relative">
-                                    <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-gray-800 text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider">
+                                    <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-brand-dark text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider">
                                         {getTipoLabel(prop.tipo)}
                                     </span>
-                                    <span className={`absolute top-3 right-3 text-white text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider ${prop.estadoOperacion === 'Venta' ? 'bg-green-600' : 'bg-orange-700'}`}>
+                                    <span className={`absolute top-3 right-3 text-white text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider ${prop.estadoOperacion === 'Venta' ? 'bg-brand-primary' : 'bg-brand-secondary'}`}>
                                         {prop.estadoOperacion || "Venta"}
                                     </span>
 
@@ -149,29 +146,23 @@ export const HomePage = () => {
                                         </Swiper>
                                     ) : (
                                         <img 
-                                            src={prop.imagenDestacada || "https://placehold.co/600x400?text=Sin+Foto"} 
+                                            src={prop.imagenDestacada || "https://placehold.co/600x400"} 
                                             alt={prop.titulo}
                                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                         />
                                     )}
-
-                                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
-                                        <span className="bg-white text-gray-900 px-4 py-2 rounded-full font-bold text-sm shadow-lg transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                                            Ver Detalle
-                                        </span>
-                                    </div>
                                 </div>
                                 
                                 <div className="p-5">
-                                    <h3 className="text-base font-bold text-gray-800 mb-1 truncate">{prop.titulo}</h3>
-                                    <p className="text-gray-500 text-xs mb-4 flex items-center gap-1 truncate">
-                                        <MapPin className="w-3 h-3 text-orange-500" /> {prop.direccion}
+                                    <h3 className="font-display text-lg text-brand-dark mb-1 truncate group-hover:text-brand-primary transition-colors">{prop.titulo}</h3>
+                                    <p className="text-brand-muted text-xs mb-4 flex items-center gap-1 truncate font-body">
+                                        <MapPin className="w-3 h-3 text-brand-primary" /> {prop.direccion}
                                     </p>
-                                    <div className="flex justify-between items-end border-t border-gray-100 pt-4">
-                                        <span className="text-lg font-bold text-orange-700">
+                                    <div className="flex justify-between items-end border-t border-brand-light/20 pt-4">
+                                        <span className="text-xl font-bold text-brand-primary">
                                             {prop.moneda} {prop.precio.toLocaleString()}
                                         </span>
-                                        <div className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                        <div className="text-xs font-semibold text-brand-secondary bg-brand-light/20 px-2 py-1 rounded">
                                             {prop.ambientes} Amb.
                                         </div>
                                     </div>
