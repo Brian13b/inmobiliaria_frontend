@@ -34,56 +34,54 @@ export const AdminPropiedades = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
-            <SEO title="Mis Propiedades" description="Gestión de catálogo" />
-            <div className="max-w-6xl mx-auto">
-                <Link to="/admin/dashboard" className="inline-flex items-center gap-2 text-gray-500 hover:text-orange-700 mb-6 font-medium transition">
+        <div className="min-h-screen bg-gray-50 p-8 font-body">
+            <SEO title="Gestión de Propiedades" description="Administración de catálogo" />
+
+            <div className="max-w-7xl mx-auto">
+
+                <Link to="/admin/dashboard" className="inline-flex items-center gap-2 text-gray-500 hover:text-brand-primary mb-6 font-medium transition">
                     <ArrowLeft className="w-5 h-5" /> Volver al Panel
                 </Link>
-                
-                {/* Header */}
-                <div className="flex justify-between items-center mb-8">
-                    <div>
-                        <h1 className="text-3xl font-bold text-gray-800">Mis Propiedades</h1>
-                        <p className="text-gray-500">Administrá tu catálogo inmobiliario</p>
-                    </div>
-                    <Link to="/admin/propiedades/nueva" className="bg-orange-700 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 transition shadow-lg">
-                        <Plus className="w-5 h-5" /> Nueva Propiedad
+
+                <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+                    <h1 className="font-display text-4xl text-brand-dark">Mis Propiedades</h1>
+                    <Link to="/admin/propiedades/nueva" className="bg-brand-primary text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-brand-dark transition shadow-lg shadow-brand-primary/20">
+                        <Plus className="w-5 h-5" /> AGREGAR INMUEBLE
                     </Link>
                 </div>
+                
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-brand-light/20">
+                    <div className="p-6 border-b border-brand-light/10 bg-gray-50/50">
+                        <div className="relative max-w-md">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted w-4 h-4" />
+                            <input 
+                                type="text" 
+                                placeholder="Buscar por título o dirección..." 
+                                className="w-full pl-10 pr-4 py-2 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20"
+                                value={filtro}
+                                onChange={e => setFiltro(e.target.value)}
+                            />
+                        </div>
+                    </div>
 
-                {/* Buscador */}
-                <div className="bg-white p-4 rounded-t-xl border-b border-gray-100 flex gap-4">
-                    <Search className="text-gray-400" />
-                    <input 
-                        type="text" 
-                        placeholder="Buscar por título, calle..." 
-                        className="w-full outline-none text-gray-700"
-                        value={filtro}
-                        onChange={e => setFiltro(e.target.value)}
-                    />
-                </div>
-
-                {/* Tabla */}
-                <div className="bg-white shadow-sm rounded-b-xl overflow-x-auto">
-                    <table className="w-full text-left min-w-[600px] md:min-w-full"> 
-                        <thead className="bg-gray-50 text-gray-500 font-bold text-xs uppercase">
+                    <table className="w-full text-left"> 
+                        <thead className="bg-brand-light/10 text-brand-dark uppercase text-[10px] font-bold tracking-widest border-b border-brand-light/20">
                             <tr>
-                                <th className="p-4">Propiedad</th>
-                                <th className="p-4">Precio</th>
-                                <th className="p-4">Tipo</th>
-                                <th className="p-4">Estado</th>
-                                <th className="p-4 text-right">Acciones</th>
+                                <th className="p-5">Propiedad</th>
+                                <th className="p-5">Precio</th>
+                                <th className="p-5">Tipo</th>
+                                <th className="p-5">Estado</th>
+                                <th className="p-5 text-right">Acciones</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-brand-light/10">
                             {filtradas.map(p => (
-                                <tr key={p.id} className="hover:bg-gray-50 transition">
+                                <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                                     <td className="p-4">
-                                        <div className="font-bold text-gray-800">{p.titulo}</div>
-                                        <div className="text-xs text-gray-500">{p.direccion}</div>
+                                        <div className="p-5 font-display text-lg">{p.titulo}</div>
+                                        <div className="p-5 text-brand-muted text-sm">{p.direccion}</div>
                                     </td>
-                                    <td className="p-4 font-medium text-orange-700">
+                                    <td className="p-5 font-medium text-orange-700">
                                         {p.moneda} {p.precio.toLocaleString()}
                                     </td>
                                     <td className="p-4 text-sm text-gray-600">

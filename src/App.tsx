@@ -15,6 +15,7 @@ import { AdminPropiedades } from './pages/admin/AdminPropiedades';
 import { AdminFormulario } from './pages/admin/AdminFormulario';
 import { AdminMensajes } from './pages/admin/AdminMensajes';
 import { AdminConfig } from './pages/admin/AdminConfig';
+import { Toaster } from 'react-hot-toast';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const location = useLocation();
@@ -33,6 +34,16 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <main>
+      <Toaster 
+        position="top-right"
+        toastOptions={{
+          className: 'font-body',
+          style: {
+            background: '#0F1516',
+            color: '#fff',
+          },
+        }}
+      />
       <BrowserRouter>
         <Layout>
           <Routes>
