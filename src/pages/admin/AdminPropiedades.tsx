@@ -79,8 +79,8 @@ export const AdminPropiedades = () => {
                                 {filtradas.map(p => (
                                     <tr key={p.id} className="hover:bg-gray-50 transition-colors">
                                         <td className="p-4">
-                                            <div className="p-4 font-display text-xl">{p.titulo}</div>
-                                            <div className="p-4 text-brand-muted text-md">{p.direccion}</div>
+                                            <div className="p-2 font-display text-xl">{p.titulo}</div>
+                                            <div className="p-2 text-brand-muted text-md">{p.direccion}</div>
                                         </td>
                                         <td className="p-4 font-medium text-orange-700">
                                             {p.moneda} {p.precio.toLocaleString()}

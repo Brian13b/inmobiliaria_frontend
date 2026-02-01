@@ -58,7 +58,7 @@ export const DashboardPage = () => {
                         <p className="text-brand-muted text-sm leading-relaxed">Consultas recibidas desde la web.</p>
                     </Link>
 
-                    <Link to="/admin/config" className={cardClass}>
+                    <Link to="/admin/configuracion" className={cardClass}>
                         <div className={iconContainer}><Image className={iconClass} /></div>
                         <h3 className="font-display text-2xl mb-2">Diseño Web</h3>
                         <p className="text-brand-muted text-sm leading-relaxed">Configurar imágenes del inicio y textos principales.</p>
