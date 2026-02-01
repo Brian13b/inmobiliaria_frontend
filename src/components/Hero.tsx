@@ -33,7 +33,6 @@ export const Hero = () => {
                 subtitle: "Tu lugar nos importa"
             });
         }
-
         setSlides(newSlides);
       })
       .catch(() => {
@@ -51,10 +50,10 @@ export const Hero = () => {
         setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 6000);
     return () => clearInterval(timer);
-  }, [slides]);
+  }, [slides.length]);
 
-  const nextSlide = () => setCurrent(current === slides.length - 1 ? 0 : current + 1);
-  const prevSlide = () => setCurrent(current === 0 ? slides.length - 1 : current - 1);
+  const nextSlide = () => setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
+  const prevSlide = () => setCurrent(prev => (prev === 0 ? slides.length - 1 : prev - 1));
 
   if (slides.length === 0) return null;
 
@@ -63,13 +62,15 @@ export const Hero = () => {
       {slides.map((slide, index) => (
         <div 
             key={index} 
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === current ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
         >
           <div className="absolute inset-0 bg-brand-dark/40 z-10" /> 
           <img src={slide.image} alt={slide.title} className="w-full h-full object-cover" />
           
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white px-4">
-            <h1 className="font-display text-5xl md:text-8xl tracking-tight drop-shadow-2xl mb-6 uppercase animate-fade-in">
+            <h1 className="font-display text-5xl md:text-8xl tracking-tight drop-shadow-2xl mb-6 uppercase">
               {slide.title}
             </h1>
             <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.3em] uppercase bg-brand-light text-brand-dark px-8 py-3 rounded-sm inline-block shadow-xl">
