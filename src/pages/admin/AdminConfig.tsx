@@ -125,8 +125,8 @@ export const AdminConfig = () => {
                                     <img src={config.heroImagenUrl} alt="Preview 1" className="w-full h-full object-cover" />
                                 ) : <div className="flex items-center justify-center h-full text-brand-muted text-xs font-body italic">Sin imagen configurada</div>}
                                 <div className="absolute inset-0 bg-brand-dark/40 flex flex-col items-center justify-center text-white p-4 text-center">
-                                    <span className="font-display text-3xl drop-shadow-lg uppercase tracking-tight">{config.heroTitulo || "Título 1"}</span>
-                                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm shadow-xl">
+                                    <span className="font-display text-3xl drop-shadow-lg tracking-tight">{config.heroTitulo || "Título 1"}</span>
+                                    <span className="text-[10px] tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm shadow-xl">
                                         {config.heroSubtitulo || "Subtítulo 1"}
                                     </span>
                                 </div>
@@ -141,8 +141,8 @@ export const AdminConfig = () => {
                                     <img src={config.heroImagenUrl2} alt="Preview 2" className="w-full h-full object-cover" />
                                 ) : <div className="flex items-center justify-center h-full text-brand-muted text-xs font-body italic">Sin imagen configurada</div>}
                                 <div className="absolute inset-0 bg-brand-dark/40 flex flex-col items-center justify-center text-white p-4 text-center">
-                                    <span className="font-display text-3xl drop-shadow-lg uppercase tracking-tight">{config.heroTitulo2 || "Título 2"}</span>
-                                    <span className="text-[10px] uppercase tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm shadow-xl">
+                                    <span className="font-display text-3xl drop-shadow-lg tracking-tight">{config.heroTitulo2 || "Título 2"}</span>
+                                    <span className="text-[10px] tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm shadow-xl">
                                         {config.heroSubtitulo2 || "Subtítulo 2"}
                                     </span>
                                 </div>
