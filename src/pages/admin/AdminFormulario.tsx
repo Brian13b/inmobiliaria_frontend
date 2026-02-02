@@ -271,7 +271,7 @@ export const AdminFormulario = () => {
 
                                     {previews.map((previewUrl, index) => (
                                         <div key={index} className="relative group rounded-lg overflow-hidden h-24 border-2 border-brand-primary shadow-sm">
-                                            <img src={previewUrl} className="w-full h-full object-cover opacity-90" alt="Nueva" />
+                                            <img src={previewUrl} className="w-full h-full object-cover opacity-90" alt="Nueva"/>
                                             <div className="absolute top-1 right-1 z-10">
                                                 <span className="bg-brand-secondary text-white text-[8px] px-1.5 py-0.5 rounded shadow shadow-brand-dark font-bold uppercase tracking-tighter animate-pulse">Nueva</span>
                                             </div>

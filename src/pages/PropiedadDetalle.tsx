@@ -145,7 +145,7 @@ export const PropiedadDetalle = () => {
                             className="w-full h-full"
                         >
                             {propiedad.imagenes?.length ? propiedad.imagenes.map((img, i) => (
-                                <SwiperSlide key={i}><img src={img.url} className="w-full h-full object-cover" /></SwiperSlide>
+                                <SwiperSlide key={i}><img src={img.url} className="w-full h-full object-cover" loading="lazy"/></SwiperSlide>
                             )) : (
                                 <SwiperSlide><img src={propiedad.imagenDestacada || "https://placehold.co/800x600"} className="w-full h-full object-cover" /></SwiperSlide>
                             )}

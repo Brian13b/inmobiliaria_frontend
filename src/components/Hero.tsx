@@ -52,7 +52,7 @@ export const Hero = () => {
   if (slides.length === 0) return null;
 
   return (
-    <section className="relative h-[650px] w-full bg-brand-dark overflow-hidden">
+    <section className="relative h-[500px] md:h-[650px] w-full bg-brand-dark overflow-hidden">
       <Swiper
         modules={[Autoplay, EffectFade, Pagination]}
         effect="fade"

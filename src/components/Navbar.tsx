@@ -37,6 +37,7 @@ export const Navbar = () => {
               width="180" 
               height="60"
               className="h-12 md:h-16 w-auto object-contain transition-all duration-300"
+              loading="lazy"
             />
           </Link>
 
@@ -62,6 +63,7 @@ export const Navbar = () => {
               alt="Bottazzi Inmobiliaria Logo" 
               aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
               className="text-white md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors" 
+              loading="lazy"
             />
             <button onClick={() => setIsOpen(false)} className="text-white">
                 <X className="w-8 h-8" />

@@ -163,6 +163,7 @@ export const VentasPage = () => {
                                                     src={img.url} 
                                                     alt={prop.titulo} 
                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                                    loading="lazy"
                                                 />
                                             </SwiperSlide>
                                         ))}
