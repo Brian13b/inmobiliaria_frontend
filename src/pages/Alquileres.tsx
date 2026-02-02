@@ -88,7 +88,7 @@ export const AlquileresPage = () => {
                             <h3 className="font-display text-xl text-brand-dark flex items-center gap-2">
                                 <Filter className="w-5 h-5" /> Filtros
                             </h3>
-                            <button onClick={() => {setFiltroTexto(""); setPrecioMin(""); setPrecioMax(""); setDormitorios("Cualquiera");}} className="text-xs text-orange-700 font-bold hover:underline">
+                            <button onClick={() => {setFiltroTexto(""); setPrecioMin(""); setPrecioMax(""); setDormitorios("Cualquiera");}} className="text-xs text-brand-primary font-bold hover:underline">
                                 Limpiar
                             </button>
                         </div>

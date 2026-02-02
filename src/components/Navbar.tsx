@@ -25,7 +25,7 @@ export const Navbar = () => {
       <nav className={`fixed w-full z-50 transition-all duration-500 ${
         isScrolled 
         ? 'bg-white/50 backdrop-blur shadow-md py-2' 
-        : 'bg-black/50 backdrop-blur-sm py-4'
+        : 'bg-black/50 backdrop-blur-sm py-2'
       }`}>
         <div className="container mx-auto px-8 md:px-16 flex justify-between items-center">
           
@@ -62,8 +62,7 @@ export const Navbar = () => {
               src="/logo-oscuro-sin-fondo.png" 
               alt="Bottazzi Inmobiliaria Logo" 
               aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
-              className="text-white md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors" 
-              loading="lazy"
+              className="h-10" 
             />
             <button onClick={() => setIsOpen(false)} className="text-white">
                 <X className="w-8 h-8" />
