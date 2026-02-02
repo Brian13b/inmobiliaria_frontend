@@ -47,6 +47,7 @@ export const HomePage = () => {
                         <select 
                             value={busquedaOperacion}
                             onChange={(e) => setBusquedaOperacion(e.target.value)}
+                            aria-label="Seleccionar tipo de operación"
                             className="w-full bg-gray-50 border border-brand-light text-brand-dark rounded-lg p-3 outline-none focus:ring-2 focus:ring-brand-primary transition"
                         >
                             <option value="Venta">Venta</option>
@@ -55,7 +56,10 @@ export const HomePage = () => {
                     </div>
                     <div>
                         <label className="block text-xs font-bold text-brand-muted uppercase mb-2">Tipo</label>
-                        <select className="w-full bg-gray-50 border border-brand-light text-brand-dark rounded-lg p-3 outline-none focus:ring-2 focus:ring-brand-primary transition">
+                        <select 
+                            className="w-full bg-gray-50 border border-brand-light text-brand-dark rounded-lg p-3 outline-none focus:ring-2 focus:ring-brand-primary transition"
+                            aria-label="Seleccionar tipo de propiedad"
+                        >
                             <option>Todos</option>
                             <option>Casa</option>
                             <option>Departamento</option>
@@ -72,6 +76,7 @@ export const HomePage = () => {
                             value={busquedaUbicacion}
                             onChange={(e) => setBusquedaUbicacion(e.target.value)}
                             className="w-full bg-gray-50 border border-brand-light text-brand-dark rounded-lg p-3 outline-none focus:ring-2 focus:ring-brand-primary transition" 
+                            aria-label="Ingresar ubicacion"
                         />
                     </div>
                     <button 

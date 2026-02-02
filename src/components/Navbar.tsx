@@ -33,8 +33,10 @@ export const Navbar = () => {
           <Link to="/" className="flex items-center">
             <img 
               src={isScrolled ? "/logo-claro-sin-fondo.png" : "/logo-oscuro-sin-fondo.png"} 
-              alt="Bottazzi Inmobiliaria" 
-              className="h-12 md:h-16 w-auto transition-all duration-300"
+              alt="Bottazzi Inmobiliaria Logo"
+              width="180" 
+              height="60"
+              className="h-12 md:h-16 w-auto object-contain transition-all duration-300"
             />
           </Link>
 
@@ -55,7 +57,12 @@ export const Navbar = () => {
       {/* Menu Mobile */}
       <div className={`fixed inset-0 bg-brand-dark z-60 transform transition-transform duration-500 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-8 flex justify-between items-center border-b border-white/10">
-            <img src="/logo-oscuro-sin-fondo.png" alt="Bottazzi" className="h-10" />
+            <img 
+              src="/logo-oscuro-sin-fondo.png" 
+              alt="Bottazzi Inmobiliaria Logo" 
+              aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+              className="text-white md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors" 
+            />
             <button onClick={() => setIsOpen(false)} className="text-white">
                 <X className="w-8 h-8" />
             </button>

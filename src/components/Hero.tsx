@@ -70,6 +70,7 @@ export const Hero = () => {
                 src={slide.image} 
                 alt={slide.title} 
                 className="w-full h-full object-cover" 
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-black/40"></div>
             </div>

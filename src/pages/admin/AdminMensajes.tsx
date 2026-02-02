@@ -68,7 +68,7 @@ export const AdminMensajes = () => {
                             </div>
                             
                             <div className="relative">
-                                <p className="text-brand-dark bg-gray-50 p-6 rounded-xl border-l-4 border-brand-primary leading-relaxed italic font-body">
+                                <p className="text-brand-dark bg-gray-50 p-6 rounded-xl border-brand-primary leading-relaxed italic font-body">
                                     "{msg.contenido}"
                                 </p>
                             </div>
