@@ -76,11 +76,11 @@ export const Hero = () => {
 
             {/* Contenido Central */}
             <div className="relative h-full flex flex-col items-center justify-center text-center text-white px-6">
-              <h1 className="font-display text-5xl md:text-8xl tracking-tight drop-shadow-2xl mb-8 uppercase">
+              <h1 className="font-display text-5xl md:text-8xl tracking-tight drop-shadow-2xl mb-8">
                 {slide.title}
               </h1>
               <div className="animate-fade-in-up">
-                <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase bg-brand-light text-brand-dark px-10 py-4 rounded-sm shadow-2xl">
+                <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.4em] bg-brand-light text-brand-dark px-10 py-4 rounded-sm shadow-2xl">
                   {slide.subtitle}
                 </p>
               </div>

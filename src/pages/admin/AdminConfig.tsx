@@ -29,14 +29,25 @@ export const AdminConfig = () => {
     }, []);
 
     const handleSave = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            await api.post('/Configuracion', config);
-            toast.success("¡Configuración actualizada!");
-        } catch (error) {
-            toast.error("Error al guardar.");
-        }
+    e.preventDefault();
+    
+    const dataToSave = {
+        Id: 1,
+        HeroTitulo: config.heroTitulo,
+        HeroSubtitulo: config.heroSubtitulo,
+        HeroImagenUrl: config.heroImagenUrl,
+        HeroTitulo2: config.heroTitulo2,
+        HeroSubtitulo2: config.heroSubtitulo2,
+        HeroImagenUrl2: config.heroImagenUrl2
     };
+
+    try {
+        await api.post('/Configuracion', dataToSave);
+        toast.success("¡Configuración actualizada!");
+    } catch (error) {
+        toast.error("Error al guardar.");
+    }
+};
 
     const inputClass = "w-full bg-gray-50 border border-brand-light/30 rounded-lg p-3 outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/10 transition font-body text-sm text-brand-dark";
     const labelClass = "block text-[10px] font-bold text-brand-muted uppercase mb-1 tracking-widest";
