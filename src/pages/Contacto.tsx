@@ -77,7 +77,7 @@ export const ContactoPage = () => {
                     scrolling="no" 
                     title="Ubicación Inmobiliaria Bottazzi"
                     style={{ filter: 'grayscale(0.1) contrast(1.1)' }}
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=-60.51660211133604,-31.74268213008622,-60.51660211133604,-31.74268213008622&layer=mapnik&marker=-60.51660211133604,-31.74268213008622"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-60.516621,-31.742673,-60.516621,-31.742673&layer=mapnik&marker=-31.742673,-60.516621"
                 ></iframe>
                 <div className="absolute bottom-4 right-4 z-20">
                     <a 

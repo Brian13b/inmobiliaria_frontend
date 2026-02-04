@@ -125,7 +125,7 @@ export const VentasPage = () => {
                             <div>
                                 <label className="text-sm font-bold text-brand-muted uppercase mb-2 block tracking-widest">Dormitorios</label>
                                 <div className="flex flex-wrap gap-2">
-                                    {["Cualquiera", "1", "2", "3", "4+"].map(opt => (
+                                    {["Cualq.", "1", "2", "3", "4+"].map(opt => (
                                         <button 
                                             key={opt}
                                             onClick={() => setDormitorios(opt)}

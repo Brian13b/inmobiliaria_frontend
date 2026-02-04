@@ -73,6 +73,7 @@ export const Navbar = () => {
             <Link to="/" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Inicio</Link>
             <Link to="/ventas" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Ventas</Link>
             <Link to="/alquileres" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Alquileres</Link>
+            <Link to="/tasaciones" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Tasaciones</Link>
             <Link to="/contacto" onClick={() => setIsOpen(false)} className="text-3xl font-display text-white">Contacto</Link>
         </div>
       </div>

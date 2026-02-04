@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { getActivas } from '../services/api';
-import { type Propiedad, TipoPropiedad } from '../types/propiedad';
+import { getTipoLabel, type Propiedad, TipoPropiedad } from '../types/propiedad';
 import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -125,7 +125,7 @@ export const AlquileresPage = () => {
                             <div>
                                 <label className="text-sm font-bold text-brand-muted uppercase mb-2 block tracking-widest">Dormitorios</label>
                                 <div className="flex flex-wrap gap-2">
-                                    {["Cualquiera", "1", "2", "3", "4+"].map(opt => (
+                                    {["Cualq.", "1", "2", "3", "4+"].map(opt => (
                                         <button 
                                             key={opt}
                                             onClick={() => setDormitorios(opt)}
@@ -164,6 +164,13 @@ export const AlquileresPage = () => {
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
+
+                                    <div className="absolute top-4 left-4 z-10"> 
+                                        <span className="bg-white/95 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-brand-dark uppercase tracking-[0.1em] shadow-sm border border-brand-light/20">
+                                            {getTipoLabel(prop.tipo)}
+                                        </span>
+                                    </div>
+                                    
                                     <span className="absolute top-4 right-4 px-3 py-1 rounded text-[10px] font-bold uppercase z-10 text-white shadow-sm bg-brand-secondary tracking-widest">
                                         ALQUILER
                                     </span>
