@@ -57,7 +57,7 @@ export const Hero = () => {
       <Swiper
         modules={[Autoplay, EffectFade, Pagination, Navigation]}
         effect="fade"
-        speed={1000} 
+        speed={100} 
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         navigation={true} 

@@ -36,7 +36,7 @@ export const AlquileresPage = () => {
     let resultado = propiedades;
     if (filtroTexto) {
         resultado = resultado.filter(p => 
-            p.titulo.toLowerCase().includes(filtroTexto.toLowerCase()) || 
+            p.ciudad.toLowerCase().includes(filtroTexto.toLowerCase()) || 
             p.direccion.toLowerCase().includes(filtroTexto.toLowerCase())
         );
     }
