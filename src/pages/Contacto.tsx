@@ -26,7 +26,7 @@ export const ContactoPage = () => {
             contenido: form.mensaje
         });
         // 2. Enviar a WhatsApp
-        const numWsp = "5493434676232"; 
+        const numWsp = "5493434676232"; // Cambiar numero de telefono al de la inmobiliaria
         window.open(`https://wa.me/${numWsp}?text=${encodeURIComponent(mensajeCompleto)}`, '_blank');
         
         toast.success("¡Mensaje enviado!");
@@ -67,23 +67,53 @@ export const ContactoPage = () => {
                 </div>
               ))}
             </div>
+
+            { /* Mapa */}
+            <div className="h-80 bg-gray-200 rounded-3xl overflow-hidden border-4 border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)] relative group">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    frameBorder="0" 
+                    scrolling="no" 
+                    title="Ubicación Inmobiliaria Bottazzi"
+                    style={{ filter: 'grayscale(0.1) contrast(1.1)' }}
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-60.5230,-31.7400,-60.5100,-31.7300&layer=mapnik&marker=-31.7358,-60.5165"
+                ></iframe>
+                <div className="absolute bottom-4 right-4 z-20">
+                    <a 
+                        href="https://maps.app.goo.gl/9h4X7qH3Jv5U7T3k8" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="bg-white/90 backdrop-blur-sm text-brand-dark text-[10px] font-bold px-4 py-2 rounded-full shadow-lg flex items-center gap-2 hover:bg-brand-primary hover:text-white transition-all uppercase tracking-wider"
+                    >
+                        <MapPin size={12} /> Ver en Google Maps
+                    </a>
+                </div>
+            </div>
           </div>
 
-          {/* Formulario Estilo Tasación */}
-          <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="relative"><User className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="nombre" placeholder="Nombre" className={inputClass} value={form.nombre} onChange={handleChange} /></div>
-              <div className="relative"><User className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="apellido" placeholder="Apellido" className={inputClass} value={form.apellido} onChange={handleChange} /></div>
-            </div>
-            <div className="relative"><Mail className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="email" type="email" placeholder="Email" className={inputClass} value={form.email} onChange={handleChange} /></div>
-            <div className="relative"><Phone className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="telefono" type="tel" placeholder="Teléfono" className={inputClass} value={form.telefono} onChange={handleChange} /></div>
-            <textarea required name="mensaje" rows={4} placeholder="¿En qué podemos ayudarte?" className="w-full bg-gray-50 border border-brand-light/40 rounded-lg p-4 outline-none focus:border-brand-primary transition text-brand-dark resize-none" value={form.mensaje} onChange={handleChange}></textarea>
-            
-            <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-brand-primary transition flex items-center justify-center gap-3 tracking-widest text-[10px]">
-              {enviando ? <Loader2 className="animate-spin" /> : <Send className="w-4 h-4" />}
-              {enviando ? "ENVIANDO..." : "ENVIAR CONSULTA"}
-            </button>
-          </form>
+          {/* Formulario */}
+          <div className="lg:sticky lg:top-32">
+            <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 space-y-4">
+              <div className="text-center mb-6">
+                  <h3 className="font-display text-2xl text-brand-dark">Envianos un mensaje</h3>
+                  <p className="text-brand-muted text-sm font-body">Te responderemos a la brevedad</p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative"><User className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="nombre" placeholder="Nombre" className={inputClass} value={form.nombre} onChange={handleChange} /></div>
+                <div className="relative"><User className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="apellido" placeholder="Apellido" className={inputClass} value={form.apellido} onChange={handleChange} /></div>
+              </div>
+              <div className="relative"><Mail className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="email" type="email" placeholder="Email" className={inputClass} value={form.email} onChange={handleChange} /></div>
+              <div className="relative"><Phone className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="telefono" type="tel" placeholder="Teléfono" className={inputClass} value={form.telefono} onChange={handleChange} /></div>
+              <textarea required name="mensaje" rows={4} placeholder="¿En qué podemos ayudarte?" className="w-full bg-gray-50 border border-brand-light/40 rounded-lg p-4 outline-none focus:border-brand-primary transition text-brand-dark resize-none font-body" value={form.mensaje} onChange={handleChange}></textarea>
+              
+              <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-brand-primary transition flex items-center justify-center gap-3 tracking-widest text-[10px]">
+                {enviando ? <Loader2 className="animate-spin" /> : <Send className="w-4 h-4" />}
+                {enviando ? "ENVIANDO..." : "ENVIAR CONSULTA"}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPropiedadById, enviarMensaje } from '../services/api';
 import { type Propiedad } from '../types/propiedad';
-import { MapPin, ArrowLeft, Camera, Copy, X, User, Phone, Mail, Send, Loader2 } from 'lucide-react'; // Agregamos X, User, etc.
+import { MapPin, ArrowLeft, Camera, Copy, X, User, Phone, Mail, Send, Loader2 } from 'lucide-react'; 
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SEO } from '../components/SEO';
@@ -18,7 +18,7 @@ export const PropiedadDetalle = () => {
     const [propiedad, setPropiedad] = useState<Propiedad | null>(null);
     const [_loading, setLoading] = useState(true);
     const [fotoActual, setFotoActual] = useState(1); 
-    const [zoomImage, setZoomImage] = useState<string | null>(null); // Estado para el Zoom
+    const [zoomImage, setZoomImage] = useState<string | null>(null);
     const [form, setForm] = useState({
         nombre: "",
         telefono: "",
@@ -46,7 +46,6 @@ export const PropiedadDetalle = () => {
         const textoWsp = `CONSULTA POR PROPIEDAD: ${propiedad.titulo}\nLink: ${window.location.href}\nNombre: ${form.nombre}\nTel: ${form.telefono}\nMensaje: ${form.mensaje}`;
 
         try {
-            // 1. Enviar al Admin (Base de Datos)
             await enviarMensaje({
                 nombre: form.nombre,
                 telefono: form.telefono,
@@ -54,7 +53,6 @@ export const PropiedadDetalle = () => {
                 contenido: textoWsp
             });
 
-            // 2. Abrir WhatsApp
             const numWsp = "5493434676232"; 
             window.open(`https://wa.me/${numWsp}?text=${encodeURIComponent(textoWsp)}`, '_blank');
 
@@ -153,7 +151,7 @@ export const PropiedadDetalle = () => {
                             <p className="text-brand-muted leading-relaxed whitespace-pre-line font-body">{propiedad.descripcion}</p>
                         </div>
 
-                        {/* FORMULARIO ESTILO TASACIÓN */}
+                        {/* Formulario */}
                         <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
                             <h3 className="font-display text-xl text-brand-dark mb-6 text-center italic">Me interesa esta propiedad</h3>
                             <form onSubmit={handleSubmit} className="space-y-4">
@@ -190,7 +188,7 @@ export const PropiedadDetalle = () => {
                         </div>
                     </div>
 
-                    {/* GALERIA CON ZOOM */}
+                    {/* Galeria */}
                     <div className="order-1 lg:order-2 w-full h-72 md:h-96 lg:h-[550px] bg-gray-100 rounded-3xl overflow-hidden relative group lg:sticky lg:top-28 shadow-2xl z-10 border-4 border-white cursor-zoom-in">
                         <div className="absolute top-4 right-4 bg-brand-dark/70 backdrop-blur text-white px-3 py-1 rounded-full text-[10px] font-bold z-20 flex items-center gap-2">
                             <Camera className="w-3 h-3" /> {fotoActual} / {totalFotos}

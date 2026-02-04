@@ -64,7 +64,7 @@ export const Tasacion = () => {
                     <span className="italic text-brand-primary/80">nosotros sabemos cuánto.</span>
                 </h2>
                 <p className="text-brand-muted text-lg mb-8 leading-relaxed font-body max-w-md">
-                    Completá los datos y nuestro equipo técnico realizará un estudio de mercado detallado para brindarte el valor más competitivo.
+                    Completá los datos y te contactaremos para brindarte una buena atención.
                 </p>
                 <div className="flex items-center gap-4 text-brand-primary border-l-2 border-brand-light pl-6">
                    <Calculator className="w-8 h-8 text-brand-primary" />
