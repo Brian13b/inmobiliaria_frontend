@@ -51,7 +51,7 @@ export const AlquileresPage = () => {
     }
     if (precioMin) resultado = resultado.filter(p => p.precio >= Number(precioMin));
     if (precioMax) resultado = resultado.filter(p => p.precio <= Number(precioMax));
-    if (dormitorios !== "Cualquiera") {
+    if (dormitorios !== "Cualq.") {
         if (dormitorios === "4+") resultado = resultado.filter(p => p.dormitorios >= 4);
         else resultado = resultado.filter(p => p.dormitorios === Number(dormitorios));
     }

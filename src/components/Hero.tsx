@@ -57,7 +57,8 @@ export const Hero = () => {
       <Swiper
         modules={[Autoplay, EffectFade, Pagination, Navigation]}
         effect="fade"
-        speed={100} 
+        speed={1000}
+        fadeEffect={{ crossFade: true }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         navigation={true} 
@@ -97,18 +98,26 @@ export const Hero = () => {
         .hero-swiper .swiper-button-prev {
           color: white;
           transition: all 0.3s;
+          display: none;
         }
+        @media (min-width: 768px) {
+          .hero-swiper .swiper-button-next,
+          .hero-swiper .swiper-button-prev {
+            display: flex;
+          }
+        }
+
         .hero-swiper .swiper-button-next:hover,
         .hero-swiper .swiper-button-prev:hover {
-          color: #d8bf9f; /* Color arena al hacer hover */
+          color: #d8bf9f;
         }
+
         .hero-swiper .swiper-button-next:after,
         .hero-swiper .swiper-button-prev:after {
-          font-size: 24px; /* Tamaño de las flechas */
+          font-size: 24px;
           font-weight: bold;
         }
 
-        /* Estilos Paginación */
         .hero-swiper .swiper-pagination-bullet {
           background: white !important;
           opacity: 0.3;
