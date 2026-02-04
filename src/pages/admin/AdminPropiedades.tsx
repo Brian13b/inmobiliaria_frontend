@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPropiedades, deletePropiedad } from '../../services/api';
 import { type Propiedad, getTipoLabel } from '../../types/propiedad';
-import { ArrowLeft, Plus, Pencil, Trash2, Eye, Search, Star, Power, CheckCircle2, XCircle } from 'lucide-react';
+import { ArrowLeft, Plus, Pencil, Trash2, Eye, Search, Star } from 'lucide-react';
 import { SEO } from '../../components/SEO';
 
 export const AdminPropiedades = () => {
