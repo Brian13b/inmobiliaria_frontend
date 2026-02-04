@@ -54,6 +54,18 @@ export const uploadImagen = async (id: number, file: File) => {
     return response.data;
 };
 
+export const uploadImagenHero = async (file: File) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    
+    const response = await api.post('/Configuracion/UploadImage', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+    return response.data; 
+};
+
 export const deleteImagen = async (propiedadId: number, imagenId: number) => {
     await api.delete(`/Propiedades/${propiedadId}/imagenes/${imagenId}`);
 };

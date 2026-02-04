@@ -9,7 +9,11 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation'; 
 
 export const Hero = () => {
-  const [slides, setSlides] = useState<any[]>([]);
+  const [slides, setSlides] = useState<any[]>([{
+    image: "https://images.unsplash.com/photo-1600596542815-e32c53048057",
+    title: "BOTTAZZI INMOBILIARIA",
+    subtitle: "Propiedades de Exclusividad"
+  }]);
 
   useEffect(() => {
     api.get('/Configuracion')
@@ -49,8 +53,6 @@ export const Hero = () => {
         }]);
       });
   }, []);
-
-  if (slides.length === 0) return null;
 
   return (
     <section className="relative h-[550px] md:h-[750px] w-full bg-brand-dark overflow-hidden">

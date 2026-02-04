@@ -18,7 +18,7 @@ export const VentasPage = () => {
   const [filtroTipo, setFiltroTipo] = useState("Todos");
   const [precioMin, setPrecioMin] = useState("");
   const [precioMax, setPrecioMax] = useState("");
-  const [dormitorios, setDormitorios] = useState("Cualquiera");
+  const [dormitorios, setDormitorios] = useState("Cualq.");
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

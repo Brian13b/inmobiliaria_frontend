@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { api } from '../../services/api'; 
-import { Save, ArrowLeft, Image, Eye } from 'lucide-react';
+import { api, uploadImagenHero } from '../../services/api';
+import { Save, ArrowLeft, Image as ImageIcon, Eye, Upload, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { SEO } from '../../components/SEO';
 
 export const AdminConfig = () => {
+    const [loading, setLoading] = useState(false);
     const [config, setConfig] = useState({
         heroTitulo: "",
         heroSubtitulo: "",
@@ -14,6 +15,11 @@ export const AdminConfig = () => {
         heroSubtitulo2: "",
         heroImagenUrl2: ""
     });
+
+    const [file1, setFile1] = useState<File | null>(null);
+    const [preview1, setPreview1] = useState("");
+    const [file2, setFile2] = useState<File | null>(null);
+    const [preview2, setPreview2] = useState("");
 
     useEffect(() => {
         api.get('/Configuracion').then(res => {
@@ -28,29 +34,64 @@ export const AdminConfig = () => {
         });
     }, []);
 
-    const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const dataToSave = {
-        Id: 1,
-        HeroTitulo: config.heroTitulo,
-        HeroSubtitulo: config.heroSubtitulo,
-        HeroImagenUrl: config.heroImagenUrl,
-        HeroTitulo2: config.heroTitulo2,
-        HeroSubtitulo2: config.heroSubtitulo2,
-        HeroImagenUrl2: config.heroImagenUrl2
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, slideNum: number) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            if (slideNum === 1) {
+                setFile1(file);
+                setPreview1(URL.createObjectURL(file));
+            } else {
+                setFile2(file);
+                setPreview2(URL.createObjectURL(file));
+            }
+        }
     };
 
-    try {
-        await api.post('/Configuracion', dataToSave);
-        toast.success("¡Configuración actualizada!");
-    } catch (error) {
-        toast.error("Error al guardar.");
-    }
-};
+    const handleSave = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        
+        try {
+            let finalUrl1 = config.heroImagenUrl;
+            let finalUrl2 = config.heroImagenUrl2;
+
+            if (file1) {
+                const res1 = await uploadImagenHero(file1);
+                finalUrl1 = res1.url;
+            }
+
+            if (file2) {
+                const res2 = await uploadImagenHero(file2);
+                finalUrl2 = res2.url;
+            }
+
+            const dataToSave = {
+                Id: 1,
+                HeroTitulo: config.heroTitulo,
+                HeroSubtitulo: config.heroSubtitulo,
+                HeroImagenUrl: finalUrl1,
+                HeroTitulo2: config.heroTitulo2,
+                HeroSubtitulo2: config.heroSubtitulo2,
+                HeroImagenUrl2: finalUrl2
+            };
+
+            await api.post('/Configuracion', dataToSave);
+            
+            setConfig({ ...config, heroImagenUrl: finalUrl1, heroImagenUrl2: finalUrl2 });
+            setFile1(null);
+            setFile2(null);
+            
+            toast.success("¡Configuración actualizada con éxito!");
+        } catch (error) {
+            toast.error("Error al guardar la configuración.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const inputClass = "w-full bg-gray-50 border border-brand-light/30 rounded-lg p-3 outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/10 transition font-body text-sm text-brand-dark";
     const labelClass = "block text-[10px] font-bold text-brand-muted uppercase mb-1 tracking-widest";
+    const uploadZoneClass = "border-2 border-dashed border-brand-light/40 rounded-xl p-4 text-center bg-gray-50 hover:bg-brand-light/10 transition cursor-pointer relative group";
 
     return (
         <div className="min-h-screen bg-gray-50 p-8 pb-32 font-body">
@@ -68,92 +109,109 @@ export const AdminConfig = () => {
                         <div className="flex justify-between items-center border-b border-brand-light/10 pb-6">
                             <h1 className="text-2xl font-display text-brand-dark flex items-center gap-3">
                                 <div className="bg-brand-light/20 p-2 rounded-lg">
-                                    <Image className="text-brand-primary w-6 h-6" />
+                                    <ImageIcon className="text-brand-primary w-6 h-6" />
                                 </div>
                                 Configurar Hero
                             </h1>
-                            <button className="bg-brand-dark text-white font-bold py-2.5 px-6 rounded-lg hover:bg-brand-primary transition shadow-lg flex items-center gap-2 text-xs tracking-widest uppercase">
-                                <Save className="w-4 h-4" /> GUARDAR
+                            <button disabled={loading} className="bg-brand-dark text-white font-bold py-2.5 px-6 rounded-lg hover:bg-brand-primary transition shadow-lg flex items-center gap-2 text-xs tracking-widest uppercase disabled:opacity-50">
+                                {loading ? <Loader2 className="animate-spin w-4 h-4" /> : <Save className="w-4 h-4" />}
+                                {loading ? "GUARDANDO..." : "GUARDAR"}
                             </button>
                         </div>
 
                         {/* Slide 1 */}
                         <div className="bg-gray-50/50 p-6 rounded-xl border border-brand-light/20 space-y-6">
-                            <h3 className="font-display text-xl text-brand-dark mb-4 flex items-center gap-2">
+                            <h3 className="font-display text-xl text-brand-dark flex items-center gap-2">
                                 <span className="bg-brand-primary text-white text-[10px] px-2 py-1 rounded-md font-body font-bold">01</span>
                                 Portada Principal
                             </h3>
                             <div className="space-y-4">
                                 <div>
-                                    <label className={labelClass}>Título Principal</label>
-                                    <input value={config.heroTitulo} onChange={e => setConfig({...config, heroTitulo: e.target.value})} className={inputClass} placeholder="Ej: BOTTAZZI INMOBILIARIA" />
+                                    <label className={labelClass}>Título</label>
+                                    <input value={config.heroTitulo} onChange={e => setConfig({...config, heroTitulo: e.target.value})} className={inputClass} />
                                 </div>
                                 <div>
                                     <label className={labelClass}>Subtítulo</label>
-                                    <input value={config.heroSubtitulo} onChange={e => setConfig({...config, heroSubtitulo: e.target.value})} className={inputClass} placeholder="Ej: Propiedades de Exclusividad" />
+                                    <input value={config.heroSubtitulo} onChange={e => setConfig({...config, heroSubtitulo: e.target.value})} className={inputClass} />
                                 </div>
                                 <div>
-                                    <label className={labelClass}>Imagen de Fondo (URL)</label>
-                                    <input value={config.heroImagenUrl} onChange={e => setConfig({...config, heroImagenUrl: e.target.value})} className={inputClass} placeholder="https://images.unsplash.com/..." />
+                                    <label className={labelClass}>Imagen Principal (Desde PC)</label>
+                                    <div className={uploadZoneClass}>
+                                        <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, 1)} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
+                                        <div className="flex flex-col items-center">
+                                            <Upload className="w-6 h-6 text-brand-muted group-hover:text-brand-primary transition-colors mb-1" />
+                                            <span className="text-[10px] text-brand-muted uppercase font-bold tracking-tight">Seleccionar imagen</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Slide 2 */}
                         <div className="bg-gray-50/50 p-6 rounded-xl border border-brand-light/20 space-y-6">
-                            <h3 className="font-display text-xl text-brand-dark mb-4 flex items-center gap-2">
+                            <h3 className="font-display text-xl text-brand-dark flex items-center gap-2">
                                 <span className="bg-brand-primary text-white text-[10px] px-2 py-1 rounded-md font-body font-bold">02</span>
                                 Segunda Portada
                             </h3>
                             <div className="space-y-4">
                                 <div>
-                                    <label className={labelClass}>Título Secundario</label>
-                                    <input value={config.heroTitulo2} onChange={e => setConfig({...config, heroTitulo2: e.target.value})} className={inputClass} placeholder="Ej: OPORTUNIDADES ÚNICAS" />
+                                    <label className={labelClass}>Título</label>
+                                    <input value={config.heroTitulo2} onChange={e => setConfig({...config, heroTitulo2: e.target.value})} className={inputClass} />
                                 </div>
                                 <div>
-                                    <label className={labelClass}>Subtítulo Secundario</label>
-                                    <input value={config.heroSubtitulo2} onChange={e => setConfig({...config, heroSubtitulo2: e.target.value})} className={inputClass} placeholder="Ej: Inversiones Seguras" />
+                                    <label className={labelClass}>Subtítulo</label>
+                                    <input value={config.heroSubtitulo2} onChange={e => setConfig({...config, heroSubtitulo2: e.target.value})} className={inputClass} />
                                 </div>
                                 <div>
-                                    <label className={labelClass}>Imagen de Fondo 2 (URL)</label>
-                                    <input value={config.heroImagenUrl2} onChange={e => setConfig({...config, heroImagenUrl2: e.target.value})} className={inputClass} placeholder="https://images.unsplash.com/..." />
+                                    <label className={labelClass}>Segunda Imagen (Desde PC)</label>
+                                    <div className={uploadZoneClass}>
+                                        <input type="file" accept="image/*" onChange={(e) => handleFileChange(e, 2)} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
+                                        <div className="flex flex-col items-center">
+                                            <Upload className="w-6 h-6 text-brand-muted group-hover:text-brand-primary transition-colors mb-1" />
+                                            <span className="text-[10px] text-brand-muted uppercase font-bold tracking-tight">Seleccionar imagen</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </form>
 
-                    {/* Previsualización */}
+                    {/* Previsualización Mejorada */}
                     <div className="space-y-6">
                         <h3 className="font-display text-2xl text-brand-dark flex items-center gap-2 px-2">
                             <Eye className="w-6 h-6 text-brand-primary" /> Vista Previa
                         </h3>
                         
-                        {/* Preview Slide 1 */}
+                        {/* Preview 1 */}
                         <div className="bg-white p-5 rounded-2xl shadow-sm border border-brand-light/20">
-                            <p className="text-[10px] font-bold text-brand-muted mb-3 uppercase tracking-widest">Slide 01</p>
-                            <div className="h-56 w-full rounded-xl overflow-hidden relative bg-brand-dark/10 shadow-inner">
-                                {config.heroImagenUrl ? (
-                                    <img src={config.heroImagenUrl} alt="Preview 1" className="w-full h-full object-cover" />
-                                ) : <div className="flex items-center justify-center h-full text-brand-muted text-xs font-body italic">Sin imagen configurada</div>}
-                                <div className="absolute inset-0 bg-brand-dark/40 flex flex-col items-center justify-center text-white p-4 text-center">
-                                    <span className="font-display text-3xl drop-shadow-lg tracking-tight">{config.heroTitulo || "Título 1"}</span>
-                                    <span className="text-[10px] tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm shadow-xl">
+                            <p className={labelClass}>Preview Portada 1</p>
+                            <div className="h-64 w-full rounded-xl overflow-hidden relative bg-brand-dark shadow-inner">
+                                <img 
+                                    src={preview1 || config.heroImagenUrl || "https://placehold.co/800x600?text=Sin+Imagen"} 
+                                    className="w-full h-full object-cover opacity-60" 
+                                    alt="Preview" 
+                                />
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <span className="font-display text-3xl uppercase tracking-tighter">{config.heroTitulo || "TITULO 1"}</span>
+                                    <span className="text-[9px] tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm uppercase">
                                         {config.heroSubtitulo || "Subtítulo 1"}
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Preview Slide 2 */}
+                        {/* Preview 2 */}
                         <div className="bg-white p-5 rounded-2xl shadow-sm border border-brand-light/20">
-                            <p className="text-[10px] font-bold text-brand-muted mb-3 uppercase tracking-widest">Slide 02</p>
-                            <div className="h-56 w-full rounded-xl overflow-hidden relative bg-brand-dark/10 shadow-inner">
-                                {config.heroImagenUrl2 ? (
-                                    <img src={config.heroImagenUrl2} alt="Preview 2" className="w-full h-full object-cover" />
-                                ) : <div className="flex items-center justify-center h-full text-brand-muted text-xs font-body italic">Sin imagen configurada</div>}
-                                <div className="absolute inset-0 bg-brand-dark/40 flex flex-col items-center justify-center text-white p-4 text-center">
-                                    <span className="font-display text-3xl drop-shadow-lg tracking-tight">{config.heroTitulo2 || "Título 2"}</span>
-                                    <span className="text-[10px] tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm shadow-xl">
+                            <p className={labelClass}>Preview Portada 2</p>
+                            <div className="h-64 w-full rounded-xl overflow-hidden relative bg-brand-dark shadow-inner">
+                                <img 
+                                    src={preview2 || config.heroImagenUrl2 || "https://placehold.co/800x600?text=Sin+Imagen"} 
+                                    className="w-full h-full object-cover opacity-60" 
+                                    alt="Preview" 
+                                />
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-4 text-center">
+                                    <span className="font-display text-3xl uppercase tracking-tighter">{config.heroTitulo2 || "TITULO 2"}</span>
+                                    <span className="text-[9px] tracking-[0.3em] font-bold mt-4 bg-brand-light text-brand-dark px-4 py-2 rounded-sm uppercase">
                                         {config.heroSubtitulo2 || "Subtítulo 2"}
                                     </span>
                                 </div>
