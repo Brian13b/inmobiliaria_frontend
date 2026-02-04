@@ -7,6 +7,7 @@ import { VentasPage } from './pages/Ventas';
 import { AlquileresPage } from './pages/Alquileres';
 import { ContactoPage } from './pages/Contacto';
 import { PropiedadDetalle } from './pages/PropiedadDetalle';
+import { Tasacion } from './pages/Tasacion';
 
 import { LoginPage } from './pages/admin/Login';
 import { DashboardPage } from './pages/admin/Dashboard';
@@ -50,6 +51,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/ventas" element={<VentasPage />} />
             <Route path="/alquileres" element={<AlquileresPage />} />
+            <Route path="/tasaciones" element={<Tasacion />} />
             <Route path="/contacto" element={<ContactoPage />} />
             <Route path="/propiedad/:id" element={<PropiedadDetalle />} />
 

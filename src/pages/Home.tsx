@@ -7,7 +7,7 @@ import { Search, Home, Building, Key, Briefcase, MapPin } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFade, Navigation } from 'swiper/modules';
+import { EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 
@@ -131,13 +131,13 @@ export const HomePage = () => {
 
                                     {prop.imagenes && prop.imagenes.length > 0 ? (
                                         <Swiper
-                                            modules={[Navigation, EffectFade]}
+                                            modules={[EffectFade]}
                                             effect={'fade'}
                                             spaceBetween={0}
                                             slidesPerView={1}
-                                            loop={prop.imagenes.length > 1} // Cambios
-                                            navigation={true} // Flechitas
-                                            className="h-full w-full property-card-swiper" // Se agrego property-card-swiper
+                                            loop={prop.imagenes.length > 1}
+                                            navigation={false}
+                                            className="h-full w-full"
                                         >
                                             {prop.imagenes.map((img) => (
                                                 <SwiperSlide key={img.id}>

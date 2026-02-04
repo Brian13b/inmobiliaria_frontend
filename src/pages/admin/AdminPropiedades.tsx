@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getPropiedades, deletePropiedad } from '../../services/api';
 import { type Propiedad, getTipoLabel } from '../../types/propiedad';
-import { ArrowLeft, Plus, Pencil, Trash2, Eye, Search } from 'lucide-react';
+import { ArrowLeft, Plus, Pencil, Trash2, Eye, Search, Star, Power, CheckCircle2, XCircle } from 'lucide-react';
 import { SEO } from '../../components/SEO';
 
 export const AdminPropiedades = () => {
@@ -10,7 +10,13 @@ export const AdminPropiedades = () => {
     const [filtro, setFiltro] = useState("");
 
     const cargarDatos = () => {
-        getPropiedades().then(setPropiedades);
+        getPropiedades().then(data => {
+            const ordenadas = [...data].sort((a, b) => {
+                if (a.esDestacada === b.esDestacada) return 0;
+                return a.esDestacada ? -1 : 1;
+            });
+            setPropiedades(ordenadas);
+        });
     };
 
     useEffect(() => {
@@ -66,8 +72,9 @@ export const AdminPropiedades = () => {
 
                     <div className="overflow-x-auto w-full">
                         <table className="w-full text-left min-w-[700px]"> 
-                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-lg font-bold tracking-widest border-b border-brand-light/20">
+                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-[11px] font-bold tracking-[0.2em] border-b border-brand-light/20">
                                 <tr>
+                                    <th className="p-4">Destacada</th>
                                     <th className="p-4">Propiedad</th>
                                     <th className="p-4">Precio</th>
                                     <th className="p-4">Tipo</th>
@@ -75,17 +82,26 @@ export const AdminPropiedades = () => {
                                     <th className="p-4">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-brand-light/10">
+                            <tbody className="divide-y divide-brand-light/10 text-sm">
                                 {filtradas.map(p => (
-                                    <tr key={p.id} className="hover:bg-gray-50 transition-colors">
-                                        <td className="p-4">
-                                            <div className="p-2 font-display text-xl">{p.titulo}</div>
-                                            <div className="p-2 text-brand-muted text-md">{p.direccion}</div>
+                                    <tr key={p.id} className={`hover:bg-gray-50/80 transition-colors ${p.esDestacada ? 'bg-brand-light/5' : ''}`}>
+                                        <td className="p-4 text-center">
+                                            <div className="flex justify-center">
+                                                <Star 
+                                                    className={`w-5 h-5 ${p.esDestacada ? 'text-brand-light fill-brand-light' : 'text-gray-200'}`} 
+                                                />
+                                            </div>
                                         </td>
-                                        <td className="p-4 font-medium text-orange-700">
+                                        <td className="p-4">
+                                            <div className="font-display text-lg text-brand-dark">{p.titulo}</div>
+                                            <div className="text-brand-muted text-xs">{p.direccion}</div>
+                                        </td>
+
+                                        <td className="p-4 font-bold text-brand-primary">
                                             {p.moneda} {p.precio.toLocaleString()}
                                         </td>
-                                        <td className="p-4 text-md text-gray-600">
+
+                                        <td className="p-4 uppercase text-[10px] font-bold tracking-wider text-brand-muted">
                                             {getTipoLabel(p.tipo)}
                                         </td>
                                         <td className="p-4">
@@ -93,16 +109,18 @@ export const AdminPropiedades = () => {
                                                 {p.estadoOperacion || 'Venta'}
                                             </span>
                                         </td>
-                                        <td className="p-4 flex justify-center align-middle gap-2">
-                                            <Link to={`/propiedad/${p.id}`} target="_blank" className="p-2 hover:bg-gray-200 rounded text-gray-500" title="Ver en web">
-                                                <Eye className="w-4 h-4" />
-                                            </Link>
-                                            <Link to={`/admin/propiedades/editar/${p.id}`} className="p-2 hover:bg-blue-100 rounded text-blue-600" title="Editar">
-                                                <Pencil className="w-4 h-4" />
-                                            </Link>
-                                            <button onClick={() => handleDelete(p.id)} className="p-2 hover:bg-red-100 rounded text-red-600" title="Borrar">
-                                                <Trash2 className="w-4 h-4" />
-                                            </button>
+                                        <td className="p-4">
+                                            <div className="flex justify-center gap-1">
+                                                <Link to={`/propiedad/${p.id}`} target="_blank" className="p-2 hover:bg-brand-light/20 rounded-lg text-brand-muted">
+                                                    <Eye className="w-4 h-4" />
+                                                </Link>
+                                                <Link to={`/admin/propiedades/editar/${p.id}`} className="p-2 hover:bg-brand-primary/10 rounded-lg text-brand-primary">
+                                                    <Pencil className="w-4 h-4" />
+                                                </Link>
+                                                <button onClick={() => handleDelete(p.id)} className="p-2 hover:bg-red-50 rounded-lg text-red-500">
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}

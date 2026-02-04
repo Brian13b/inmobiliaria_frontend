@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Pagination, Parallax } from 'swiper/modules'; // Añadimos Parallax
+import { Autoplay, EffectFade, Pagination, Parallax } from 'swiper/modules';
 import { api } from '../services/api';
 
 import 'swiper/css';
@@ -56,8 +56,8 @@ export const Hero = () => {
       <Swiper
         modules={[Autoplay, EffectFade, Pagination, Parallax]}
         effect="fade"
-        speed={2000} // Transición más lenta para elegancia
-        parallax={true} // Activamos parallax
+        speed={2000} 
+        parallax={true} 
         autoplay={{ delay: 6000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         loop={slides.length > 1}
@@ -81,13 +81,13 @@ export const Hero = () => {
 
             {/* Contenido con Parallax */}
             <div className="relative h-full flex flex-col items-center justify-center text-center text-white px-6">
-              <div data-swiper-parallax="-400" className="duration-1000">
-                <h1 className="font-display text-5xl md:text-8xl tracking-tighter drop-shadow-2xl mb-8 uppercase leading-tight">
+              <div data-swiper-parallax="-300" className="duration-1000 w-full max-w-5xl overflow-hidden">
+                <h1 className="font-display text-4xl md:text-7xl lg:text-8xl tracking-tighter drop-shadow-2xl mb-8 uppercase leading-tight px-2">
                   {slide.title}
                 </h1>
               </div>
               
-              <div data-swiper-parallax="-200" className="duration-700">
+              <div data-swiper-parallax="-150" className="duration-700">
                 <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase bg-brand-light text-brand-dark px-10 py-4 rounded-sm shadow-2xl">
                   {slide.subtitle}
                 </p>
@@ -100,14 +100,17 @@ export const Hero = () => {
       <style>{`
         /* Efecto Ken Burns (Zoom lento) */
         @keyframes kenburns {
-          0% { transform: scale(1) translate(0,0); }
-          100% { transform: scale(1.15) translate(-1%, -1%); }
+          0% { transform: scale(1.1); }
+          100% { transform: scale(1.25); }
         }
         .animate-ken-burns {
-          animation: kenburns 12s infinite alternate ease-in-out;
+          animation: kenburns 20s infinite alternate ease-in-out;
         }
 
         /* Estilos Paginación */
+        .swiper-slide {
+          overflow: hidden !important;
+        }
         .swiper-pagination-bullet {
           background: white !important;
           opacity: 0.3;

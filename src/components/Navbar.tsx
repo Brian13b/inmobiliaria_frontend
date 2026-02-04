@@ -46,6 +46,7 @@ export const Navbar = () => {
             <Link to="/" className={linkClass('/')}>Inicio</Link>
             <Link to="/ventas" className={linkClass('/ventas')}>Ventas</Link>
             <Link to="/alquileres" className={linkClass('/alquileres')}>Alquileres</Link>
+            <Link to="/tasaciones" className={linkClass('/tasaciones')}>Tasaciones</Link>
             <Link to="/contacto" className={linkClass('/contacto')}>Contacto</Link>
           </div>
 
