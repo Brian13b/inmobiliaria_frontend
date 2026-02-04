@@ -114,7 +114,7 @@ export const VentasPage = () => {
                             </div>
 
                             <div>
-                                <label className="text-xs font-bold text-brand-muted uppercase mb-2 block font-body">Rango de Precio (USD)</label>
+                                <label className="text-xs font-bold text-brand-muted uppercase mb-2 block font-body">Rango de Precio</label>
                                 <div className="flex gap-2">
                                     <input type="number" placeholder="Min" className="w-1/2 px-3 py-2 border border-brand-light rounded-lg text-sm outline-none focus:ring-1 focus:ring-brand-primary" value={precioMin} onChange={e => setPrecioMin(e.target.value)} />
                                     <input type="number" placeholder="Max" className="w-1/2 px-3 py-2 border border-brand-light rounded-lg text-sm outline-none focus:ring-1 focus:ring-brand-primary" value={precioMax} onChange={e => setPrecioMax(e.target.value)} />
@@ -149,12 +149,11 @@ export const VentasPage = () => {
                             <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 border border-brand-light/20 overflow-hidden group flex flex-col">
                             <div className="h-56 relative overflow-hidden shrink-0">
                                     <Swiper 
-                                        modules={[Autoplay, EffectFade]} 
+                                        modules={[EffectFade]} 
                                         effect={'fade'} 
                                         spaceBetween={0} 
                                         slidesPerView={1} 
-                                        loop={true} 
-                                        autoplay={{delay: 3000 + Math.random() * 2000, disableOnInteraction: false}} 
+                                        loop={true}
                                         className="h-full w-full"
                                     >
                                         {prop.imagenes?.map((img) => (

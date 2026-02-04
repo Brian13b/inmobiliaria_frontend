@@ -7,9 +7,9 @@ export const Footer = () => {
         <div className="flex flex-col items-center md:items-start">
           <h3 className="font-display text-2xl mb-6 text-white border-b border-brand-light/20 pb-2 w-full text-center md:text-left">Contacto</h3>
           <div className="flex flex-col gap-4 text-sm items-center md:items-start opacity-90">
-            <p className="flex items-center gap-3"><MapPin className="w-4 h-4 text-brand-light" /> 25 de Mayo, Paraná</p>
-            <p className="flex items-center gap-3"><Phone className="w-4 h-4 text-brand-light" /> (343) 123-4567</p>
-            <p className="flex items-center gap-3"><Mail className="w-4 h-4 text-brand-light" /> contacto@inmobiliariabattauz.com</p>
+            <p className="flex items-center gap-3"><MapPin className="w-4 h-4 text-brand-light" /> Av. Churruarín 77, Paraná</p>
+            <p className="flex items-center gap-3"><Phone className="w-4 h-4 text-brand-light" /> +54 9 343 416-0058</p>
+            <p className="flex items-center gap-3"><Mail className="w-4 h-4 text-brand-light" /> bottazzinegociosinmobiliarios@gmail.com</p>
           </div>
         </div>
 
@@ -25,10 +25,10 @@ export const Footer = () => {
         <div className="flex flex-col items-center md:items-end">
           <h3 className="font-display text-2xl mb-6 text-white border-b border-brand-light/20 pb-2 w-full text-center md:text-right">Redes</h3>
           <div className="flex gap-4 mb-6">
-            <a href="#" className="bg-white/10 p-3 rounded-full hover:bg-brand-light hover:text-brand-primary transition shadow-xl">
+            <a href="https://www.instagram.com/bottazzi.inmobiliaria/?hl=es" className="bg-white/10 p-3 rounded-full hover:bg-brand-light hover:text-brand-primary transition shadow-xl">
                 <Instagram className="w-5 h-5" />
             </a>
-            <a href="#" className="bg-white/10 p-3 rounded-full hover:bg-brand-light hover:text-brand-primary transition shadow-xl">
+            <a href="https://www.facebook.com/profile.php?id=61574780821258" className="bg-white/10 p-3 rounded-full hover:bg-brand-light hover:text-brand-primary transition shadow-xl">
                 <Facebook className="w-5 h-5" />
             </a>
           </div>

@@ -57,9 +57,9 @@ export const ContactoPage = () => {
                         <h3 className="font-display text-2xl text-brand-dark mb-8">Información</h3>
                         <div className="space-y-8">
                             {[
-                                { icon: MapPin, title: "Oficina", text: "25 de Mayo, Paraná, Entre Ríos" },
-                                { icon: Phone, title: "Teléfonos", text: "(343) 123-4567 / 123-654" },
-                                { icon: Mail, title: "Email", text: "contacto@inmobiliariabattauz.com" }
+                                { icon: MapPin, title: "Oficina", text: "Av. Churruarín 77, Paraná, Entre Ríos" },
+                                { icon: Phone, title: "Teléfonos", text: "+54 9 343 416-0058" },
+                                { icon: Mail, title: "Email", text: "bottazzinegociosinmobiliarios@gmail.com" }
                             ].map((item, i) => (
                                 <div key={i} className="flex items-start gap-5">
                                     <div className="bg-brand-light/20 p-4 rounded-2xl"><item.icon className="w-6 h-6 text-brand-primary" /></div>
@@ -79,7 +79,7 @@ export const ContactoPage = () => {
                             height="100%" 
                             frameBorder="0" 
                             title="Mapa Ubicación"
-                            src="https://www.openstreetmap.org/export/embed.html?bbox=-60.55,-31.75,-60.45,-31.70&layer=mapnik&marker=-31.733,-60.529"
+                            src="https://www.openstreetmap.org/export/embed.html?bbox=-60.5166161,-31.7427028,-60.5166161,-31.7427028&layer=mapnik&marker=-31.7427028,-60.5166161"
                         ></iframe>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ export const ContactoPage = () => {
                         </div>
                     </div>
                     <div>
-                        <label className="block text-xs font-bold text-brand-muted uppercase mb-2 ml-1">Email Corporativo</label>
+                        <label className="block text-xs font-bold text-brand-muted uppercase mb-2 ml-1">Email</label>
                         <input required name="email" value={form.email} onChange={handleChange} type="email" className="w-full border border-brand-light rounded-xl p-4 outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/10 transition" />
                     </div>
                     <div>

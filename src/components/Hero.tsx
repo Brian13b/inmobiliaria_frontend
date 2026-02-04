@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination, Parallax } from 'swiper/modules'; // Añadimos Parallax
 import { api } from '../services/api';
 
 import 'swiper/css';
@@ -52,36 +52,43 @@ export const Hero = () => {
   if (slides.length === 0) return null;
 
   return (
-    <section className="relative h-[500px] md:h-[650px] w-full bg-brand-dark overflow-hidden">
+    <section className="relative h-[550px] md:h-[750px] w-full bg-brand-dark overflow-hidden">
       <Swiper
-        modules={[Autoplay, EffectFade, Pagination]}
+        modules={[Autoplay, EffectFade, Pagination, Parallax]}
         effect="fade"
-        speed={1500}
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        speed={2000} // Transición más lenta para elegancia
+        parallax={true} // Activamos parallax
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         loop={slides.length > 1}
         className="h-full w-full"
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index} className="relative h-full w-full">
-            {/* Imagen de Fondo */}
-            <div className="absolute inset-0">
+          <SwiperSlide key={index} className="relative h-full w-full overflow-hidden">
+            {/* Imagen de Fondo con efecto Zoom suave */}
+            <div 
+              className="absolute inset-0 transform scale-110 animate-ken-burns"
+              data-swiper-parallax="20%" // Efecto de movimiento lateral suave
+            >
               <img 
-                src={slide.image} 
+                src={`${slide.image}&w=1920&q=80&fm=webp`} 
                 alt={slide.title} 
                 className="w-full h-full object-cover" 
                 fetchPriority="high"
               />
-              <div className="absolute inset-0 bg-black/40"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-brand-dark/80"></div>
             </div>
 
-            {/* Contenido Central */}
+            {/* Contenido con Parallax */}
             <div className="relative h-full flex flex-col items-center justify-center text-center text-white px-6">
-              <h1 className="font-display text-5xl md:text-8xl tracking-tight drop-shadow-2xl mb-8">
-                {slide.title}
-              </h1>
-              <div className="animate-fade-in-up">
-                <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.4em] bg-brand-light text-brand-dark px-10 py-4 rounded-sm shadow-2xl">
+              <div data-swiper-parallax="-400" className="duration-1000">
+                <h1 className="font-display text-5xl md:text-8xl tracking-tighter drop-shadow-2xl mb-8 uppercase leading-tight">
+                  {slide.title}
+                </h1>
+              </div>
+              
+              <div data-swiper-parallax="-200" className="duration-700">
+                <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase bg-brand-light text-brand-dark px-10 py-4 rounded-sm shadow-2xl">
                   {slide.subtitle}
                 </p>
               </div>
@@ -91,21 +98,31 @@ export const Hero = () => {
       </Swiper>
 
       <style>{`
+        /* Efecto Ken Burns (Zoom lento) */
+        @keyframes kenburns {
+          0% { transform: scale(1) translate(0,0); }
+          100% { transform: scale(1.15) translate(-1%, -1%); }
+        }
+        .animate-ken-burns {
+          animation: kenburns 12s infinite alternate ease-in-out;
+        }
+
+        /* Estilos Paginación */
         .swiper-pagination-bullet {
           background: white !important;
-          opacity: 0.4;
-          width: 12px;
-          height: 12px;
-          transition: all 0.3s;
+          opacity: 0.3;
+          width: 8px;
+          height: 8px;
+          transition: all 0.5s ease;
         }
         .swiper-pagination-bullet-active {
-          background: #d8bf9f !important; /* Color brand-light (Arena) */
+          background: #d8bf9f !important;
           opacity: 1;
-          width: 30px;
-          border-radius: 6px;
+          width: 40px;
+          border-radius: 4px;
         }
         .swiper-pagination {
-          bottom: 30px !important;
+          bottom: 40px !important;
         }
       `}</style>
     </section>

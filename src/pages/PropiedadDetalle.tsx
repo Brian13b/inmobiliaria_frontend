@@ -6,6 +6,7 @@ import { MapPin, ArrowLeft, Camera, Copy } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SEO } from '../components/SEO';
+import { enviarMensaje } from '../services/api';
 
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -18,6 +19,17 @@ export const PropiedadDetalle = () => {
     const [propiedad, setPropiedad] = useState<Propiedad | null>(null);
     const [_loading, setLoading] = useState(true);
     const [fotoActual, setFotoActual] = useState(1); 
+    const [form, setForm] = useState({
+        nombre: "",
+        telefono: "",
+        email: "",
+        mensaje: ""
+    });
+    const [enviando, setEnviando] = useState(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
     useEffect(() => {
         if (id) getPropiedadById(Number(id)).then(setPropiedad).finally(() => setLoading(false));
@@ -26,7 +38,27 @@ export const PropiedadDetalle = () => {
     if (!propiedad) return <div className="pt-32 text-center font-body text-brand-muted uppercase tracking-widest">Cargando...</div>;
 
     const totalFotos = propiedad.imagenes?.length || 1;
-
+    
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setEnviando(true);
+        try {
+            await enviarMensaje({
+                nombre: form.nombre,
+                telefono: form.telefono,
+                email: form.email,
+                contenido: form.mensaje
+            });
+            toast.success("¡Mensaje enviado con éxito! Te contactaremos a la brevedad.");
+            setForm({ nombre: "", telefono: "", email: "", mensaje: "" }); 
+        } catch (error) {
+            toast.error("Ocurrió un error al enviar el mensaje. Por favor intenta nuevamente.");
+            console.error(error);
+        } finally {
+            setEnviando(false);
+        }
+    };
+    
     const copiarLink = () => {
         navigator.clipboard.writeText(window.location.href);
         toast.success("Link copiado!");
@@ -109,14 +141,16 @@ export const PropiedadDetalle = () => {
                         {/* Formulario de Contacto Integrado */}
                         <div className="bg-gray-50 p-8 rounded-2xl border border-brand-light/20 shadow-inner">
                             <h3 className="font-display text-xl text-brand-dark mb-4 text-center">Agendar Visita / Consultar</h3>
-                            <form className="space-y-4">
+                            <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
-                                    <input type="text" placeholder="Nombre" className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
-                                    <input type="tel" placeholder="Teléfono" className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
+                                    <input required type="text" placeholder="Nombre" value={form.nombre} onChange={handleChange} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
+                                    <input required type="tel" placeholder="Teléfono" value={form.telefono} onChange={handleChange} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
                                 </div>
-                                <input type="email" placeholder="Email" className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
-                                <textarea rows={3} placeholder="Mensaje..." defaultValue={`Hola, me interesa ${propiedad.titulo}...`} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition"></textarea>
-                                <button className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-primary transition shadow-lg shadow-brand-primary/20">ENVIAR CONSULTA</button>
+                                <input type="email" placeholder="Email" value={form.email} onChange={handleChange} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
+                                <textarea required rows={3} placeholder="Mensaje..." value={form.mensaje} onChange={handleChange} defaultValue={`Hola, me interesa ${propiedad.titulo}...`} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition"></textarea>
+                                <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-primary transition shadow-lg shadow-brand-primary/20">
+                                    {enviando ? "ENVIANDO..." : "ENVIAR CONSULTA"}
+                                </button>
                             </form>
                         </div>
 
@@ -131,6 +165,7 @@ export const PropiedadDetalle = () => {
                         </div>
                     </div>
 
+                    {/* Imagenes */}
                     <div className="order-1 lg:order-2 w-full h-72 md:h-96 lg:h-[550px] bg-gray-100 rounded-3xl overflow-hidden relative group lg:sticky lg:top-28 shadow-2xl z-10 border-4 border-white">
                         <div className="absolute top-4 right-4 bg-brand-dark/70 backdrop-blur text-white px-3 py-1 rounded-full text-[10px] font-bold z-20 flex items-center gap-2">
                             <Camera className="w-3 h-3" /> {fotoActual} / {totalFotos}

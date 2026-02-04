@@ -7,7 +7,7 @@ import { Search, Home, Building, Key, Briefcase, MapPin } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
+import { EffectFade, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 
@@ -88,7 +88,7 @@ export const HomePage = () => {
                 </div>
             </div>
 
-            {/* Servicios - Colores adaptados */}
+            {/* Servicios */}
             <section className="py-24 container mx-auto px-8 md:px-16 lg:px-32">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {[
@@ -108,7 +108,7 @@ export const HomePage = () => {
                 </div>
             </section>
 
-            {/* Destacadas con Swiper y Estilo Wealth */}
+            {/* Destacadas */}
             <section className="py-20 bg-white">
                 <div className="container mx-auto px-8 md:px-16 lg:px-32">
                     <div className="flex justify-between items-end mb-12">
@@ -131,21 +131,18 @@ export const HomePage = () => {
 
                                     {prop.imagenes && prop.imagenes.length > 0 ? (
                                         <Swiper
-                                            modules={[Autoplay, EffectFade]}
+                                            modules={[Navigation, EffectFade]}
                                             effect={'fade'}
                                             spaceBetween={0}
                                             slidesPerView={1}
-                                            loop={true}
-                                            autoplay={{
-                                                delay: 2500 + Math.random() * 1000, 
-                                                disableOnInteraction: false,
-                                            }}
-                                            className="h-full w-full"
+                                            loop={prop.imagenes.length > 1} // Cambios
+                                            navigation={true} // Flechitas
+                                            className="h-full w-full property-card-swiper" // Se agrego property-card-swiper
                                         >
                                             {prop.imagenes.map((img) => (
                                                 <SwiperSlide key={img.id}>
                                                     <img 
-                                                        src={img.url} 
+                                                        src={`${img.url}&w=600&q=80&fm=webp`} 
                                                         alt={prop.titulo}
                                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                                         loading="lazy"
@@ -172,7 +169,7 @@ export const HomePage = () => {
                                             {prop.moneda} {prop.precio.toLocaleString()}
                                         </span>
                                         <div className="text-xs font-semibold text-brand-secondary bg-brand-light/20 px-2 py-1 rounded">
-                                            {prop.ambientes} Amb.
+                                            {prop.ambientes} Amb
                                         </div>
                                     </div>
                                 </div>
