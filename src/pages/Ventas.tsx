@@ -4,7 +4,7 @@ import { getActivas } from '../services/api';
 import { getTipoLabel, type Propiedad, TipoPropiedad } from '../types/propiedad';
 import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
+import { EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import { SEO } from '../components/SEO';

@@ -6,7 +6,7 @@ import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-reac
 import { SEO } from '../components/SEO';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
+import { EffectFade } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 
