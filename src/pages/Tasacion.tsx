@@ -42,7 +42,7 @@ export const Tasacion = () => {
     }
   };
 
-  const inputClass = "w-full bg-white border border-brand-light/40 rounded-lg p-3 pl-10 outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20 transition text-brand-dark";
+  const inputClass = "w-full bg-gray-50 border border-brand-light/60 rounded-lg p-3 pl-10 outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20 transition text-brand-dark placeholder:text-gray-400";
 
   return (
     <div className="min-h-screen bg-white pt-32 pb-20">
@@ -52,48 +52,48 @@ export const Tasacion = () => {
       />
       
       <section className="py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-light/5 -skew-x-12 translate-x-1/2 hidden lg:block" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-light/10 -skew-x-12 translate-x-1/2 hidden lg:block" />
         
         <div className="container mx-auto px-8 md:px-16 lg:px-32 relative z-10">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
               
-            <div className="lg:w-1/2 text-white">
-                <span className="text-brand-light font-bold tracking-[0.3em] uppercase text-[10px]">Valuaciones Reales</span>
+            <div className="lg:w-1/2 text-brand-dark">
+                <span className="text-brand-primary font-bold tracking-[0.3em] uppercase text-[11px]">Valuaciones Reales</span>
                 <h2 className="font-display text-5xl md:text-7xl mt-4 mb-6 leading-tight">
                     Tu propiedad vale, <br /> 
-                    <span className="italic text-brand-light">nosotros sabemos cuánto.</span>
+                    <span className="italic text-brand-primary/80">nosotros sabemos cuánto.</span>
                 </h2>
-                <p className="text-gray-400 text-lg mb-8 leading-relaxed font-body max-w-md">
+                <p className="text-brand-muted text-lg mb-8 leading-relaxed font-body max-w-md">
                     Completá los datos y nuestro equipo técnico realizará un estudio de mercado detallado para brindarte el valor más competitivo.
                 </p>
-                <div className="flex items-center gap-4 text-brand-light/80 border-l-2 border-brand-light pl-6">
-                   <Calculator className="w-8 h-8" />
+                <div className="flex items-center gap-4 text-brand-primary border-l-2 border-brand-light pl-6">
+                   <Calculator className="w-8 h-8 text-brand-primary" />
                    <span className="font-display text-xl uppercase tracking-widest">Atención en 48hs.</span>
                 </div>
             </div>
 
             <div className="lg:w-1/2 w-full">
-              <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-2xl shadow-2xl space-y-5">
+              <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-100 space-y-5">
                 <div className="relative">
-                  <User className="absolute left-3 top-3.5 text-brand-muted w-5 h-5" />
+                  <User className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
                   <input required type="text" placeholder="Tu nombre" className={inputClass}
                       value={formData.nombre} onChange={e => setFormData({...formData, nombre: e.target.value})} />
                 </div>
 
                 <div className="relative">
-                  <Phone className="absolute left-3 top-3.5 text-brand-muted w-5 h-5" />
+                  <Phone className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
                   <input required type="tel" placeholder="Tu teléfono" className={inputClass}
                       value={formData.telefono} onChange={e => setFormData({...formData, telefono: e.target.value})} />
                 </div>
 
                 <div className="relative">
-                  <MapPin className="absolute left-3 top-3.5 text-brand-muted w-5 h-5" />
+                  <MapPin className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
                   <input required type="text" placeholder="Dirección de la propiedad" className={inputClass}
                       value={formData.direccion} onChange={e => setFormData({...formData, direccion: e.target.value})} />
                 </div>
 
                 <div className="relative">
-                  <Building className="absolute left-3 top-3.5 text-brand-muted w-5 h-5" />
+                  <Building className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
                   <select className={inputClass} value={formData.tipoInmueble}
                       onChange={e => setFormData({...formData, tipoInmueble: e.target.value})}>
                       <option>Casa</option>
@@ -104,7 +104,7 @@ export const Tasacion = () => {
                   </select>
                 </div>
 
-                <button disabled={enviando} className="w-full bg-brand-primary text-white font-bold py-4 rounded-lg hover:bg-brand-dark transition-all duration-300 shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]">
+                <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-brand-primary transition-all duration-300 shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]">
                     {enviando ? "ENVIANDO..." : <><Send className="w-4 h-4" /> ENVIAR SOLICITUD</>}
                 </button>
               </form>

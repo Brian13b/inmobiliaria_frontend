@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getPropiedadById } from '../services/api';
+import { getPropiedadById, enviarMensaje } from '../services/api';
 import { type Propiedad } from '../types/propiedad';
-import { MapPin, ArrowLeft, Camera, Copy } from 'lucide-react';
+import { MapPin, ArrowLeft, Camera, Copy, X, User, Phone, Mail, Send, Loader2 } from 'lucide-react'; // Agregamos X, User, etc.
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SEO } from '../components/SEO';
-import { enviarMensaje } from '../services/api';
 
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -19,6 +18,7 @@ export const PropiedadDetalle = () => {
     const [propiedad, setPropiedad] = useState<Propiedad | null>(null);
     const [_loading, setLoading] = useState(true);
     const [fotoActual, setFotoActual] = useState(1); 
+    const [zoomImage, setZoomImage] = useState<string | null>(null); // Estado para el Zoom
     const [form, setForm] = useState({
         nombre: "",
         telefono: "",
@@ -42,17 +42,26 @@ export const PropiedadDetalle = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setEnviando(true);
+
+        const textoWsp = `CONSULTA POR PROPIEDAD: ${propiedad.titulo}\nLink: ${window.location.href}\nNombre: ${form.nombre}\nTel: ${form.telefono}\nMensaje: ${form.mensaje}`;
+
         try {
+            // 1. Enviar al Admin (Base de Datos)
             await enviarMensaje({
                 nombre: form.nombre,
                 telefono: form.telefono,
-                email: form.email,
-                contenido: form.mensaje
+                email: form.email || "consulta@web.com",
+                contenido: textoWsp
             });
-            toast.success("¡Mensaje enviado con éxito! Te contactaremos a la brevedad.");
+
+            // 2. Abrir WhatsApp
+            const numWsp = "5493434676232"; 
+            window.open(`https://wa.me/${numWsp}?text=${encodeURIComponent(textoWsp)}`, '_blank');
+
+            toast.success("¡Mensaje enviado con éxito!");
             setForm({ nombre: "", telefono: "", email: "", mensaje: "" }); 
         } catch (error) {
-            toast.error("Ocurrió un error al enviar el mensaje. Por favor intenta nuevamente.");
+            toast.error("Ocurrió un error al enviar el mensaje.");
             console.error(error);
         } finally {
             setEnviando(false);
@@ -88,8 +97,18 @@ export const PropiedadDetalle = () => {
         }
     };
 
+    const inputClass = "w-full bg-white border border-brand-light/40 rounded-lg p-3 pl-10 outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20 transition text-brand-dark font-body";
+
     return (
         <div className="min-h-screen bg-white pb-20 pt-24 font-body">
+            {/* Modal de Zoom de Imagen */}
+            {zoomImage && (
+                <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4" onClick={() => setZoomImage(null)}>
+                    <button className="absolute top-6 right-6 text-white hover:text-brand-light transition"><X size={40}/></button>
+                    <img src={zoomImage} className="max-w-full max-h-full object-contain" alt="Propiedad Zoom" />
+                </div>
+            )}
+
             <SEO 
                 title={propiedad.titulo} 
                 description={`Oportunidad en ${propiedad.estadoOperacion}: ${propiedad.tipo} en ${propiedad.direccion}. ${propiedad.ambientes} ambientes. Precio: ${propiedad.moneda} ${propiedad.precio}.`}
@@ -101,9 +120,8 @@ export const PropiedadDetalle = () => {
                 {JSON.stringify(structuredData)}
             </script>
             
-            {/* Breadcrumb pequeño */}
-            <div className="container mx-auto px-8 md:px-16 lg:px-32 mb-6">
-                <Link to={propiedad.estadoOperacion === 'Alquiler' ? '/alquileres' : '/ventas'} className="flex items-center gap-2 text-brand-primary hover:text-brand-secondary text-sm font-bold transition">
+            <div className="container mx-auto px-8 md:px-16 lg:px-32 mb-6 text-xs uppercase font-bold tracking-widest">
+                <Link to={propiedad.estadoOperacion === 'Alquiler' ? '/alquileres' : '/ventas'} className="flex items-center gap-2 text-brand-primary hover:text-brand-secondary transition">
                     <ArrowLeft className="w-4 h-4" /> Volver al listado
                 </Link>
             </div>
@@ -111,20 +129,18 @@ export const PropiedadDetalle = () => {
             <div className="container mx-auto px-8 md:px-16 lg:px-32">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     
-                    {/* Info y Formulario */}
                     <div className="order-2 lg:order-1 space-y-8">
                         <div>
                             <span className="bg-brand-light/30 text-brand-primary px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest border border-brand-primary/20">
                                 {propiedad.estadoOperacion || "Venta"}
                             </span>
-                            <h1 className="font-display text-3xl md:text-5xl text-brand-dark mt-4 mb-2">{propiedad.titulo}</h1>
+                            <h1 className="font-display text-4xl md:text-5xl text-brand-dark mt-4 mb-2">{propiedad.titulo}</h1>
                             <p className="text-brand-muted text-lg flex items-center gap-2">
                                 <MapPin className="w-5 h-5 text-brand-primary" /> {propiedad.direccion}, {propiedad.ciudad}
                             </p>
                             <p className="text-4xl md:text-5xl font-bold text-brand-primary mt-6">{propiedad.moneda} {propiedad.precio.toLocaleString()}</p>
                         </div>
 
-                        {/* Características */}
                         <div className="flex gap-6 border-y border-brand-light/30 py-6 text-brand-dark">
                             <div className="text-center"><p className="font-bold text-2xl">{propiedad.superficieTotal}m²</p><span className="text-[10px] text-brand-muted uppercase font-bold tracking-tighter">Total</span></div>
                             <div className="text-center border-l border-brand-light/30 pl-6"><p className="font-bold text-xl">{propiedad.dormitorios}</p><span className="text-[10px] text-brand-muted uppercase font-bold tracking-tighter">Dorm.</span></div>
@@ -132,41 +148,50 @@ export const PropiedadDetalle = () => {
                             <div className="text-center border-l border-brand-light/30 pl-6"><p className="font-bold text-xl">{propiedad.cocheras}</p><span className="text-[10px] text-brand-muted uppercase font-bold tracking-tighter">Coch.</span></div>
                         </div>
 
-                        {/* Descripción */}
                         <div>
                             <h3 className="font-display text-xl text-brand-dark mb-3 underline decoration-brand-light decoration-2 underline-offset-8">Descripción</h3>
                             <p className="text-brand-muted leading-relaxed whitespace-pre-line font-body">{propiedad.descripcion}</p>
                         </div>
 
-                        {/* Formulario de Contacto Integrado */}
-                        <div className="bg-gray-50 p-8 rounded-2xl border border-brand-light/20 shadow-inner">
-                            <h3 className="font-display text-xl text-brand-dark mb-4 text-center">Agendar Visita / Consultar</h3>
+                        {/* FORMULARIO ESTILO TASACIÓN */}
+                        <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
+                            <h3 className="font-display text-xl text-brand-dark mb-6 text-center italic">Me interesa esta propiedad</h3>
                             <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                    <input required type="text" placeholder="Nombre" value={form.nombre} onChange={handleChange} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
-                                    <input required type="tel" placeholder="Teléfono" value={form.telefono} onChange={handleChange} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="relative">
+                                        <User className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
+                                        <input required name="nombre" type="text" placeholder="Nombre" value={form.nombre} onChange={handleChange} className={inputClass} />
+                                    </div>
+                                    <div className="relative">
+                                        <Phone className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
+                                        <input required name="telefono" type="tel" placeholder="Teléfono" value={form.telefono} onChange={handleChange} className={inputClass} />
+                                    </div>
                                 </div>
-                                <input type="email" placeholder="Email" value={form.email} onChange={handleChange} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition" />
-                                <textarea required rows={3} placeholder="Mensaje..." value={form.mensaje} onChange={handleChange} defaultValue={`Hola, me interesa ${propiedad.titulo}...`} className="w-full p-3 rounded-lg border border-brand-light outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition"></textarea>
-                                <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-primary transition shadow-lg shadow-brand-primary/20">
+                                <div className="relative">
+                                    <Mail className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
+                                    <input name="email" type="email" placeholder="Email (Opcional)" value={form.email} onChange={handleChange} className={inputClass} />
+                                </div>
+                                <textarea required name="mensaje" rows={3} placeholder="Escribí tu consulta..." value={form.mensaje} onChange={handleChange} className="w-full p-4 rounded-lg border border-brand-light/40 outline-none focus:ring-1 focus:ring-brand-primary/20 transition text-brand-dark resize-none"></textarea>
+                                
+                                <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-primary transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]">
+                                    {enviando ? <Loader2 className="animate-spin" /> : <Send className="w-4 h-4" />}
                                     {enviando ? "ENVIANDO..." : "ENVIAR CONSULTA"}
                                 </button>
                             </form>
                         </div>
 
-                         {/* Botones Compartir */}
                          <div className="flex gap-4">
-                            <button onClick={copiarLink} className="flex-1 border border-brand-light py-3 rounded-lg font-bold text-brand-muted hover:text-brand-primary hover:border-brand-primary transition flex justify-center gap-2 items-center text-xs">
+                            <button onClick={copiarLink} className="flex-1 border border-brand-light py-3 rounded-lg font-bold text-brand-muted hover:text-brand-primary transition flex justify-center gap-2 items-center text-xs uppercase tracking-tighter">
                                 <Copy className="w-4 h-4" /> Copiar Link
                             </button>
-                            <button onClick={compartirWsp} className="flex-1 border border-brand-light py-3 rounded-lg font-bold text-brand-muted hover:text-green-600 hover:border-green-500 transition flex justify-center gap-2 items-center text-xs">
-                                <FaWhatsapp className="w-4 h-4" /> Compartir en WhatsApp
+                            <button onClick={compartirWsp} className="flex-1 border border-brand-light py-3 rounded-lg font-bold text-brand-muted hover:text-green-600 transition flex justify-center gap-2 items-center text-xs uppercase tracking-tighter">
+                                <FaWhatsapp className="w-4 h-4" /> Compartir
                             </button>
                         </div>
                     </div>
 
-                    {/* Imagenes */}
-                    <div className="order-1 lg:order-2 w-full h-72 md:h-96 lg:h-[550px] bg-gray-100 rounded-3xl overflow-hidden relative group lg:sticky lg:top-28 shadow-2xl z-10 border-4 border-white">
+                    {/* GALERIA CON ZOOM */}
+                    <div className="order-1 lg:order-2 w-full h-72 md:h-96 lg:h-[550px] bg-gray-100 rounded-3xl overflow-hidden relative group lg:sticky lg:top-28 shadow-2xl z-10 border-4 border-white cursor-zoom-in">
                         <div className="absolute top-4 right-4 bg-brand-dark/70 backdrop-blur text-white px-3 py-1 rounded-full text-[10px] font-bold z-20 flex items-center gap-2">
                             <Camera className="w-3 h-3" /> {fotoActual} / {totalFotos}
                         </div>
@@ -176,11 +201,13 @@ export const PropiedadDetalle = () => {
                             navigation
                             pagination={{ clickable: true }}
                             onSlideChange={(swiper) => setFotoActual(swiper.realIndex + 1)}
-                            loop={true}
-                            className="w-full h-full"
+                            loop={totalFotos > 1}
+                            className="h-full w-full"
                         >
                             {propiedad.imagenes?.length ? propiedad.imagenes.map((img, i) => (
-                                <SwiperSlide key={i}><img src={img.url} className="w-full h-full object-cover" loading="lazy"/></SwiperSlide>
+                                <SwiperSlide key={i} onClick={() => setZoomImage(img.url)}>
+                                    <img src={img.url} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" alt={`Foto ${i + 1}`} loading="lazy"/>
+                                </SwiperSlide>
                             )) : (
                                 <SwiperSlide><img src={propiedad.imagenDestacada || "https://placehold.co/800x600"} className="w-full h-full object-cover" /></SwiperSlide>
                             )}

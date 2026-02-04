@@ -72,7 +72,7 @@ export const AdminPropiedades = () => {
 
                     <div className="overflow-x-auto w-full">
                         <table className="w-full text-left min-w-[700px]"> 
-                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-[11px] font-bold tracking-[0.2em] border-b border-brand-light/20">
+                            <thead className="bg-brand-light/10 text-brand-dark uppercase text-md font-bold tracking-[0.2em] border-b border-brand-light/20">
                                 <tr>
                                     <th className="p-4">Destacada</th>
                                     <th className="p-4">Propiedad</th>
@@ -94,14 +94,14 @@ export const AdminPropiedades = () => {
                                         </td>
                                         <td className="p-4">
                                             <div className="font-display text-lg text-brand-dark">{p.titulo}</div>
-                                            <div className="text-brand-muted text-xs">{p.direccion}</div>
+                                            <div className="text-brand-muted text-md">{p.direccion}</div>
                                         </td>
 
                                         <td className="p-4 font-bold text-brand-primary">
                                             {p.moneda} {p.precio.toLocaleString()}
                                         </td>
 
-                                        <td className="p-4 uppercase text-[10px] font-bold tracking-wider text-brand-muted">
+                                        <td className="p-4 uppercase text-md font-bold tracking-wider text-brand-muted">
                                             {getTipoLabel(p.tipo)}
                                         </td>
                                         <td className="p-4">
