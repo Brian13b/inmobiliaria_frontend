@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Pagination, Parallax } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules'; 
 import { api } from '../services/api';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation'; 
 
 export const Hero = () => {
   const [slides, setSlides] = useState<any[]>([]);
@@ -54,41 +55,34 @@ export const Hero = () => {
   return (
     <section className="relative h-[550px] md:h-[750px] w-full bg-brand-dark overflow-hidden">
       <Swiper
-        modules={[Autoplay, EffectFade, Pagination, Parallax]}
+        modules={[Autoplay, EffectFade, Pagination, Navigation]}
         effect="fade"
-        speed={2000} 
-        parallax={true} 
-        autoplay={{ delay: 6000, disableOnInteraction: false }}
+        speed={1000} 
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
+        navigation={true} 
         loop={slides.length > 1}
-        className="h-full w-full"
+        className="h-full w-full hero-swiper"
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index} className="relative h-full w-full overflow-hidden">
-            {/* Imagen de Fondo con efecto Zoom suave */}
-            <div 
-              className="absolute inset-0 transform scale-110 animate-ken-burns"
-              data-swiper-parallax="20%" // Efecto de movimiento lateral suave
-            >
+          <SwiperSlide key={index} className="relative h-full w-full">
+            <div className="absolute inset-0">
               <img 
                 src={`${slide.image}&w=1920&q=80&fm=webp`} 
                 alt={slide.title} 
                 className="w-full h-full object-cover" 
                 fetchPriority="high"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-brand-dark/80"></div>
+              <div className="absolute inset-0 bg-black/40"></div>
             </div>
 
-            {/* Contenido con Parallax */}
+            {/* Contenido Central */}
             <div className="relative h-full flex flex-col items-center justify-center text-center text-white px-6">
-              <div data-swiper-parallax="-300" className="duration-1000 w-full max-w-5xl overflow-hidden">
-                <h1 className="font-display text-4xl md:text-7xl lg:text-8xl tracking-tighter drop-shadow-2xl mb-8 uppercase leading-tight px-2">
-                  {slide.title}
-                </h1>
-              </div>
-              
-              <div data-swiper-parallax="-150" className="duration-700">
-                <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase bg-brand-light text-brand-dark px-10 py-4 rounded-sm shadow-2xl">
+              <h1 className="font-display text-5xl md:text-8xl tracking-tight drop-shadow-2xl mb-8 uppercase max-w-5xl">
+                {slide.title}
+              </h1>
+              <div className="animate-fade-in-up">
+                <p className="font-body text-[10px] md:text-xs font-bold tracking-[0.4em] bg-brand-light text-brand-dark px-10 py-4 rounded-sm shadow-2xl uppercase">
                   {slide.subtitle}
                 </p>
               </div>
@@ -98,33 +92,37 @@ export const Hero = () => {
       </Swiper>
 
       <style>{`
-        /* Efecto Ken Burns (Zoom lento) */
-        @keyframes kenburns {
-          0% { transform: scale(1.1); }
-          100% { transform: scale(1.25); }
+        /* Personalización de las flechas de navegación */
+        .hero-swiper .swiper-button-next,
+        .hero-swiper .swiper-button-prev {
+          color: white;
+          transition: all 0.3s;
         }
-        .animate-ken-burns {
-          animation: kenburns 20s infinite alternate ease-in-out;
+        .hero-swiper .swiper-button-next:hover,
+        .hero-swiper .swiper-button-prev:hover {
+          color: #d8bf9f; /* Color arena al hacer hover */
+        }
+        .hero-swiper .swiper-button-next:after,
+        .hero-swiper .swiper-button-prev:after {
+          font-size: 24px; /* Tamaño de las flechas */
+          font-weight: bold;
         }
 
         /* Estilos Paginación */
-        .swiper-slide {
-          overflow: hidden !important;
-        }
-        .swiper-pagination-bullet {
+        .hero-swiper .swiper-pagination-bullet {
           background: white !important;
           opacity: 0.3;
           width: 8px;
           height: 8px;
-          transition: all 0.5s ease;
+          transition: all 0.3s ease;
         }
-        .swiper-pagination-bullet-active {
+        .hero-swiper .swiper-pagination-bullet-active {
           background: #d8bf9f !important;
           opacity: 1;
-          width: 40px;
+          width: 30px;
           border-radius: 4px;
         }
-        .swiper-pagination {
+        .hero-swiper .swiper-pagination {
           bottom: 40px !important;
         }
       `}</style>
