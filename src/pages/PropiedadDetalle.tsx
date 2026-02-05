@@ -5,10 +5,7 @@ import { type Propiedad } from '../types/propiedad';
 import { 
     MapPin, ArrowLeft, Camera, Copy, X, User, Phone, 
     Mail, Send, Loader2, Ruler, Zap, Droplets, Flame, Wifi, ShieldCheck, 
-    Compass, Navigation2,
-    Layout,
-    Check,
-    ArrowUpCircle
+    Compass, Navigation2, Layout, Check, ArrowUpCircle
 } from 'lucide-react'; 
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -151,7 +148,7 @@ export const PropiedadDetalle = () => {
 
                         {/* Descripción */}
                         <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
-                            <h3 className="font-display text-2xl text-brand-dark mb-4 uppercase tracking-tighter italic">Descripción</h3>
+                            <h3 className="font-body text-2xl text-brand-dark mb-4 uppercase tracking-wider italic">Descripción</h3>
                             <p className="text-brand-muted leading-relaxed whitespace-pre-line font-body text-lg border-l-2 border-brand-light/30 pl-6 italic">
                                 {propiedad.descripcion}
                             </p>
@@ -159,46 +156,44 @@ export const PropiedadDetalle = () => {
 
                         {/* Detalles Técnicos */}
                         <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
-                            <h3 className="font-display text-2xl text-brand-dark mb-6 uppercase tracking-tighter italic">Detalles de la unidad</h3>
+                            <h3 className="font-body text-2xl text-brand-dark mb-6 uppercase tracking-wider italic">Detalles</h3>
                             
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-4">
                                 <div className="text-center group">
                                     <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.cocheras}</p>
-                                    <span className="text-[10px] text-brand-muted uppercase font-bold tracking-[0.2em]">Cocheras</span>
+                                    <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Cocheras</span>
                                 </div>
                                 <div className="text-center md:border-x border-brand-light/20 group">
                                     <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.antiguedad === 0 ? "A Estrenar" : `${propiedad.antiguedad} años`}</p>
-                                    <span className="text-[10px] text-brand-muted uppercase font-bold tracking-[0.2em]">Antigüedad</span>
+                                    <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Antigüedad</span>
                                 </div>
                                 <div className="text-center group">
                                     <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.ambientes}</p>
-                                    <span className="text-[10px] text-brand-muted uppercase font-bold tracking-[0.2em]">Ambientes</span>
+                                    <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Ambientes</span>
                                 </div>
 
                                 <div className="text-center flex flex-col items-center justify-center gap-1 group">
                                     <p className="font-bold text-brand-dark text-sm uppercase group-hover:text-brand-primary transition-colors">{getEstadoLabel(propiedad.estado as any)}</p>
-                                    <span className="text-[9px] font-bold text-brand-muted uppercase tracking-widest">Estado</span>
+                                    <span className="text-sm font-bold text-brand-muted uppercase tracking-[0.2em]">Estado</span>
                                 </div>
                                 <div className="text-center md:border-x border-brand-light/20 flex flex-col items-center justify-center gap-1 group">
                                     <p className="font-bold text-brand-dark text-sm uppercase flex items-center gap-2 group-hover:text-brand-primary transition-colors">
                                         <Compass size={14} className="text-brand-primary"/> {getOrientacionLabel(propiedad.orientacion as any)}
                                     </p>
-                                    <span className="text-[9px] font-bold text-brand-muted uppercase tracking-widest">Orientación</span>
+                                    <span className="text-sm font-bold text-brand-muted uppercase tracking-[0.2em]">Orientación</span>
                                 </div>
                                 <div className="text-center flex flex-col items-center justify-center gap-1 group">
                                     <p className="font-bold text-brand-dark text-sm uppercase flex items-center gap-2 group-hover:text-brand-primary transition-colors">
                                         <Navigation2 size={14} className="text-brand-primary" /> {getDisposicionLabel(propiedad.disposicion as any)}
                                     </p>
-                                    <span className="text-[9px] font-bold text-brand-muted uppercase tracking-widest">Disposición</span>
+                                    <span className="text-sm font-bold text-brand-muted uppercase tracking-[0.2em]">Disposición</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Ambientes / Comodidades */}
                         <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
-                            <h3 className="font-display text-2xl text-brand-dark mb-6 uppercase tracking-tighter italic flex items-center gap-2">
-                                <Layout size={20} className="text-brand-primary"/> Ambientes
-                            </h3>
+                            <h3 className="font-display text-2xl text-brand-dark mb-6 uppercase tracking-wider italic flex items-center gap-2">Ambientes</h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                                 {[
                                     { val: propiedad.tieneCocina, label: 'Cocina' },
@@ -212,8 +207,8 @@ export const PropiedadDetalle = () => {
                                     { val: propiedad.tieneLavaderoSectorizado, label: 'Lavadero Sec.' },
                                 ].map((item, idx) => item.val && (
                                     <div key={idx} className="flex items-center gap-3 text-brand-dark group">
-                                        <Check size={16} className="text-brand-primary group-hover:scale-110 transition-transform" />
-                                        <span className="text-xs font-bold uppercase tracking-widest text-brand-muted group-hover:text-brand-dark transition-colors">{item.label}</span>
+                                        <Check size={18} className="text-brand-primary group-hover:scale-110 transition-transform" />
+                                        <span className="text-sm font-bold uppercase tracking-[0.2em] text-brand-muted group-hover:text-brand-dark transition-colors">{item.label}</span>
                                     </div>
                                 ))}
                             </div>
@@ -221,7 +216,7 @@ export const PropiedadDetalle = () => {
 
                         {/* Servicios */}
                         <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
-                            <h3 className="font-display text-2xl text-brand-dark mb-6 uppercase tracking-tighter italic flex items-center gap-2">
+                            <h3 className="font-display text-2xl text-brand-dark mb-6 uppercase tracking-wider italic flex items-center gap-2">
                                 <Zap size={20} className="text-brand-primary"/> Servicios
                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -240,7 +235,7 @@ export const PropiedadDetalle = () => {
                                         <div className="bg-white p-2 rounded-lg shadow-sm border border-brand-light/20 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
                                             <item.icon size={18} />
                                         </div>
-                                        <span className="text-[11px] font-bold uppercase tracking-wider text-brand-muted group-hover:text-brand-dark transition-colors">{item.label}</span>
+                                        <span className="text-sm font-bold uppercase tracking-[0.2em] text-brand-muted group-hover:text-brand-dark transition-colors">{item.label}</span>
                                     </div>
                                 ))}
                             </div>
