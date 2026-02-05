@@ -19,14 +19,17 @@ export const AdminFormulario = () => {
     const [previews, setPreviews] = useState<string[]>([]);
     
     const [form, setForm] = useState({
+        // Informacion General
         titulo: "",
         descripcion: "",
         precio: 0,
         moneda: "USD",
         precioExpensas: 0,
+        // Ubicacion
         direccion: "",
         barrio: "",
         ciudad: "Paraná",
+        // Detalles
         ambientes: 1,
         dormitorios: 0,
         baños: 1,
@@ -34,6 +37,7 @@ export const AdminFormulario = () => {
         superficieTotal: 0,
         superficieCubierta: 0,
         antiguedad: 0,
+        // Estado
         tipo: 0,
         estadoOperacion: "Venta",
         activa: true,
@@ -45,6 +49,7 @@ export const AdminFormulario = () => {
         tieneInternet: false,
         tieneCloacas: false,
         tienePavimento: false,
+        // Galeria
         imagenes: [] as any[]
     });
 
@@ -209,14 +214,18 @@ export const AdminFormulario = () => {
                         {/* 2. Ubicación */}
                         <div className={cardClass}>
                             <h3 className={sectionTitleClass}><MapPin className="w-5 h-5 text-brand-primary" /> Ubicación</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
                                     <label className={labelClass}>Dirección</label>
                                     <input name="direccion" value={form.direccion} onChange={handleChange} className={inputClass} placeholder="Calle y Nro" />
                                 </div>
                                 <div>
                                     <label className={labelClass}>Barrio / Zona</label>
-                                    <input name="barrio" value={form.barrio} onChange={handleChange} className={inputClass} placeholder="Ej: Centro / Oro Verde" />
+                                    <input name="barrio" value={form.barrio} onChange={handleChange} className={inputClass} placeholder="Ej: Centro / Sur" />
+                                </div>
+                                <div>
+                                    <label className={labelClass}>Ciudad</label>
+                                    <input name="ciudad" value={form.ciudad} onChange={handleChange} className={inputClass} placeholder="Ej: Paraná / Oro Verde" />
                                 </div>
                             </div>
                         </div>
@@ -287,7 +296,7 @@ export const AdminFormulario = () => {
 
                         {/* 5. Medidas */}
                         <div className={cardClass}>
-                            <h3 className={sectionTitleClass}><Ruler className="w-5 h-5 text-brand-primary" /> Superficies</h3>
+                            <h3 className={sectionTitleClass}><Ruler className="w-5 h-5 text-brand-primary" /> Detalles</h3>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className={labelClass}>Sup. Total (m²)</label>
