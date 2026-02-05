@@ -179,10 +179,10 @@ export const AdminFormulario = () => {
             <div className="max-w-6xl mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10 text-left">
                     <div>
-                        <Link to="/admin/propiedades" className="flex items-center gap-2 text-brand-muted hover:text-brand-primary font-bold text-sm uppercase tracking-widest transition-colors mb-2">
-                            <ArrowLeft className="w-4 h-4" /> Volver
+                        <Link to="/admin/propiedades" className="flex items-center gap-2 text-brand-muted hover:text-brand-primary font-bold text-sm  tracking-widest transition-colors mb-2">
+                            <ArrowLeft className="w-4 h-4" /> Volver al listado
                         </Link>
-                        <h1 className="text-3xl font-display tracking-tight uppercase">{esEdicion ? "Editar Propiedad" : "Cargar Inmueble"}</h1>
+                        <h1 className="text-3xl font-display tracking-tight">{esEdicion ? "Editar Propiedad" : "Cargar Inmueble"}</h1>
                     </div>
                     <button onClick={handleSubmit} disabled={loading} className="bg-brand-dark text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-primary transition shadow-xl flex items-center gap-2 text-xs tracking-widest uppercase disabled:opacity-50">
                         {loading ? <Loader2 className="animate-spin w-4 h-4" /> : <Save className="w-4 h-4" />}
