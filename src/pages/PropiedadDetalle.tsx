@@ -143,16 +143,16 @@ export const PropiedadDetalle = () => {
 
                         {/* Descripción */}
                         <div>
-                            <h3 className="font-body text-2xl text-brand-dark mb-4 italic">Descripción</h3>
+                            <h3 className="font-body text-2xl text-brand-dark mb-4 uppercase">Descripción</h3>
                             <p className="text-brand-muted leading-relaxed whitespace-pre-line font-body text-lg border-l-2 border-brand-light/30 pl-6 italic">
                                 {propiedad.descripcion}
                             </p>
                         </div>
 
                         {/* Servicios */}
-                        <div className="bg-gray-50/50 p-8 rounded-3xl border border-brand-light/10">
-                            <h3 className="font-display text-xl text-brand-dark mb-6 flex items-center gap-2 uppercase tracking-widest">
-                                <ShieldCheck className="text-brand-primary w-5 h-5" /> Servicios
+                        <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
+                            <h3 className="font-body text-2xl text-brand-dark mb-4 uppercase">
+                                Servicios
                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                                 {[
