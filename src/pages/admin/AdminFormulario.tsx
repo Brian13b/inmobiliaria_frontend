@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen } from '../../services/api';
-import { TipoPropiedad, type Propiedad } from '../../types/propiedad';
+import { TipoPropiedad } from '../../types/propiedad';
 import { 
     Save, ArrowLeft, Upload, Trash2, Home, MapPin, 
     CheckCircle, Image as ImageIcon, X, Loader2, Ruler, Zap 
