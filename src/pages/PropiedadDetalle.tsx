@@ -80,38 +80,43 @@ export const PropiedadDetalle = () => {
                 </div>
             )}
 
-            <SEO title={propiedad.titulo} description={propiedad.descripcion} image={propiedad.imagenes?.[0]?.url} />
+             <SEO
+                title={propiedad.titulo}
+                description={`Oportunidad en ${propiedad.estadoOperacion}: ${propiedad.tipo} en ${propiedad.direccion}. ${propiedad.ambientes} ambientes. Precio: ${propiedad.moneda} ${propiedad.precio}.`}
+                image={propiedad.imagenes?.[0]?.url || undefined}
+                keywords={`${propiedad.tipo}, ${propiedad.estadoOperacion}, ${propiedad.ciudad}, inmobiliaria bottazzi`}
+            />
 
             {/* Breadcrumb / Back */}
-            <div className="container mx-auto px-8 md:px-16 lg:px-32 mb-6">
-                <Link to={propiedad.estadoOperacion === 'Alquiler' ? '/alquileres' : '/ventas'} className="inline-flex items-center gap-2 text-brand-primary font-bold text-[10px] uppercase tracking-[0.2em] hover:text-brand-dark transition-colors">
+            <div className="container mx-auto px-8 md:px-16 lg:px-32 mb-6 text-xs uppercase font-bold tracking-widest">
+                <Link to={propiedad.estadoOperacion === 'Alquiler' ? '/alquileres' : '/ventas'} className="flex items-center gap-2 text-brand-primary hover:text-brand-secondary transition">
                     <ArrowLeft className="w-4 h-4" /> Volver al listado
                 </Link>
             </div>
 
             <div className="container mx-auto px-8 md:px-16 lg:px-32">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                     
                     {/* Columna Izquierda: Info */}
                     <div className="order-2 lg:order-1 space-y-10">
                         <div>
                             <div className="flex items-center gap-3 mb-4">
-                                <span className="bg-brand-primary text-white px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                                <span className="bg-brand-primary text-white px-3 py-1 rounded text-sm font-bold uppercase tracking-widest shadow-sm">
                                     {propiedad.estadoOperacion}
                                 </span>
                                 {propiedad.esDestacada && (
-                                    <span className="bg-brand-secondary/20 text-brand-secondary px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest border border-brand-secondary/30">
+                                    <span className="bg-brand-secondary/20 text-brand-secondary px-3 py-1 rounded text-sm font-bold uppercase tracking-widest border border-brand-secondary/30">
                                         Destacada
                                     </span>
                                 )}
                             </div>
-                            <h1 className="font-display text-4xl md:text-6xl text-brand-dark leading-tight uppercase tracking-tighter">{propiedad.titulo}</h1>
+                            <h1 className="font-display text-4xl md:text-4xl text-brand-dark leading-tight uppercase tracking-tighter">{propiedad.titulo}</h1>
                             <p className="text-brand-muted text-lg flex items-center gap-2 mt-4">
                                 <MapPin className="w-5 h-5 text-brand-primary" /> {propiedad.direccion}, {propiedad.barrio && `${propiedad.barrio},`} {propiedad.ciudad}
                             </p>
                             <div className="mt-8 flex items-baseline gap-2 text-brand-primary">
                                 <span className="text-2xl font-body font-light">{propiedad.moneda}</span>
-                                <span className="text-5xl font-display font-bold tracking-tight">{propiedad.precio.toLocaleString()}</span>
+                                <span className="text-5xl font-body font-bold tracking-tight">{propiedad.precio.toLocaleString()}</span>
                                 {propiedad.precioExpensas > 0 && <span className="text-brand-muted text-sm ml-4 font-body">+ ${propiedad.precioExpensas.toLocaleString()} expensas</span>}
                             </div>
                         </div>
@@ -119,35 +124,35 @@ export const PropiedadDetalle = () => {
                         {/* Grilla Técnica Principal */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-y border-brand-light/20 py-8">
                             <div className="text-center group">
-                                <p className="font-display text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.superficieTotal}m²</p>
-                                <span className="text-[9px] text-brand-muted uppercase font-bold tracking-[0.2em]">Sup. Total</span>
+                                <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.superficieTotal}m²</p>
+                                <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Sup. Total</span>
                             </div>
                             <div className="text-center border-l border-brand-light/20 group">
-                                <p className="font-display text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.superficieCubierta}m²</p>
-                                <span className="text-[9px] text-brand-muted uppercase font-bold tracking-[0.2em]">Cubierta</span>
+                                <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.superficieCubierta}m²</p>
+                                <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Sup. Cubierta</span>
                             </div>
                             <div className="text-center border-l border-brand-light/20 group">
-                                <p className="font-display text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.dormitorios}</p>
-                                <span className="text-[9px] text-brand-muted uppercase font-bold tracking-[0.2em]">Dormitorios</span>
+                                <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.dormitorios}</p>
+                                <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Dormitorios</span>
                             </div>
                             <div className="text-center border-l border-brand-light/20 group">
-                                <p className="font-display text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.baños}</p>
-                                <span className="text-[9px] text-brand-muted uppercase font-bold tracking-[0.2em]">Baños</span>
+                                <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.baños}</p>
+                                <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Baños</span>
                             </div>
                         </div>
 
                         {/* Descripción */}
                         <div>
-                            <h3 className="font-display text-2xl text-brand-dark mb-4 italic">Descripción</h3>
+                            <h3 className="font-body text-2xl text-brand-dark mb-4 italic">Descripción</h3>
                             <p className="text-brand-muted leading-relaxed whitespace-pre-line font-body text-lg border-l-2 border-brand-light/30 pl-6 italic">
                                 {propiedad.descripcion}
                             </p>
                         </div>
 
-                        {/* NUEVA SECCIÓN: SERVICIOS */}
+                        {/* Servicios */}
                         <div className="bg-gray-50/50 p-8 rounded-3xl border border-brand-light/10">
                             <h3 className="font-display text-xl text-brand-dark mb-6 flex items-center gap-2 uppercase tracking-widest">
-                                <ShieldCheck className="text-brand-primary w-5 h-5" /> Servicios e Instalaciones
+                                <ShieldCheck className="text-brand-primary w-5 h-5" /> Servicios
                             </h3>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                                 {[
@@ -169,29 +174,27 @@ export const PropiedadDetalle = () => {
                         </div>
 
                         {/* Formulario de Contacto */}
-                        <div id="contacto" className="bg-brand-dark p-8 md:p-10 rounded-3xl shadow-2xl relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-light/5 rounded-full -translate-y-1/2 translate-x-1/2" />
-                            <h3 className="font-display text-2xl text-white mb-8 text-center">Consultar ahora</h3>
-                            <form onSubmit={handleSubmit} className="space-y-4 relative z-10">
+                        <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
+                            <h3 className="font-display text-xl text-brand-dark mb-6 text-center italic">Me interesa esta propiedad</h3>
+                            <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="relative">
                                         <User className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
-                                        <input required name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} className={inputClass} />
+                                        <input required name="nombre" type="text" placeholder="Nombre" value={form.nombre} onChange={handleChange} className={inputClass} />
                                     </div>
                                     <div className="relative">
                                         <Phone className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
-                                        <input required name="telefono" placeholder="WhatsApp" value={form.telefono} onChange={handleChange} className={inputClass} />
+                                        <input required name="telefono" type="tel" placeholder="Teléfono" value={form.telefono} onChange={handleChange} className={inputClass} />
                                     </div>
                                 </div>
                                 <div className="relative">
                                     <Mail className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" />
                                     <input name="email" type="email" placeholder="Email (Opcional)" value={form.email} onChange={handleChange} className={inputClass} />
                                 </div>
-                                <textarea required name="mensaje" rows={3} placeholder="Me interesa esta propiedad..." value={form.mensaje} onChange={handleChange} className="w-full p-4 rounded-lg border border-brand-light/40 outline-none focus:ring-1 focus:ring-brand-primary/20 transition text-brand-dark resize-none font-body bg-white"></textarea>
-                                
-                                <button disabled={enviando} className="w-full bg-brand-primary text-white font-bold py-5 rounded-xl hover:brightness-110 transition shadow-lg flex items-center justify-center gap-3 uppercase tracking-[0.2em] text-[10px]">
+                                <textarea required name="mensaje" rows={3} placeholder="Escribí tu consulta..." value={form.mensaje} onChange={handleChange} className="w-full p-4 rounded-lg border border-brand-light/40 outline-none focus:ring-1 focus:ring-brand-primary/20 transition text-brand-dark resize-none"></textarea>
+                                <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-xl hover:bg-brand-primary transition shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]">
                                     {enviando ? <Loader2 className="animate-spin" /> : <Send className="w-4 h-4" />}
-                                    ENVIAR CONSULTA
+                                    {enviando ? "ENVIANDO..." : "ENVIAR CONSULTA"}
                                 </button>
                             </form>
                         </div>
@@ -206,9 +209,9 @@ export const PropiedadDetalle = () => {
                         </div>
                     </div>
 
-                    {/* Columna Derecha: Galería Sticky */}
+                    {/* Columna Derecha: Galería */}
                     <div className="order-1 lg:order-2 lg:sticky lg:top-28">
-                        <div className="w-full h-80 md:h-[500px] lg:h-[650px] bg-gray-100 rounded-[2.5rem] overflow-hidden relative group shadow-2xl border-8 border-white cursor-zoom-in">
+                        <div className="w-full h-80 md:h-[500px] lg:h-[80vh] max-h-[750px] bg-gray-100 rounded-[2rem] overflow-hidden relative group shadow-2xl border-4 border-white cursor-zoom-in">
                             <div className="absolute top-6 left-6 bg-brand-dark/80 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-[10px] font-bold z-20 flex items-center gap-2 shadow-xl">
                                 <Camera className="w-3.5 h-3.5 text-brand-light" /> {fotoActual} / {totalFotos}
                             </div>
@@ -223,15 +226,16 @@ export const PropiedadDetalle = () => {
                             >
                                 {propiedad.imagenes?.length ? propiedad.imagenes.map((img, i) => (
                                     <SwiperSlide key={i} onClick={() => setZoomImage(img.url)}>
-                                        <img src={img.url} className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" alt={propiedad.titulo} loading="lazy"/>
+                                        <img src={img.url} className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt={propiedad.titulo} loading="lazy"/>
                                     </SwiperSlide>
                                 )) : (
                                     <SwiperSlide><img src="https://placehold.co/800x1200?text=Consultar+Fotos" className="w-full h-full object-cover" alt="S/D" /></SwiperSlide>
                                 )}
                             </Swiper>
                         </div>
-                        {/* Indicador sutil de scroll si hay mucho texto a la izquierda */}
-                        <p className="text-[9px] text-brand-muted uppercase font-bold tracking-[0.3em] text-center mt-6 animate-bounce hidden lg:block opacity-50">Explora la descripción a la izquierda</p>
+                        <p className="text-[9px] text-brand-muted uppercase font-bold tracking-[0.3em] text-center mt-4 hidden lg:block opacity-50 italic">
+                            Click en la imagen para ampliar
+                        </p>
                     </div>
 
                 </div>
