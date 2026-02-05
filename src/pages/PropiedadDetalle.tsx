@@ -5,7 +5,7 @@ import { type Propiedad } from '../types/propiedad';
 import { 
     MapPin, ArrowLeft, Camera, Copy, X, User, Phone, 
     Mail, Send, Loader2, Ruler, Zap, Droplets, Flame, Wifi, ShieldCheck, 
-    Compass, Navigation2, Layout, Check, ArrowUpCircle
+    Compass, Navigation2, Check, ArrowUpCircle
 } from 'lucide-react'; 
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
