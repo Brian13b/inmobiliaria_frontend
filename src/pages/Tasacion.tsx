@@ -45,7 +45,7 @@ export const Tasacion = () => {
   const inputClass = "w-full bg-gray-50 border border-brand-light/60 rounded-lg p-3 pl-10 outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20 transition text-brand-dark placeholder:text-gray-400";
 
   return (
-    <div className="min-h-screen bg-white pt-32 pb-20">
+    <div className="min-h-screen bg-white pt-10 pb-20">
       <SEO 
         title="Tasación Profesional" 
         description="¿Querés vender o alquilar tu propiedad? Solicitá una tasación profesional con Inmobiliaria Bottazzi."
@@ -57,18 +57,18 @@ export const Tasacion = () => {
         <div className="container mx-auto px-8 md:px-16 lg:px-32 relative z-10">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
               
-            <div className="lg:w-1/2 text-brand-dark">
-                <span className="text-brand-primary font-bold tracking-[0.3em] uppercase text-[11px]">Valuaciones Reales</span>
+            <div className="lg:w-1/2 text-brand-dark space-y-8">
+                <span className="text-brand-primary font-bold tracking-[0.3em] uppercase text-sm">Valuaciones Reales</span>
                 <h2 className="font-display text-5xl md:text-7xl mt-4 mb-6 leading-tight">
-                    Tu propiedad vale, <br /> 
-                    <span className="italic text-brand-primary/80">nosotros sabemos cuánto.</span>
+                    Tu propiedad tiene una historia y un valor, <br /> 
+                    <span className="italic text-brand-primary/80">nosotros te ayudamos a conocerlo.</span>
                 </h2>
-                <p className="text-brand-muted text-lg mb-8 leading-relaxed font-body max-w-md">
-                    Completá los datos y te contactaremos para brindarte una buena atención.
+                <p className="text-brand-muted text-xl mb-8 leading-relaxed font-body max-w-md">
+                    Completá tus datos y nos pondremos en contacto para asesorarte de manera personalizada.
                 </p>
                 <div className="flex items-center gap-4 text-brand-primary border-l-2 border-brand-light pl-6">
                    <Calculator className="w-8 h-8 text-brand-primary" />
-                   <span className="font-display text-xl uppercase tracking-widest">Atención en 48hs.</span>
+                   <span className="font-display text-lg uppercase tracking-widest">Atención en 48hs.</span>
                 </div>
             </div>
 
@@ -104,7 +104,7 @@ export const Tasacion = () => {
                   </select>
                 </div>
 
-                <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-brand-primary transition-all duration-300 shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest text-[10px]">
+                <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-brand-primary transition-all duration-300 shadow-lg flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
                     {enviando ? "ENVIANDO..." : <><Send className="w-4 h-4" /> ENVIAR SOLICITUD</>}
                 </button>
               </form>

@@ -71,7 +71,7 @@ export const Hero = () => {
           <SwiperSlide key={index} className="relative h-full w-full">
             <div className="absolute inset-0">
               <img 
-                src={`${slide.image}&w=1920&q=80&fm=webp`} 
+                src={slide.image} 
                 alt={slide.title} 
                 className="w-full h-full object-cover" 
                 fetchPriority="high"

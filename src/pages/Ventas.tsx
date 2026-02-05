@@ -162,7 +162,7 @@ export const VentasPage = () => {
                                         {prop.imagenes?.map((img) => (
                                             <SwiperSlide key={img.id}>
                                                 <img 
-                                                    src={`${img.url}&w=800&q=75&fm=webp`} 
+                                                    src={img.url}
                                                     alt={prop.titulo} 
                                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                                                     loading="lazy"

@@ -48,7 +48,7 @@ export const ContactoPage = () => {
           {/* Info de Contacto */}
           <div className="space-y-8">
             <div>
-              <span className="text-brand-primary font-bold tracking-[0.3em] uppercase text-[10px]">Atención Personalizada</span>
+              <span className="text-brand-primary font-bold tracking-[0.3em] uppercase text-sm">Atención Personalizada</span>
               <h1 className="font-display text-5xl md:text-7xl text-brand-dark mt-4 mb-6">Estamos para <span className="italic text-brand-primary/80">ayudarte.</span></h1>
             </div>
             
@@ -58,10 +58,10 @@ export const ContactoPage = () => {
                 { icon: Phone, title: "WhatsApp", text: "+54 9 343 416-0058" },
                 { icon: Mail, title: "Email", text: "bottazzinegociosinmobiliarios@gmail.com" }
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-5 p-4 rounded-2xl border border-gray-100 hover:border-brand-light transition-colors">
+                <div key={i} className="flex items-center gap-5 p-4 rounded-2xl border border-gray-100 hover:border-brand-light transition-colors overflow-auto">
                   <div className="bg-brand-light/20 p-3 rounded-xl"><item.icon className="w-6 h-6 text-brand-primary" /></div>
                   <div>
-                    <p className="text-[10px] font-bold text-brand-muted uppercase tracking-widest">{item.title}</p>
+                    <p className="text-lg font-bold text-brand-muted uppercase tracking-widest">{item.title}</p>
                     <p className="text-brand-dark font-medium">{item.text}</p>
                   </div>
                 </div>
@@ -77,7 +77,7 @@ export const ContactoPage = () => {
                     scrolling="no" 
                     title="Ubicación Inmobiliaria Bottazzi"
                     style={{ filter: 'grayscale(0.1) contrast(1.1)' }}
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=-60.516000,-31.742000,-60.517000,-31.743000&layer=mapnik&marker=-31.742673,-60.516621"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=-60.514621,-31.740673,-60.518621,-31.744673&layer=mapnik&marker=-31.742673,-60.516621"
                 ></iframe>
                 <div className="absolute bottom-4 right-4 z-20">
                     <a 
@@ -108,7 +108,7 @@ export const ContactoPage = () => {
               <div className="relative"><Phone className="absolute left-3 top-3.5 text-brand-primary w-5 h-5" /><input required name="telefono" type="tel" placeholder="Teléfono" className={inputClass} value={form.telefono} onChange={handleChange} /></div>
               <textarea required name="mensaje" rows={4} placeholder="¿En qué podemos ayudarte?" className="w-full bg-gray-50 border border-brand-light/40 rounded-lg p-4 outline-none focus:border-brand-primary transition text-brand-dark resize-none font-body" value={form.mensaje} onChange={handleChange}></textarea>
               
-              <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-brand-primary transition flex items-center justify-center gap-3 tracking-widest text-[10px]">
+              <button disabled={enviando} className="w-full bg-brand-dark text-white font-bold py-4 rounded-lg hover:bg-brand-primary transition flex items-center justify-center gap-3 tracking-widest text-sm">
                 {enviando ? <Loader2 className="animate-spin" /> : <Send className="w-4 h-4" />}
                 {enviando ? "ENVIANDO..." : "ENVIAR CONSULTA"}
               </button>

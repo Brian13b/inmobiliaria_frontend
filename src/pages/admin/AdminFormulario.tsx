@@ -165,7 +165,7 @@ export const AdminFormulario = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
                     <div>
-                        <Link to="/admin/propiedades" className="flex items-center gap-2 text-brand-muted hover:text-brand-primary font-bold text-[10px] uppercase tracking-widest transition-colors mb-2">
+                        <Link to="/admin/propiedades" className="flex items-center gap-2 text-brand-muted hover:text-brand-primary font-bold text-sm uppercase tracking-widest transition-colors mb-2">
                             <ArrowLeft className="w-4 h-4" /> Volver al listado
                         </Link>
                         <h1 className="text-3xl font-display tracking-tight">{esEdicion ? "Editar Propiedad" : "Cargar Inmueble"}</h1>

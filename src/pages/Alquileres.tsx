@@ -160,7 +160,7 @@ export const AlquileresPage = () => {
                                     >
                                         {prop.imagenes?.map((img) => (
                                             <SwiperSlide key={img.id}>
-                                                <img src={`${img.url}&w=800&q=75&fm=webp`} alt={prop.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
+                                                <img src={img.url} alt={prop.titulo} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
