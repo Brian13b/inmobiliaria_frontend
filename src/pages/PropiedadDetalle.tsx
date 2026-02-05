@@ -45,7 +45,7 @@ export const PropiedadDetalle = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setEnviando(true);
-        const textoWsp = `CONSULTA POR PROPIEDAD: ${propiedad.titulo}\nLink: ${window.location.href}\nNombre: ${form.nombre}\nTel: ${form.telefono}\nMensaje: ${form.mensaje}`;
+        const textoWsp = `CONSULTA POR PROPIEDAD: ${propiedad.titulo}\n\nLink: ${window.location.href}\nNombre: ${form.nombre}\nTel: ${form.telefono}\n\n${form.mensaje}`;
 
         try {
             await enviarMensaje({
@@ -54,7 +54,7 @@ export const PropiedadDetalle = () => {
                 email: form.email || "consulta@web.com",
                 contenido: textoWsp
             });
-            const numWsp = "5493434676232"; 
+            const numWsp = "5493434160058"; 
             window.open(`https://wa.me/${numWsp}?text=${encodeURIComponent(textoWsp)}`, '_blank');
             toast.success("¡Consulta enviada!");
             setForm({ nombre: "", telefono: "", email: "", mensaje: "" }); 

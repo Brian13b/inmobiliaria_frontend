@@ -53,6 +53,8 @@ export const AdminFormulario = () => {
         tieneAscensor: false,
         tieneTelefono: false,
         tieneSeguridad: false,
+        tieneImpMunicipales: false,
+        tieneImpProvinciales: false,
         // Comodidades / Ambientes
         tienePatio: false,
         tienePatioSeco: false,
@@ -63,6 +65,12 @@ export const AdminFormulario = () => {
         tieneLivingComedor: false,
         tieneLavadero: false,
         tieneLavaderoSectorizado: false,
+        tieneTerraza: false,
+        tieneComedor: false,
+        tieneFondo: false,
+        tienePiscina: false,
+        tieneToilette: false,
+        tieneQuincho: false,
         imagenes: [] as any[]
     });
 
@@ -311,10 +319,16 @@ export const AdminFormulario = () => {
                                     {id: 'tieneLivingComedor', n: 'Living Comedor'},
                                     {id: 'tieneLavadero', n: 'Lavadero'},
                                     {id: 'tieneLavaderoSectorizado', n: 'Lavadero Sectorizado'},
+                                    {id: 'tieneTerraza', n: 'Terraza'},
+                                    {id: 'tieneComedor', n: 'Comedor'},
+                                    {id: 'tieneFondo', n: 'Fondo'},
+                                    {id: 'tienePiscina', n: 'Piscina'},
+                                    {id: 'tieneToilette', n: 'Toilette'},
+                                    {id: 'tieneQuincho', n: 'Quincho'},
                                 ].map(c => (
                                     <label key={c.id} className="flex items-center gap-3 p-2.5 bg-gray-50 rounded-lg cursor-pointer hover:bg-brand-light/10 transition border border-transparent hover:border-brand-light/20">
                                         <input type="checkbox" name={c.id} checked={(form as any)[c.id]} onChange={handleChange} className="w-4 h-4 text-brand-primary rounded border-brand-light" />
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-brand-muted">{c.n}</span>
+                                        <span className="text-sm font-bold uppercase tracking-wider text-brand-muted">{c.n}</span>
                                     </label>
                                 ))}
                             </div>
@@ -362,6 +376,9 @@ export const AdminFormulario = () => {
                                     <option value={TipoPropiedad.Terreno}>Terreno</option>
                                     <option value={TipoPropiedad.Local}>Local</option>
                                     <option value={TipoPropiedad.Oficina}>Oficina</option>
+                                    <option value={TipoPropiedad.Ph}>PH</option>
+                                    <option value={TipoPropiedad.Galpon}>Galpón</option>
+                                    <option value={TipoPropiedad.Campo}>Campo</option>
                                 </select>
                                 <div className="space-y-3 pt-2">
                                     <label className="flex items-center gap-3 cursor-pointer group">
@@ -411,10 +428,12 @@ export const AdminFormulario = () => {
                                     {id: 'tieneAscensor', n: 'Ascensor'},
                                     {id: 'tieneTelefono', n: 'Teléfono'},
                                     {id: 'tieneSeguridad', n: 'Seguridad'},
+                                    {id: 'tieneImpMunicipales', n: 'Imp. Municipales'},
+                                    {id: 'tieneImpProvinciales', n: 'Imp. Provinciales'},
                                 ].map(s => (
                                     <label key={s.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition">
                                         <input type="checkbox" name={s.id} checked={(form as any)[s.id]} onChange={handleChange} className="w-4 h-4 text-brand-primary rounded border-brand-light focus:ring-brand-primary" />
-                                        <span className="text-[10px] font-bold uppercase tracking-wider text-brand-muted">{s.n}</span>
+                                        <span className="text-sm font-bold uppercase tracking-wider text-brand-muted">{s.n}</span>
                                     </label>
                                 ))}
                             </div>

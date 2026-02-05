@@ -47,6 +47,9 @@ export const VentasPage = () => {
         if (filtroTipo === "Terreno") tipoEnum = TipoPropiedad.Terreno;
         if (filtroTipo === "Local") tipoEnum = TipoPropiedad.Local;
         if (filtroTipo === "Oficina") tipoEnum = TipoPropiedad.Oficina;
+        if (filtroTipo === "Ph") tipoEnum = TipoPropiedad.Ph;
+        if (filtroTipo === "Galpon") tipoEnum = TipoPropiedad.Galpon;
+        if (filtroTipo === "Campo") tipoEnum = TipoPropiedad.Campo;
         if (tipoEnum !== null) resultado = resultado.filter(p => p.tipo === tipoEnum);
     }
     if (precioMin) resultado = resultado.filter(p => p.precio >= Number(precioMin));
@@ -109,6 +112,9 @@ export const VentasPage = () => {
                                         <option>Terreno</option>
                                         <option>Local</option>
                                         <option>Oficina</option>
+                                        <option>Ph</option>
+                                        <option>Galpon</option>
+                                        <option>Campo</option>
                                     </select>
                                     <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-muted w-4 h-4 pointer-events-none" />
                                 </div>

@@ -15,18 +15,16 @@ export const ContactoPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setEnviando(true);
-    const mensajeCompleto = `CONSULTA WEB\nNombre: ${form.nombre} ${form.apellido}\nEmail: ${form.email}\nTel: ${form.telefono}\nMensaje: ${form.mensaje}`;
+    const mensajeCompleto = `CONSULTA WEB\n\nNombre: ${form.nombre} ${form.apellido}\nEmail: ${form.email}\nTel: ${form.telefono}\n\n${form.mensaje}`;
     
     try {
-        // 1. Guardar en Admin
         await enviarMensaje({
             nombre: `${form.nombre} ${form.apellido}`,
             email: form.email,
             telefono: form.telefono,
             contenido: form.mensaje
         });
-        // 2. Enviar a WhatsApp
-        const numWsp = "5493434676232"; // Cambiar numero de telefono al de la inmobiliaria
+        const numWsp = "5493434160058"; 
         window.open(`https://wa.me/${numWsp}?text=${encodeURIComponent(mensajeCompleto)}`, '_blank');
         
         toast.success("¡Mensaje enviado!");

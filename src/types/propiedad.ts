@@ -3,7 +3,10 @@ export const TipoPropiedad = {
     Departamento: 1,
     Terreno: 2,
     Local: 3,
-    Oficina: 4
+    Oficina: 4,
+    Ph: 5,
+    Galpon: 6,
+    Campo: 7,
 } as const;
 
 export type TipoPropiedadValue = typeof TipoPropiedad[keyof typeof TipoPropiedad];
@@ -55,6 +58,8 @@ export interface Propiedad {
     tieneAscensor: boolean;
     tieneTelefono: boolean;
     tieneSeguridad: boolean;
+    TieneImpMunicipales: boolean;
+    TieneImpProvinciales: boolean;
 
     // Comodidades / Ambientes (Checklist)
     tienePatio: boolean;
@@ -66,6 +71,12 @@ export interface Propiedad {
     tieneLivingComedor: boolean;
     tieneLavadero: boolean;
     tieneLavaderoSectorizado: boolean;
+    TieneTerraza: boolean;
+    TieneComedor: boolean;
+    TieneFondo: boolean;
+    TienePiscina: boolean;
+    TieneToilette: boolean;
+    TieneQuincho: boolean;
 
     // Estado y Meta
     tipo: TipoPropiedadValue;
@@ -86,6 +97,9 @@ export const getTipoLabel = (tipo: number): string => {
         case TipoPropiedad.Terreno: return "Terreno";
         case TipoPropiedad.Local: return "Local";
         case TipoPropiedad.Oficina: return "Oficina";
+        case TipoPropiedad.Ph: return "Ph";
+        case TipoPropiedad.Galpon: return "Galpon";
+        case TipoPropiedad.Campo: return "Campo";
         default: return "Propiedad";
     }
 };

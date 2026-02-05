@@ -33,8 +33,8 @@ export const HomePage = () => {
     return (
         <div className="min-h-screen bg-gray-50 pb-20 font-body">
             <SEO 
-                title="Inicio" 
-                description="Tu inmobiliaria de confianza." 
+                title="Inmobiliaria Bottazzi - Propiedades en Paraná, Entre Ríos" 
+                description="Inmobiliaria Bottazzi: Venta, alquiler y administración de propiedades Paraná. Atención personalizada y experiencia local." 
             />
             
             <Hero />
@@ -66,6 +66,9 @@ export const HomePage = () => {
                             <option>Terreno</option>
                             <option>Local</option>
                             <option>Oficina</option>
+                            <option>Ph</option>
+                            <option>Galpon</option>
+                            <option>Campo</option>
                         </select>
                     </div>
                     <div>
@@ -92,18 +95,29 @@ export const HomePage = () => {
             <section className="py-24 container mx-auto px-8 md:px-16 lg:px-32">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {[
-                        { icon: Home, title: "Ventas", text: "Te acompañamos en el proceso de compra-venta." },
-                        { icon: Building, title: "Alquiler", text: "Opciones verificadas para tu próximo hogar." },
-                        { icon: Briefcase, title: "Tasación", text: "Valoramos tu propiedad con criterio profesional." },
-                        { icon: Key, title: "Administración", text: "Gestionamos tus rentas sin preocupaciones." },
+                        { icon: Home, title: "Ventas", text: "Te acompañamos en el proceso de compra-venta.", link: "/ventas" },
+                        { icon: Building, title: "Alquiler", text: "Opciones verificadas para tu próximo hogar.", link: "/alquileres" },
+                        { icon: Briefcase, title: "Tasación", text: "Valoramos tu propiedad con criterio profesional.", link: "/tasaciones" },
+                        { icon: Key, title: "Administración", text: "Gestionamos tus rentas sin preocupaciones.", link: "/contacto" },
                     ].map((item, i) => (
-                        <div key={i} className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-brand-light/20 group text-center">
+                        <Link 
+                            to={item.link} 
+                            key={i} 
+                            className="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-brand-light/20 group text-center block"
+                        >
                             <div className="w-16 h-16 bg-brand-light/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-brand-primary transition-colors duration-300">
                                 <item.icon className="w-8 h-8 text-brand-primary group-hover:text-white transition-colors duration-300" />
                             </div>
-                            <h3 className="font-display text-xl text-brand-dark mb-3">{item.title}</h3>
-                            <p className="text-brand-muted text-sm leading-relaxed">{item.text}</p>
-                        </div>
+                            <h3 className="font-display text-xl font-bold text-brand-dark mb-3 uppercase tracking-wide group-hover:text-brand-primary transition-colors">
+                                {item.title}
+                            </h3>
+                            <p className="text-brand-muted text-sm leading-relaxed">
+                                {item.text}
+                            </p>
+                            <div className="mt-6 text-sm font-bold uppercase tracking-[0.2em] text-brand-primary opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                                Saber más →
+                            </div>
+                        </Link>
                     ))}
                 </div>
             </section>

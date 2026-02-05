@@ -18,7 +18,7 @@ export const Tasacion = () => {
     e.preventDefault();
     setEnviando(true);
 
-    const mensajeTexto = `SOLICITUD DE TASACIÓN\n-------------------\nPropiedad: ${formData.tipoInmueble}\nDirección: ${formData.direccion}\nContacto: ${formData.nombre}\nTel: ${formData.telefono}`;
+    const mensajeTexto = `SOLICITUD DE TASACIÓN\n\nPropiedad: ${formData.tipoInmueble}\nDirección: ${formData.direccion}\nContacto: ${formData.nombre}\nTel: ${formData.telefono}`;
     
     try {
       await enviarMensaje({
@@ -28,7 +28,7 @@ export const Tasacion = () => {
           contenido: mensajeTexto
       });
 
-      const numWsp = "5493434676232"; // Cambiar a numero de la inmobiliaria despues
+      const numWsp = "5493434160058"; 
       const urlWsp = `https://wa.me/${numWsp}?text=${encodeURIComponent(mensajeTexto)}`;
       
       toast.success("¡Solicitud enviada con éxito!");
