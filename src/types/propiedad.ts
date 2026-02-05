@@ -24,27 +24,48 @@ export interface Propiedad {
     
     // Ubicación
     direccion: string;
-    barrio?: string;
+    barrio: string;
     ciudad: string;
     latitud?: number;
     longitud?: number;
 
-    // Medidas y Ambientes
+    // Medidas y Cantidades
     ambientes: number;
     dormitorios: number;
     baños: number;
     cocheras: number;
-    superficieTotal: number;      // m2 del terreno/lote
-    superficieCubierta: number;   // m2 construidos
-    antiguedad: number;           // 0 para a estrenar
+    superficieTotal: number;      
+    superficieCubierta: number;   
+    antiguedad: number;           
+
+    // Ficha Técnica (Enums de C#)
+    estado: number;               // 0: Excelente, 1: Muy Bueno, etc.
+    orientacion: number;          // 0: Norte, 1: Sur, etc.
+    disposicion: number;          // 0: Frente, 1: Contrafrente, etc.
 
     // Servicios (Checklist)
     tieneAgua: boolean;
-    tieneGas: boolean;
+    tieneGasNatural: boolean;
+    tieneGasEnvasado: boolean;
     tieneLuz: boolean;
     tieneInternet: boolean;
     tieneCloacas: boolean;
     tienePavimento: boolean;
+    tieneCalefon: boolean;
+    tieneAscensor: boolean;
+    tieneTelefono: boolean;
+    tieneSeguridad: boolean;
+
+    // Comodidades / Ambientes (Checklist)
+    tienePatio: boolean;
+    tienePatioSeco: boolean;
+    tieneBalcon: boolean;
+    tieneCocina: boolean;
+    tieneCocinaComedor: boolean;
+    tieneLiving: boolean;
+    tieneLivingComedor: boolean;
+    tieneLavadero: boolean;
+    tieneLavaderoSectorizado: boolean;
 
     // Estado y Meta
     tipo: TipoPropiedadValue;
@@ -58,7 +79,6 @@ export interface Propiedad {
     imagenDestacada?: string;
 }
 
-// Helper para mostrar el texto del Enum de forma amigable
 export const getTipoLabel = (tipo: number): string => {
     switch (tipo) {
         case TipoPropiedad.Casa: return "Casa";
