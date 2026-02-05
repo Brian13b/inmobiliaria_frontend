@@ -7,7 +7,8 @@ import {
     Mail, Send, Loader2, Ruler, Zap, Droplets, Flame, Wifi, ShieldCheck, 
     Compass, Navigation2,
     Layout,
-    Check
+    Check,
+    ArrowUpCircle
 } from 'lucide-react'; 
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
