@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { getActivas } from '../services/api';
 import { getTipoLabel, type Propiedad, TipoPropiedad } from '../types/propiedad';
-import { 
-    Filter, Search, MapPin, Bed, Bath, Car, 
-    ChevronDown, Ruler, Zap, Wifi, Droplets, Flame 
-} from 'lucide-react';
+import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
 import 'swiper/css';
@@ -62,7 +59,7 @@ export const VentasPage = () => {
   }, [filtroTexto, filtroTipo, precioMin, precioMax, dormitorios, propiedades]);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-32 pb-20 font-body">
+    <div className="min-h-screen bg-gray-50 pt-32 pb-12 font-body">
         <SEO title="Propiedades en Venta" description="Explorá nuestro catálogo exclusivo de propiedades en venta." />
 
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
@@ -76,8 +73,8 @@ export const VentasPage = () => {
                                 <Filter className="w-5 h-5 text-brand-primary" /> Filtros
                             </h3>
                             <button 
-                                onClick={() => {setFiltroTexto(""); setFiltroTipo("Todos"); setPrecioMin(""); setPrecioMax(""); setDormitorios("Cualq.");}} 
-                                className="text-[12px] uppercase tracking-widest text-brand-primary font-bold hover:opacity-70 transition"
+                                onClick={() => {setFiltroTexto(""); setFiltroTipo("Todos"); setPrecioMin(""); setPrecioMax(""); setDormitorios("Cualquiera");}} 
+                                className="text-[14px] uppercase tracking-widest text-brand-primary font-bold hover:opacity-70 transition"
                             >
                                 Limpiar
                             </button>
@@ -85,7 +82,7 @@ export const VentasPage = () => {
 
                         <div className="space-y-6">
                             <div>
-                                <label className="text-[10px] font-bold text-brand-muted uppercase mb-2 block tracking-widest">Ubicación</label>
+                                <label className="text-[14px] font-bold text-brand-muted uppercase mb-2 block tracking-widest">Ubicación</label>
                                 <div className="relative">
                                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted w-4 h-4" />
                                     <input 
@@ -99,7 +96,7 @@ export const VentasPage = () => {
                             </div>
 
                             <div>
-                                <label className="text-[10px] font-bold text-brand-muted uppercase mb-2 block tracking-widest">Tipo de Inmueble</label>
+                                <label className="text-sm font-bold text-brand-muted uppercase mb-2 block tracking-widest">Tipo</label>
                                 <div className="relative">
                                     <select 
                                         className="w-full pl-3 pr-8 py-2.5 border border-brand-light/50 rounded-lg text-sm appearance-none bg-gray-50 focus:ring-1 focus:ring-brand-primary outline-none text-brand-dark"
@@ -118,7 +115,7 @@ export const VentasPage = () => {
                             </div>
 
                             <div>
-                                <label className="text-[10px] font-bold text-brand-muted uppercase mb-2 block tracking-widest">Rango de Precio</label>
+                                <label className="text-sm font-bold text-brand-muted uppercase mb-2 block tracking-widest">Presupuesto</label>
                                 <div className="flex gap-2">
                                     <input type="number" placeholder="Min" className="w-1/2 px-3 py-2.5 border border-brand-light/50 rounded-lg text-sm outline-none focus:ring-1 focus:ring-brand-primary bg-gray-50" value={precioMin} onChange={e => setPrecioMin(e.target.value)} />
                                     <input type="number" placeholder="Max" className="w-1/2 px-3 py-2.5 border border-brand-light/50 rounded-lg text-sm outline-none focus:ring-1 focus:ring-brand-primary bg-gray-50" value={precioMax} onChange={e => setPrecioMax(e.target.value)} />
@@ -126,13 +123,13 @@ export const VentasPage = () => {
                             </div>
                             
                             <div>
-                                <label className="text-[10px] font-bold text-brand-muted uppercase mb-2 block tracking-widest">Habitaciones</label>
+                                <label className="text-sm font-bold text-brand-muted uppercase mb-2 block tracking-widest">Dormitorios</label>
                                 <div className="flex flex-wrap gap-2">
                                     {["Cualq.", "1", "2", "3", "4+"].map(opt => (
                                         <button 
                                             key={opt}
                                             onClick={() => setDormitorios(opt)}
-                                            className={`flex-1 py-2 text-[10px] font-bold rounded border transition-all ${dormitorios === opt ? 'bg-brand-primary text-white border-brand-primary' : 'bg-white text-brand-muted border-brand-light hover:border-brand-primary'}`}
+                                            className={`px-3 py-1.5 text-sm font-bold rounded border transition-all ${dormitorios === opt ? 'bg-brand-primary text-white border-brand-primary' : 'bg-white text-brand-muted border-brand-light hover:border-brand-primary'}`}
                                         >
                                             {opt}
                                         </button>
@@ -143,13 +140,11 @@ export const VentasPage = () => {
                     </div>
                 </aside>
 
-                {/* Resultados */}
+                {/* Listado de Propiedades */}
                 <main className="lg:w-3/4">
-                    <div className="mb-10 border-b border-brand-light/20 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
-                        <div>
-                            <h1 className="font-display text-4xl md:text-5xl text-brand-dark mb-2">Ventas Exclusivas</h1>
-                            <p className="text-brand-muted text-sm font-body italic">Descubrí {filtradas.length} oportunidades de inversión.</p>
-                        </div>
+                    <div className="mb-10 border-b border-brand-light/20 pb-6">
+                        <h1 className="font-display text-4xl md:text-5xl text-brand-dark mb-2">Ventas</h1>
+                        <p className="text-brand-muted text-sm font-body italic">{filtradas.length} propiedades seleccionadas para vos.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -161,6 +156,7 @@ export const VentasPage = () => {
                                         effect={'fade'} 
                                         slidesPerView={1} 
                                         loop={true}
+                                        navigation={false} 
                                         className="h-full w-full"
                                     >
                                         {prop.imagenes?.map((img) => (
@@ -186,52 +182,32 @@ export const VentasPage = () => {
                                 </div>
 
                                 <div className="p-6 flex flex-col grow">
-                                    <h2 className="font-display text-2xl text-brand-dark mb-1 truncate group-hover:text-brand-primary transition-colors uppercase tracking-tight">{prop.titulo}</h2>
+                                    <h2 className="font-display text-xl text-brand-dark mb-1 truncate group-hover:text-brand-primary transition-colors uppercase tracking-tight">{prop.titulo}</h2>
                                     <p className="text-brand-muted text-sm mb-6 flex items-center gap-1 font-body">
                                         <MapPin className="w-3.5 h-3.5 text-brand-primary" /> {prop.direccion}
                                     </p>
                                     
-                                    {/* Grilla Técnica de 4 Columnas */}
-                                    <div className="grid grid-cols-4 gap-2 text-brand-dark text-[10px] uppercase font-bold tracking-widest mb-6 border-y border-brand-light/10 py-4 text-center">
-                                        <div className="flex flex-col items-center gap-1 border-r border-brand-light/10">
-                                            <Bed className="w-4 h-4 text-brand-primary" /> {prop.dormitorios}
-                                        </div>
-                                        <div className="flex flex-col items-center gap-1 border-r border-brand-light/10">
-                                            <Bath className="w-4 h-4 text-brand-primary" /> {prop.baños}
-                                        </div>
-                                        <div className="flex flex-col items-center gap-1 border-r border-brand-light/10">
-                                            <Car className="w-4 h-4 text-brand-primary" /> {prop.cocheras}
-                                        </div>
-                                        <div className="flex flex-col items-center gap-1">
-                                            <Ruler className="w-4 h-4 text-brand-primary" /> {prop.superficieCubierta}m²
-                                        </div>
-                                    </div>
-
-                                    {/* Fila de Servicios (Dinámica) */}
-                                    <div className="flex items-center gap-4 mb-6">
-                                        {prop.tieneLuz && <Zap size={14} className="text-brand-primary" />}
-                                        {prop.tieneAgua && <Droplets size={14} className="text-brand-primary" />}
-                                        {prop.tieneGas && <Flame size={14} className="text-brand-primary" />}
-                                        {prop.tieneInternet && <Wifi size={14} className="text-brand-primary" />}
+                                    <div className="grid grid-cols-3 gap-4 text-brand-dark text-sm uppercase font-bold tracking-widest mb-6 border-y border-brand-light/10 py-4">
+                                        <div className="flex flex-col items-center gap-1 border-r border-brand-light/20"><Bed className="w-5 h-5 text-brand-primary" /> {prop.dormitorios}</div>
+                                        <div className="flex flex-col items-center gap-1 border-r border-brand-light/20"><Bath className="w-5 h-5 text-brand-primary" /> {prop.baños}</div>
+                                        <div className="flex flex-col items-center gap-1"><Car className="w-5 h-5 text-brand-primary" /> {prop.cocheras}</div>
                                     </div>
 
                                     <div className="mt-auto flex justify-between items-center">
                                         <span className="text-2xl font-body font-bold text-brand-primary">
                                             {prop.moneda} {prop.precio.toLocaleString()}
                                         </span>
-                                        <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-secondary border-b-2 border-brand-light/30 pb-1 group-hover:border-brand-primary transition-all">
-                                            Ver Detalles
+                                        <span className="text-sm font-bold uppercase tracking-[0.2em] text-brand-secondary border-b-2 border-brand-light/30 pb-1 group-hover:border-brand-primary transition-all">
+                                            Ver Ficha
                                         </span>
                                     </div>
                                 </div>
                             </Link>
                         ))}
                     </div>
-
                     {filtradas.length === 0 && (
-                        <div className="text-center py-24 bg-white rounded-3xl border-2 border-dashed border-brand-light/20">
-                            <p className="text-brand-muted font-display text-xl italic font-medium">No encontramos propiedades con esos criterios.</p>
-                            <button onClick={() => setFiltroTipo("Todos")} className="mt-4 text-brand-primary font-bold text-xs uppercase underline tracking-widest">Ver todas</button>
+                        <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-brand-light/40">
+                            <p className="text-brand-muted font-body text-xl italic">No encontramos propiedades que coincidan con tu búsqueda.</p>
                         </div>
                     )}
                 </main>
