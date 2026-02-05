@@ -19,33 +19,46 @@ export interface Propiedad {
     titulo: string;
     descripcion: string;
     precio: number;
-    moneda: string;
+    moneda: string; // "USD" | "ARS"
     precioExpensas: number;
     
+    // Ubicación
     direccion: string;
     barrio?: string;
     ciudad: string;
     latitud?: number;
     longitud?: number;
 
+    // Medidas y Ambientes
     ambientes: number;
     dormitorios: number;
     baños: number;
     cocheras: number;
-    superficieTotal: number;
-    superficieCubierta: number;
-    antiguedad: number;
+    superficieTotal: number;      // m2 del terreno/lote
+    superficieCubierta: number;   // m2 construidos
+    antiguedad: number;           // 0 para a estrenar
 
+    // Servicios (Checklist)
+    tieneAgua: boolean;
+    tieneGas: boolean;
+    tieneLuz: boolean;
+    tieneInternet: boolean;
+    tieneCloacas: boolean;
+    tienePavimento: boolean;
+
+    // Estado y Meta
     tipo: TipoPropiedadValue;
-    estadoOperacion: string;
+    estadoOperacion: string;      // "Venta" | "Alquiler"
     activa: boolean;
+    esDestacada: boolean; 
     fechaCreacion: string;
 
+    // Multimedia
     imagenes?: ImagenPropiedad[];
     imagenDestacada?: string;
-    esDestacada?: boolean; 
 }
 
+// Helper para mostrar el texto del Enum de forma amigable
 export const getTipoLabel = (tipo: number): string => {
     switch (tipo) {
         case TipoPropiedad.Casa: return "Casa";
