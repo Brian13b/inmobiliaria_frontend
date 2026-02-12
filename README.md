@@ -5,7 +5,7 @@ Cliente web moderno y responsivo para la búsqueda y visualización de propiedad
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC)
-![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7)
+![Netlify](https://img.shields.io/badge/Deploy-Vercel-00C7B7)
 
 ## 🎨 Características
 
@@ -55,8 +55,8 @@ Cliente web moderno y responsivo para la búsqueda y visualización de propiedad
 - [x] Diseño Responsive Mobile-First.
 
 ### 🚧 En Progreso (v1.1)
-- [ ] Panel de Administración (Login/ABM de propiedades).
-- [ ] Formulario de contacto funcional con validaciones.
+- [x] Panel de Administración (Login/ABM de propiedades).
+- [x] Formulario de contacto funcional con validaciones.
 - [ ] Modo Oscuro (Dark Mode).
 
 ### 🔮 Futuro (v2.0)
