@@ -59,7 +59,7 @@ export const Tasacion = () => {
               
             <div className="lg:w-1/2 text-brand-dark space-y-8">
                 <span className="text-brand-primary font-bold tracking-[0.3em] uppercase text-sm">Valuaciones Reales</span>
-                <h2 className="font-display text-5xl md:text-7xl mt-4 mb-6 leading-tight">
+                <h2 className="font-display text-4xl md:text-5xl lg:text-7xl mt-4 mb-6 leading-tight">
                     Tu propiedad tiene una historia y un valor, <br /> 
                     <span className="italic text-brand-primary/80">nosotros te ayudamos a conocerlo.</span>
                 </h2>

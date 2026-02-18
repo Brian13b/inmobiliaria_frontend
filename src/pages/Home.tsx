@@ -41,7 +41,7 @@ export const HomePage = () => {
 
             {/* Buscador Rápido */}
             <div className="container mx-auto px-8 md:px-16 lg:px-32 -mt-10 relative z-40">
-                <div className="bg-white p-8 rounded-xl shadow-2xl border border-brand-light/30 grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+                <div className="bg-white p-8 rounded-xl shadow-2xl border border-brand-light/30 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
                     <div>
                         <label className="block text-xs font-bold text-brand-muted uppercase mb-2">Operación</label>
                         <select 
@@ -94,7 +94,7 @@ export const HomePage = () => {
 
             {/* Servicios */}
             <section className="py-24 container mx-auto px-8 md:px-16 lg:px-32">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {[
                         { icon: Home, title: "Ventas", text: "Te acompañamos en el proceso de compra-venta.", link: "/ventas" },
                         { icon: Building, title: "Alquiler", text: "Opciones verificadas para tu próximo hogar.", link: "/alquileres" },
@@ -133,7 +133,7 @@ export const HomePage = () => {
                         </div>
                     </div>
                     
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {destacadas.map(prop => (
                             <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white border border-brand-light/20 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 group overflow-hidden block">
                                 <div className="h-48 bg-gray-200 overflow-hidden relative">

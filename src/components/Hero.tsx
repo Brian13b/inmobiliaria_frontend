@@ -81,7 +81,7 @@ export const Hero = () => {
 
             {/* Contenido Central */}
             <div className="relative h-full flex flex-col items-center justify-center text-center text-white px-6">
-              <h1 className="font-display text-5xl md:text-8xl tracking-tight drop-shadow-2xl mb-8 uppercase max-w-5xl">
+              <h1 className="font-display text-5xl md:text-6xl lg:text-8xl tracking-tight drop-shadow-2xl mb-8 uppercase max-w-5xl">
                 {slide.title}
               </h1>
               <div className="animate-fade-in-up">

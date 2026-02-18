@@ -67,7 +67,7 @@ export const AlquileresPage = () => {
         <SEO title="Propiedades en Alquiler" description="Alquileres destacados en la ciudad de Paraná." />
 
         <div className="container mx-auto px-6 md:px-12 lg:px-24">
-            <div className="flex flex-col lg:flex-row gap-12">
+            <div className="flex flex-col lg:flex-row gap-8">
                 
                 {/* Sidebar Filtros */}
                 <aside className="lg:w-1/4">
@@ -194,9 +194,13 @@ export const AlquileresPage = () => {
                                         <div className="flex flex-col items-center gap-1"><Car className="w-5 h-5 text-brand-primary" /> {prop.cocheras}</div>
                                     </div>
 
-                                    <div className="mt-auto flex justify-between items-center">
-                                        <span className="text-2xl font-body font-bold text-brand-primary">{prop.precio > 0 ? `${prop.moneda} ${prop.precio.toLocaleString()}` : "Consultar precio"}</span>
-                                        <span className="text-sm font-bold uppercase tracking-[0.2em] text-brand-secondary border-b-2 border-brand-light/30 pb-1 group-hover:border-brand-primary transition-all">Ver Ficha</span>
+                                    <div className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-brand-light/10 pt-4">
+                                        <span className="text-xl md:text-lg lg:text-2xl font-body font-bold text-brand-primary truncate">
+                                            {prop.precio > 0 ? `${prop.moneda} ${prop.precio.toLocaleString()}` : "Consultar"}
+                                        </span>
+                                        <span className="text-sm font-bold uppercase tracking-[0.2em] text-brand-secondary border-b-2 border-brand-light/30 pb-1 whitespace-nowrap group-hover:border-brand-primary transition-all">
+                                            Ver Ficha
+                                        </span>
                                     </div>
                                 </div>
                             </Link>

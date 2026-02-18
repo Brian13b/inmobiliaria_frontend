@@ -3,7 +3,7 @@ import { Instagram, Facebook, Phone, Mail, MapPin } from 'lucide-react';
 export const Footer = () => {
   return (
     <footer className="bg-brand-primary pt-20 pb-10 text-brand-light font-body">
-      <div className="container mx-auto px-8 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
+      <div className="container mx-auto px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 mb-16">
         <div className="flex flex-col items-center md:items-start">
           <h3 className="font-display text-2xl mb-6 text-white border-b border-brand-light/20 pb-2 w-full text-center md:text-left">Contacto</h3>
           <div className="flex flex-col gap-4 text-[14px] items-center md:items-start opacity-90 tracking-widest">

@@ -158,7 +158,7 @@ export const PropiedadDetalle = () => {
                         <div className="bg-gray-50 p-8 rounded-3xl border border-brand-light/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]">
                             <h3 className="font-body text-2xl text-brand-dark mb-6 uppercase tracking-wider italic">Detalles</h3>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 gap-x-4">
+                            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-4">
                                 <div className="text-center group">
                                     <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.cocheras}</p>
                                     <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Cocheras</span>
