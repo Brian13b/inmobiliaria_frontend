@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen } from '../../services/api';
+import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen, updateImagenesOrden } from '../../services/api';
 import { TipoPropiedad } from '../../types/propiedad';
 import { 
     Save, ArrowLeft, Upload, Trash2, Home, MapPin, 
@@ -8,6 +8,8 @@ import {
 } from 'lucide-react'; 
 import { SEO } from '../../components/SEO';
 import toast from 'react-hot-toast';
+
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
 export const AdminFormulario = () => {
     const { id } = useParams();
@@ -38,7 +40,7 @@ export const AdminFormulario = () => {
         estadoOperacion: "Venta",
         activa: true,
         esDestacada: false,
-        estado: 0, // Enum EstadoInmueble
+        estado: 0, // Enum EstadoInmueble (Que quede vacio si no hay datos)
         orientacion: 0, // Enum Orientacion
         disposicion: 0, // Enum Disposicion
         // Servicios
@@ -72,7 +74,8 @@ export const AdminFormulario = () => {
         tieneToilette: false,
         tieneQuincho: false,
         imagenes: [] as any[]
-    });
+    }); 
+    {/* Subir las fotos en orden y que se puedan mover */}
 
     useEffect(() => {
         if (esEdicion) {
@@ -90,6 +93,28 @@ export const AdminFormulario = () => {
             });
         }
     }, [id, esEdicion]);
+
+    const handleOnDragEnd = async (result: any) => {
+        if (!result.destination) return;
+
+        const items = Array.from(form.imagenes || []);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+
+        // 1. Actualizamos el estado local instantáneamente para que el usuario vea el cambio
+        setForm({ ...form, imagenes: items });
+
+        // 2. Enviamos el nuevo orden al backend (si es edición)
+        if (esEdicion) {
+            try {
+                const idsOrdenados = items.map(img => img.id);
+                await updateImagenesOrden(Number(id), idsOrdenados);
+                toast.success("Orden de imágenes actualizado");
+            } catch (error) {
+                toast.error("No se pudo guardar el nuevo orden");
+            }
+        }
+    };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -337,26 +362,65 @@ export const AdminFormulario = () => {
                         {/* Multimedia */}
                         <div className={cardClass}>
                             <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-brand-primary" /> Galería de Fotos</h3>
-                            <div className="border-2 border-dashed border-brand-light/40 rounded-xl p-8 text-center bg-gray-50 hover:bg-brand-light/5 transition relative mb-6">
+                            <p className="text-[10px] text-brand-muted uppercase mb-6 tracking-widest italic">
+                                Arrastrá las fotos existentes para cambiar su orden de aparición
+                            </p>
+
+                            <DragDropContext onDragEnd={handleOnDragEnd}>
+                                <Droppable droppableId="galeria-fotos" direction="horizontal">
+                                    {(provided) => (
+                                        <div 
+                                            {...provided.droppableProps} 
+                                            ref={provided.innerRef} 
+                                            className="grid grid-cols-3 md:grid-cols-5 gap-4"
+                                        >
+                                            {form.imagenes?.map((img, index) => (
+                                                <Draggable key={img.id.toString()} draggableId={img.id.toString()} index={index}>
+                                                    {(provided, snapshot) => (
+                                                        <div 
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            className={`relative h-24 rounded-lg overflow-hidden group border transition-all ${
+                                                                snapshot.isDragging ? "border-brand-primary shadow-2xl scale-105 z-50" : "border-brand-light/20 shadow-inner"
+                                                            }`}
+                                                        >
+                                                            <img src={img.url} className="w-full h-full object-cover" alt={`Foto ${index}`} />
+                                                            <div className="absolute top-1 left-1 bg-brand-dark/60 text-white text-[8px] px-1.5 py-0.5 rounded font-bold backdrop-blur-sm">
+                                                                {index + 1}
+                                                            </div>
+                                                            <button 
+                                                                type="button" 
+                                                                onClick={() => handleBorrarFotoExistente(img.id)} 
+                                                                className="absolute inset-0 bg-red-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
+                                                            >
+                                                                <Trash2 size={16} />
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {provided.placeholder}
+
+                                            {/* Previsualización de fotos NUEVAS (Aún no tienen ID, no son draggables) */}
+                                            {previews.map((p, i) => (
+                                                <div key={`new-${i}`} className="relative h-24 rounded-lg overflow-hidden border-2 border-dashed border-brand-primary shadow-md">
+                                                    <img src={p} className="w-full h-full object-cover opacity-70" alt="Nueva" />
+                                                    <div className="absolute top-0 right-0 bg-brand-primary text-white text-[8px] px-1.5 py-0.5 font-bold uppercase">Subiendo</div>
+                                                    <button type="button" onClick={() => removerFotoLocal(i)} className="absolute bottom-1 right-1 bg-white/90 p-1 rounded-md text-red-600 shadow-sm">
+                                                        <X size={12}/>
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </Droppable>
+                            </DragDropContext>
+
+                            <div className="mt-8 border-2 border-dashed border-brand-light/40 rounded-xl p-8 text-center bg-gray-50 hover:bg-brand-light/5 transition relative">
                                 <input type="file" multiple accept="image/*" onChange={handleSeleccionarFotos} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
                                 <Upload className="w-10 h-10 text-brand-muted mx-auto mb-2" />
-                                <p className="text-xs font-bold uppercase tracking-widest text-brand-muted">Click para subir nuevas imágenes</p>
-                            </div>
-                            <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
-                                {form.imagenes?.map(img => (
-                                    <div key={img.id} className="relative h-24 rounded-lg overflow-hidden group border border-brand-light/20 shadow-inner">
-                                        <img src={img.url} className="w-full h-full object-cover" alt="Existente" />
-                                        <button type="button" onClick={() => handleBorrarFotoExistente(img.id)} className="absolute inset-0 bg-red-600/80 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity">
-                                            <Trash2 size={18} />
-                                        </button>
-                                    </div>
-                                ))}
-                                {previews.map((p, i) => (
-                                    <div key={i} className="relative h-24 rounded-lg overflow-hidden border-2 border-brand-primary">
-                                        <img src={p} className="w-full h-full object-cover" alt="Nueva" />
-                                        <button type="button" onClick={() => removerFotoLocal(i)} className="absolute top-1 right-1 bg-white/90 p-1 rounded text-red-600 shadow-sm"><X size={12}/></button>
-                                    </div>
-                                ))}
+                                <p className="text-xs font-bold uppercase tracking-widest text-brand-muted">Click o arrastrá archivos para añadir a la galería</p>
                             </div>
                         </div>
                     </div>
@@ -379,6 +443,7 @@ export const AdminFormulario = () => {
                                     <option value={TipoPropiedad.Ph}>PH</option>
                                     <option value={TipoPropiedad.Galpon}>Galpón</option>
                                     <option value={TipoPropiedad.Campo}>Campo</option>
+                                    <option value={TipoPropiedad.Quinta}>Quinta</option>
                                 </select>
                                 <div className="space-y-3 pt-2">
                                     <label className="flex items-center gap-3 cursor-pointer group">

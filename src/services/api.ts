@@ -82,3 +82,8 @@ export const getMensajes = async () => {
 export const deleteMensaje = async (id: number) => {
     await api.delete(`/Mensajes/${id}`);
 };
+
+export const updateImagenesOrden = async (propiedadId: number, idsOrdenados: number[]) => {
+    const response = await api.put(`/Propiedades/${propiedadId}/imagenes/orden`, idsOrdenados);
+    return response.data;
+};

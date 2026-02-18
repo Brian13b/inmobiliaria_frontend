@@ -32,7 +32,7 @@ export const Footer = () => {
             <a href="https://www.instagram.com/bottazzi.inmobiliaria/?hl=es" target="_blank" className="bg-white/10 p-3 rounded-full hover:bg-brand-light hover:text-brand-primary transition shadow-xl">
                 <Instagram className="w-5 h-5" />
             </a>
-            <a href="https://www.facebook.com/profile.php?id=61574780821258" target="_blank" className="bg-white/10 p-3 rounded-full hover:bg-brand-light hover:text-brand-primary transition shadow-xl">
+            <a href="https://www.facebook.com/profile.php?id=61587856713778" target="_blank" className="bg-white/10 p-3 rounded-full hover:bg-brand-light hover:text-brand-primary transition shadow-xl">
                 <Facebook className="w-5 h-5" />
             </a>
           </div>

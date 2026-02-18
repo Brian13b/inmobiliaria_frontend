@@ -7,6 +7,7 @@ export const TipoPropiedad = {
     Ph: 5,
     Galpon: 6,
     Campo: 7,
+    Quinta: 8,
 } as const;
 
 export type TipoPropiedadValue = typeof TipoPropiedad[keyof typeof TipoPropiedad];
@@ -100,6 +101,7 @@ export const getTipoLabel = (tipo: number): string => {
         case TipoPropiedad.Ph: return "Ph";
         case TipoPropiedad.Galpon: return "Galpon";
         case TipoPropiedad.Campo: return "Campo";
+        case TipoPropiedad.Quinta: return "Quinta"
         default: return "Propiedad";
     }
 };
