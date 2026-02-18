@@ -121,7 +121,7 @@ export const PropiedadDetalle = () => {
                             </p>
                             <div className="mt-8 flex items-baseline gap-2 text-brand-primary">
                                 <span className="text-2xl font-body font-light">{propiedad.moneda}</span>
-                                <span className="text-5xl font-body font-bold tracking-tight">{propiedad.precio.toLocaleString()}</span> {/**Si es 0 poner Consultar */}
+                                <span className="text-5xl font-body font-bold tracking-tight">{propiedad.precio > 0 ? `${propiedad.precio.toLocaleString()}` : "Precio a consultar"}</span>
                                 {propiedad.precioExpensas > 0 && <span className="text-brand-muted text-sm ml-4 font-body">+ ${propiedad.precioExpensas.toLocaleString()} expensas</span>}
                             </div>
                         </div>
@@ -173,18 +173,30 @@ export const PropiedadDetalle = () => {
                                 </div>
 
                                 <div className="text-center flex flex-col items-center justify-center gap-1 group">
-                                    <p className="font-bold text-brand-dark text-sm uppercase group-hover:text-brand-primary transition-colors">{getEstadoLabel(propiedad.estado as any)}</p>
+                                    <p className="font-bold text-brand-dark text-sm uppercase group-hover:text-brand-primary transition-colors">
+                                        {propiedad.estado !== null && propiedad.estado !== undefined 
+                                            ? getEstadoLabel(propiedad.estado as any) 
+                                            : "S/D"}
+                                    </p>
                                     <span className="text-sm font-bold text-brand-muted uppercase tracking-[0.2em]">Estado</span>
                                 </div>
+
                                 <div className="text-center md:border-x border-brand-light/20 flex flex-col items-center justify-center gap-1 group">
                                     <p className="font-bold text-brand-dark text-sm uppercase flex items-center gap-2 group-hover:text-brand-primary transition-colors">
-                                        <Compass size={14} className="text-brand-primary"/> {getOrientacionLabel(propiedad.orientacion as any)}
+                                        <Compass size={14} className="text-brand-primary"/> 
+                                        {propiedad.orientacion !== null && propiedad.orientacion !== undefined 
+                                            ? getOrientacionLabel(propiedad.orientacion as any) 
+                                            : "S/D"}
                                     </p>
                                     <span className="text-sm font-bold text-brand-muted uppercase tracking-[0.2em]">Orientación</span>
                                 </div>
+
                                 <div className="text-center flex flex-col items-center justify-center gap-1 group">
                                     <p className="font-bold text-brand-dark text-sm uppercase flex items-center gap-2 group-hover:text-brand-primary transition-colors">
-                                        <Navigation2 size={14} className="text-brand-primary" /> {getDisposicionLabel(propiedad.disposicion as any)}
+                                        <Navigation2 size={14} className="text-brand-primary" /> 
+                                        {propiedad.disposicion !== null && propiedad.disposicion !== undefined 
+                                            ? getDisposicionLabel(propiedad.disposicion as any) 
+                                            : "S/D"}
                                     </p>
                                     <span className="text-sm font-bold text-brand-muted uppercase tracking-[0.2em]">Disposición</span>
                                 </div>

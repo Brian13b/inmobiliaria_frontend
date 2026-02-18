@@ -203,7 +203,7 @@ export const VentasPage = () => {
 
                                     <div className="mt-auto flex justify-between items-center">
                                         <span className="text-2xl font-body font-bold text-brand-primary">
-                                            {prop.moneda} {prop.precio.toLocaleString()}
+                                            {prop.precio > 0 ? `${prop.moneda} ${prop.precio.toLocaleString()}` : "Consultar precio"}
                                         </span>
                                         <span className="text-sm font-bold uppercase tracking-[0.2em] text-brand-secondary border-b-2 border-brand-light/30 pb-1 group-hover:border-brand-primary transition-all">
                                             Ver Ficha

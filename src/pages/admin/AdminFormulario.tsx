@@ -41,8 +41,8 @@ export const AdminFormulario = () => {
         activa: true,
         esDestacada: false,
         estado: 0, // Enum EstadoInmueble (Que quede vacio si no hay datos)
-        orientacion: 0, // Enum Orientacion
-        disposicion: 0, // Enum Disposicion
+        orientacion: 0, // Enum Orientacion (Que quede vacio si no hay datos)
+        disposicion: 0, // Enum Disposicion (Que quede vacio si no hay datos)
         // Servicios
         tieneAgua: false,
         tieneGasNatural: false,
@@ -101,10 +101,8 @@ export const AdminFormulario = () => {
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
 
-        // 1. Actualizamos el estado local instantáneamente para que el usuario vea el cambio
         setForm({ ...form, imagenes: items });
 
-        // 2. Enviamos el nuevo orden al backend (si es edición)
         if (esEdicion) {
             try {
                 const idsOrdenados = items.map(img => img.id);
@@ -283,7 +281,8 @@ export const AdminFormulario = () => {
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                                 <div>
                                     <label className={labelClass}>Estado del Inmueble</label>
-                                    <select name="estado" value={form.estado} onChange={handleChange} className={inputClass}>
+                                    <select name="estado" value={form.estado || ""} onChange={handleChange} className={inputClass}>
+                                        <option value="">Seleccionar estado (S/D)</option>
                                         <option value={0}>Excelente</option>
                                         <option value={1}>Muy Bueno</option>
                                         <option value={2}>Bueno</option>
@@ -293,7 +292,8 @@ export const AdminFormulario = () => {
                                 </div>
                                 <div>
                                     <label className={labelClass}>Orientación</label>
-                                    <select name="orientacion" value={form.orientacion} onChange={handleChange} className={inputClass}>
+                                    <select name="orientacion" value={form.orientacion || ""} onChange={handleChange} className={inputClass}>
+                                        <option value="">Seleccionar estado (S/D)</option>
                                         <option value={0}>Norte</option>
                                         <option value={1}>Sur</option>
                                         <option value={2}>Este</option>
@@ -302,7 +302,8 @@ export const AdminFormulario = () => {
                                 </div>
                                 <div>
                                     <label className={labelClass}>Disposición</label>
-                                    <select name="disposicion" value={form.disposicion} onChange={handleChange} className={inputClass}>
+                                    <select name="disposicion" value={form.disposicion || ""} onChange={handleChange} className={inputClass}>
+                                        <option value="">Seleccionar estado (S/D)</option>
                                         <option value={0}>Frente</option>
                                         <option value={1}>Contrafrente</option>
                                         <option value={2}>Lateral</option>
@@ -389,15 +390,16 @@ export const AdminFormulario = () => {
                                                             <div className="absolute top-1 left-1 bg-brand-dark/60 text-white text-[8px] px-1.5 py-0.5 rounded font-bold backdrop-blur-sm">
                                                                 {index + 1}
                                                             </div>
-                                                            <div>
-                                                                <button 
-                                                                    type="button" 
-                                                                    onClick={() => handleBorrarFotoExistente(img.id)} 
-                                                                    className="absolute inset-0 bg-red-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
-                                                                >
-                                                                    <Trash2 size={16} />
-                                                                </button>
-                                                            </div>
+                                                            <button 
+                                                                type="button" 
+                                                                onClick={(e) => {
+                                                                    e.stopPropagation();
+                                                                    handleBorrarFotoExistente(img.id);
+                                                                }} 
+                                                                className="absolute top-1 right-1 bg-red-600/80 p-1.5 rounded-md text-white opacity-0 group-hover:opacity-100 transition-opacity z-20 hover:bg-red-700"
+                                                            >
+                                                                <Trash2 size={12} />
+                                                            </button>
                                                         </div>
                                                     )}
                                                 </Draggable>
@@ -405,7 +407,7 @@ export const AdminFormulario = () => {
                                             ))}
                                             {provided.placeholder}
 
-                                            {/* Previsualización de fotos NUEVAS (Aún no tienen ID, no son draggables) */}
+                                            {/* Previsualización de fotos */}
                                             {previews.map((p, i) => (
                                                 <div key={`new-${i}`} className="relative h-24 rounded-lg overflow-hidden border-2 border-dashed border-brand-primary shadow-md">
                                                     <img src={p} className="w-full h-full object-cover opacity-70" alt="Nueva" />

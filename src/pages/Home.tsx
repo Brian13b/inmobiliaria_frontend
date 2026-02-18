@@ -181,7 +181,7 @@ export const HomePage = () => {
                                     </p>
                                     <div className="flex justify-between items-end border-t border-brand-light/20 pt-4">
                                         <span className="text-xl font-bold text-brand-primary">
-                                            {prop.moneda} {prop.precio.toLocaleString()}
+                                            {prop.precio > 0 ? `${prop.moneda} ${prop.precio.toLocaleString()}` : "Consultar precio"}
                                         </span>
                                         <div className="text-xs font-semibold text-brand-secondary bg-brand-light/20 px-2 py-1 rounded">
                                             {prop.ambientes} Amb
