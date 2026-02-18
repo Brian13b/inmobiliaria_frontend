@@ -40,9 +40,9 @@ export const AdminFormulario = () => {
         estadoOperacion: "Venta",
         activa: true,
         esDestacada: false,
-        estado: 0, // Enum EstadoInmueble (Que quede vacio si no hay datos)
-        orientacion: 0, // Enum Orientacion (Que quede vacio si no hay datos)
-        disposicion: 0, // Enum Disposicion (Que quede vacio si no hay datos)
+        estado: null, 
+        orientacion: null, 
+        disposicion: null, 
         // Servicios
         tieneAgua: false,
         tieneGasNatural: false,
@@ -117,10 +117,16 @@ export const AdminFormulario = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
+
+        let finalValue: any = type === 'checkbox' ? checked : value;
+
+        if ((name === 'estado' || name === 'orientacion' || name === 'disposicion') && value === "") {
+            finalValue = null;
+        }
         
         setForm(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: finalValue
         }));
     };
 
@@ -149,9 +155,9 @@ export const AdminFormulario = () => {
                 superficieTotal: Number(form.superficieTotal),
                 superficieCubierta: Number(form.superficieCubierta),
                 antiguedad: Number(form.antiguedad),
-                estado: Number(form.estado),
-                orientacion: Number(form.orientacion),
-                disposicion: Number(form.disposicion)
+                estado: form.estado !== null ? Number(form.estado) : null,
+                orientacion: form.orientacion !== null ? Number(form.orientacion) : null,
+                disposicion: form.disposicion !== null ? Number(form.disposicion) : null,
             };
 
             let propiedadId = Number(id);
