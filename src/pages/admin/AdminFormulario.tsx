@@ -389,16 +389,11 @@ export const AdminFormulario = () => {
                                                             <div className="absolute top-1 left-1 bg-brand-dark/60 text-white text-[8px] px-1.5 py-0.5 rounded font-bold backdrop-blur-sm">
                                                                 {index + 1}
                                                             </div>
-                                                            <button 
-                                                                type="button" 
-                                                                onClick={() => handleBorrarFotoExistente(img.id)} 
-                                                                className="bg-red-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
-                                                            >
-                                                                <Trash2 size={16} />
-                                                            </button>
                                                         </div>
+                                                        
                                                     )}
                                                 </Draggable>
+                                                
                                             ))}
                                             {provided.placeholder}
 
