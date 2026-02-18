@@ -392,7 +392,7 @@ export const AdminFormulario = () => {
                                                             <button 
                                                                 type="button" 
                                                                 onClick={() => handleBorrarFotoExistente(img.id)} 
-                                                                className="absolute inset-0 bg-red-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
+                                                                className="bg-red-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity"
                                                             >
                                                                 <Trash2 size={16} />
                                                             </button>
