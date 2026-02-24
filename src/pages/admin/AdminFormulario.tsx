@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen, updateImagenesOrden } from '../../services/api';
 import { TipoPropiedad } from '../../types/propiedad';
-import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, CheckCircle, Image as ImageIcon, X, Loader2, Ruler, Zap, Layout, Info } from 'lucide-react'; 
+import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, CheckCircle, Image as ImageIcon, X, Loader2, Ruler, Zap, Layout, Info, ArrowRight } from 'lucide-react'; 
 import { SEO } from '../../components/SEO';
 import toast from 'react-hot-toast';
-
 
 export const AdminFormulario = () => {
     const { id } = useParams();
@@ -390,7 +389,7 @@ export const AdminFormulario = () => {
                                                     className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
                                                     title="Subir orden"
                                                 >
-                                                    <ArrowLeft className="w-4 h-4 rotate-90" />
+                                                    <ArrowLeft className="w-4 h-4" />
                                                 </button>
                                                 <button 
                                                     type="button"
@@ -399,7 +398,7 @@ export const AdminFormulario = () => {
                                                     className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
                                                     title="Bajar orden"
                                                 >
-                                                    <ArrowLeft className="w-4 h-4 -rotate-90" />
+                                                    <ArrowRight className="w-4 h-4" />
                                                 </button>
                                             </div>
                                             
@@ -419,6 +418,24 @@ export const AdminFormulario = () => {
                                 {previews.map((p, i) => (
                                     <div key={`new-${i}`} className="relative h-44 rounded-xl overflow-hidden border-2 border-dashed border-brand-primary/40 bg-brand-light/5 flex flex-col items-center justify-center">
                                         <img src={p} className="w-full h-24 object-cover opacity-50 grayscale" alt="Nueva" />
+                                        <button 
+                                            type="button"
+                                            onClick={() => moverImagen(i, 'subir')}
+                                            disabled={i === 0}
+                                            className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
+                                            title="Subir orden"
+                                        >
+                                            <ArrowLeft className="w-4 h-4" />
+                                        </button>
+                                        <button 
+                                            type="button"
+                                            onClick={() => moverImagen(i, 'bajar')}
+                                            disabled={i === (form.imagenes.length - 1)}
+                                            className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
+                                            title="Bajar orden"
+                                        >
+                                            <ArrowRight className="w-4 h-4" />
+                                        </button>
                                         <div className="absolute top-2 right-2 bg-brand-primary text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">En cola</div>
                                         <button type="button" onClick={() => removerFotoLocal(i)} className="mt-2 text-[10px] font-bold text-red-600 uppercase hover:underline">
                                             <X size={14}/>
