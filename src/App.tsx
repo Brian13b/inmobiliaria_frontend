@@ -17,6 +17,7 @@ import { AdminFormulario } from './pages/admin/AdminFormulario';
 import { AdminMensajes } from './pages/admin/AdminMensajes';
 import { AdminConfig } from './pages/admin/AdminConfig';
 import { Toaster } from 'react-hot-toast';
+import { Analytics } from '@vercel/analytics/react';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
     const location = useLocation();
@@ -93,6 +94,7 @@ function App() {
           </Routes>
         </Layout>
       </BrowserRouter>
+      <Analytics />
     </main>
   );
 }
