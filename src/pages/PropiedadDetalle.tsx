@@ -121,7 +121,7 @@ export const PropiedadDetalle = () => {
                             </p>
                             <div className="mt-8 flex items-baseline gap-2 text-brand-primary">
                                 <span className="text-2xl font-body font-light">{propiedad.moneda}</span>
-                                <span className="text-5xl font-body font-bold tracking-tight">{propiedad.precio > 0 ? `${propiedad.precio.toLocaleString()}` : "Precio a consultar"}</span>
+                                <span className="text-5xl font-body font-bold tracking-tight">{propiedad.precio > 0 ? `${propiedad.precio.toLocaleString()}` : "Consultar"}</span>
                                 {propiedad.precioExpensas > 0 && <span className="text-brand-muted text-sm ml-4 font-body">+ ${propiedad.precioExpensas.toLocaleString()} expensas</span>}
                             </div>
                         </div>

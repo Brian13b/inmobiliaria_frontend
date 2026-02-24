@@ -378,8 +378,8 @@ export const AdminFormulario = () => {
                                     {(provided) => (
                                         <div 
                                             {...provided.droppableProps} 
-                                            ref={provided.innerRef} 
-                                            className="grid grid-cols-3 md:grid-cols-5 gap-4"
+                                            ref={provided.innerRef}
+                                            className="flex flex-wrap gap-4 min-h-[100px]"
                                         >
                                             {form.imagenes?.map((img, index) => (
                                                 <Draggable key={img.id.toString()} draggableId={img.id.toString()} index={index}>
@@ -388,17 +388,18 @@ export const AdminFormulario = () => {
                                                             ref={provided.innerRef}
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps}
-                                                            className={`relative h-24 rounded-lg overflow-hidden group border transition-all ${
-                                                                snapshot.isDragging ? "border-brand-primary shadow-2xl scale-105 z-50" : "border-brand-light/20 shadow-inner"
+                                                            className={`relative w-[calc(33.33%-1rem)] md:w-[calc(20%-1rem)] h-24 rounded-lg overflow-hidden group border transition-all ${
+                                                                snapshot.isDragging ? "border-brand-primary shadow-2xl scale-105 z-50 ring-4 ring-brand-primary/20" : "border-brand-light/20 shadow-inner"
                                                             }`}
                                                         >
-                                                            <img src={img.url} className="w-full h-full object-cover" alt={`Foto ${index}`} />
+                                                            <img src={img.url} className="w-full h-full object-cover pointer-events-none" alt={`Foto ${index}`} />
                                                             <div className="absolute top-1 left-1 bg-brand-dark/60 text-white text-[8px] px-1.5 py-0.5 rounded font-bold backdrop-blur-sm">
                                                                 {index + 1}
                                                             </div>
                                                             <button 
                                                                 type="button" 
                                                                 onClick={(e) => {
+                                                                    e.preventDefault();
                                                                     e.stopPropagation();
                                                                     handleBorrarFotoExistente(img.id);
                                                                 }} 
@@ -409,15 +410,13 @@ export const AdminFormulario = () => {
                                                         </div>
                                                     )}
                                                 </Draggable>
-                                                
                                             ))}
                                             {provided.placeholder}
 
-                                            {/* Previsualización de fotos */}
                                             {previews.map((p, i) => (
-                                                <div key={`new-${i}`} className="relative h-24 rounded-lg overflow-hidden border-2 border-dashed border-brand-primary shadow-md">
+                                                <div key={`new-${i}`} className="relative w-[calc(33.33%-1rem)] md:w-[calc(20%-1rem)] h-24 rounded-lg overflow-hidden border-2 border-dashed border-brand-primary shadow-md">
                                                     <img src={p} className="w-full h-full object-cover opacity-70" alt="Nueva" />
-                                                    <div className="absolute top-0 right-0 bg-brand-primary text-white text-[8px] px-1.5 py-0.5 font-bold uppercase">Subiendo</div>
+                                                    <div className="absolute top-0 right-0 bg-brand-primary text-white text-[8px] px-1.5 py-0.5 font-bold uppercase">Nuevo</div>
                                                     <button type="button" onClick={() => removerFotoLocal(i)} className="absolute bottom-1 right-1 bg-white/90 p-1 rounded-md text-red-600 shadow-sm">
                                                         <X size={12}/>
                                                     </button>
