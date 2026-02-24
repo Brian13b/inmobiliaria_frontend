@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { createPropiedad, getPropiedadById, updatePropiedad, uploadImagen, deleteImagen, updateImagenesOrden } from '../../services/api';
 import { TipoPropiedad } from '../../types/propiedad';
-import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, CheckCircle, Image as ImageIcon, X, Loader2, Ruler, Zap, Layout, Info, ArrowRight } from 'lucide-react'; 
+import { Save, ArrowLeft, Upload, Trash2, Home, MapPin, CheckCircle, Image as ImageIcon, Loader2, Ruler, Zap, Layout, Info, ArrowRight } from 'lucide-react'; 
 import { SEO } from '../../components/SEO';
 import toast from 'react-hot-toast';
 
@@ -12,8 +12,6 @@ export const AdminFormulario = () => {
     const esEdicion = !!id;
 
     const [loading, setLoading] = useState(false);
-    const [fotosParaSubir, setFotosParaSubir] = useState<File[]>([]);
-    const [previews, setPreviews] = useState<string[]>([]);
     
     const [form, setForm] = useState({
         titulo: "",
@@ -88,49 +86,57 @@ export const AdminFormulario = () => {
         }
     }, [id, esEdicion]);
 
-    const moverImagen = async (index: number, direccion: 'subir' | 'bajar') => {
+    const moverImagen = (index: number, direccion: 'subir' | 'bajar') => {
         const nuevasImagenes = Array.from(form.imagenes || []);
         const nuevaPos = direccion === 'subir' ? index - 1 : index + 1;
-
         if (nuevaPos < 0 || nuevaPos >= nuevasImagenes.length) return;
 
         [nuevasImagenes[index], nuevasImagenes[nuevaPos]] = [nuevasImagenes[nuevaPos], nuevasImagenes[index]];
-
         setForm({ ...form, imagenes: nuevasImagenes });
-
-        if (esEdicion) {
-            try {
-                const idsOrdenados = nuevasImagenes.map(img => img.id);
-                await updateImagenesOrden(Number(id), idsOrdenados);
-                toast.success("Orden actualizado");
-            } catch (error) {
-                toast.error("Error al guardar orden");
-            }
-        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
-        const checked = (e.target as HTMLInputElement).checked;
-
-        let finalValue: any = type === 'checkbox' ? checked : value;
-
-        if ((name === 'estado' || name === 'orientacion' || name === 'disposicion') && value === "") {
-            finalValue = null;
-        }
-        
-        setForm(prev => ({
-            ...prev,
-            [name]: finalValue
-        }));
+        const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+        setForm(prev => ({ ...prev, [name]: finalValue }));
     };
 
     const handleSeleccionarFotos = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             const archivos = Array.from(e.target.files);
-            setFotosParaSubir(prev => [...prev, ...archivos]);
-            const nuevasPreviews = archivos.map(file => URL.createObjectURL(file));
-            setPreviews(prev => [...prev, ...nuevasPreviews]);
+            const nuevasParaEstado = archivos.map(file => ({
+                id: Math.random(), // temporal
+                url: URL.createObjectURL(file),
+                archivo: file,
+                esNueva: true
+            }));
+
+            setForm(prev => ({
+                ...prev,
+                imagenes: [...(prev.imagenes || []), ...nuevasParaEstado]
+            }));
+        }
+    };
+
+    const handleBorrarFoto = async (img: any, index: number) => {
+        if (img.esNueva) {
+            URL.revokeObjectURL(img.url);
+            setForm(prev => ({
+                ...prev,
+                imagenes: prev.imagenes.filter((_, i) => i !== index)
+            }));
+        } else {
+            if (!confirm("¿Eliminar esta foto permanentemente?")) return;
+            try {
+                await deleteImagen(Number(id), img.id);
+                setForm(prev => ({
+                    ...prev,
+                    imagenes: prev.imagenes.filter(i => i.id !== img.id)
+                }));
+                toast.success("Foto eliminada");
+            } catch (error) {
+                toast.error("No se pudo eliminar");
+            }
         }
     };
 
@@ -138,6 +144,7 @@ export const AdminFormulario = () => {
         e.preventDefault();
         setLoading(true);
         try {
+            let propiedadId = Number(id);
             const dataToSend = {
                 ...form,
                 precio: Number(form.precio),
@@ -155,7 +162,6 @@ export const AdminFormulario = () => {
                 disposicion: form.disposicion !== null ? Number(form.disposicion) : null,
             };
 
-            let propiedadId = Number(id);
             if (esEdicion) {
                 await updatePropiedad(propiedadId, dataToSend);
             } else {
@@ -163,40 +169,34 @@ export const AdminFormulario = () => {
                 propiedadId = nueva.id;
             }
 
-            if (fotosParaSubir.length > 0) {
-                await Promise.all(fotosParaSubir.map(file => uploadImagen(propiedadId, file)));
+            const imagenesFinales = [];
+            for (const img of form.imagenes) {
+                if (img.esNueva) {
+                    const urlSubida = await uploadImagen(propiedadId, img.archivo);
+                    imagenesFinales.push({ id: "provisorio", url: urlSubida }); 
+                } else {
+                    imagenesFinales.push(img);
+                }
             }
 
-            toast.success("¡Propiedad guardada con éxito!");
+            if (esEdicion) {
+                const dataActualizada = await getPropiedadById(propiedadId);
+                const mapaUrlId = new Map(dataActualizada.imagenes.map((i: any) => [i.url, i.id]));
+                
+                const idsOrdenados = form.imagenes.map(img => {
+                    return img.esNueva ? mapaUrlId.get(img.url) : img.id; 
+                }).filter(id => id !== undefined);
+
+                await updateImagenesOrden(propiedadId, idsOrdenados);
+            }
+
+            toast.success("¡Guardado con éxito!");
             navigate("/admin/propiedades");
         } catch (error) {
             toast.error("Error al guardar");
         } finally {
             setLoading(false);
         }
-    };
-
-    const handleBorrarFotoExistente = async (imagenId: number) => {
-        if (!confirm("¿Eliminar esta foto permanentemente?")) return;
-        try {
-            await deleteImagen(Number(id), imagenId);
-            setForm(prev => ({
-                ...prev,
-                imagenes: prev.imagenes?.filter(img => img.id !== imagenId)
-            }));
-            toast.success("Foto eliminada");
-        } catch (error) {
-            toast.error("No se pudo eliminar la foto");
-        }
-    };
-
-    const removerFotoLocal = (index: number) => {
-        setFotosParaSubir(prev => prev.filter((_, i) => i !== index));
-        setPreviews(prev => {
-            const nuevaLista = prev.filter((_, i) => i !== index);
-            URL.revokeObjectURL(prev[index]);
-            return nuevaLista;
-        });
     };
 
     const cardClass = "bg-white p-6 rounded-2xl shadow-sm border border-brand-light/20 mb-6";
@@ -365,95 +365,40 @@ export const AdminFormulario = () => {
                         <div className={cardClass}>
                             <h3 className={sectionTitleClass}><ImageIcon className="w-5 h-5 text-brand-primary" /> Galería de Fotos</h3>
                             <p className="text-[10px] text-brand-muted uppercase mb-6 tracking-widest italic">
-                                Utilizá las flechas para cambiar el orden de las fotos (La primera será la portada)
+                                Mezclá y ordená las fotos. La primera será la portada principal.
                             </p>
 
-                            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                                 {form.imagenes?.map((img, index) => (
-                                    <div key={img.id} className="relative group bg-white rounded-xl border border-brand-light/20 shadow-sm overflow-hidden flex flex-col">
-                                        {/* Imagen */}
+                                    <div key={img.id} className={`relative group bg-white rounded-xl border ${img.esNueva ? 'border-brand-primary border-dashed bg-brand-primary/5' : 'border-brand-light/20'} shadow-sm overflow-hidden flex flex-col`}>
                                         <div className="relative h-32 w-full">
-                                            <img src={img.url} className="w-full h-full object-cover" alt={`Foto ${index}`} />
-                                            <div className="absolute top-2 left-2 bg-brand-dark/80 text-white text-[10px] px-2 py-0.5 rounded-full font-bold backdrop-blur-md border border-white/20">
-                                                #{index + 1}
+                                            <img src={img.url} className={`w-full h-full object-cover ${img.esNueva ? 'opacity-80' : ''}`} alt="" />
+                                            <div className={`absolute top-2 left-2 ${img.esNueva ? 'bg-brand-primary' : 'bg-brand-dark/80'} text-white text-[8px] px-2 py-0.5 rounded-full font-bold`}>
+                                                {img.esNueva ? 'NUEVA' : `#${index + 1}`}
                                             </div>
                                         </div>
 
-                                        {/* Controles de Orden y Borrado */}
                                         <div className="p-2 flex items-center justify-between bg-gray-50 border-t border-brand-light/10">
                                             <div className="flex gap-1">
-                                                <button 
-                                                    type="button"
-                                                    onClick={() => moverImagen(index, 'subir')}
-                                                    disabled={index === 0}
-                                                    className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
-                                                    title="Subir orden"
-                                                >
-                                                    <ArrowLeft className="w-4 h-4" />
+                                                <button type="button" onClick={() => moverImagen(index, 'subir')} disabled={index === 0} className="p-1 rounded bg-white border hover:bg-brand-primary hover:text-white disabled:opacity-20 transition-all">
+                                                    <ArrowLeft size={14} />
                                                 </button>
-                                                <button 
-                                                    type="button"
-                                                    onClick={() => moverImagen(index, 'bajar')}
-                                                    disabled={index === (form.imagenes.length - 1)}
-                                                    className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
-                                                    title="Bajar orden"
-                                                >
-                                                    <ArrowRight className="w-4 h-4" />
+                                                <button type="button" onClick={() => moverImagen(index, 'bajar')} disabled={index === form.imagenes.length - 1} className="p-1 rounded bg-white border hover:bg-brand-primary hover:text-white disabled:opacity-20 transition-all">
+                                                    <ArrowRight size={14} />
                                                 </button>
                                             </div>
-                                            
-                                            <button 
-                                                type="button" 
-                                                onClick={() => handleBorrarFotoExistente(img.id)} 
-                                                className="p-1.5 rounded-md text-red-500 hover:bg-red-50 transition-colors"
-                                                title="Eliminar foto"
-                                            >
-                                                <Trash2 className="w-4 h-4" />
+                                            <button type="button" onClick={() => handleBorrarFoto(img, index)} className="p-1 text-red-500 hover:bg-red-50 rounded">
+                                                <Trash2 size={14} />
                                             </button>
                                         </div>
-                                    </div>
-                                ))}
-
-                                {/* Previews de nuevas subidas */}
-                                {previews.map((p, i) => (
-                                    <div key={`new-${i}`} className="relative h-44 rounded-xl overflow-hidden border-2 border-dashed border-brand-primary/40 bg-brand-light/5 flex flex-col items-center justify-center">
-                                        <img src={p} className="w-full h-24 object-cover opacity-50 grayscale" alt="Nueva" />
-                                        <div className="absolute top-2 right-2 bg-brand-primary text-white text-[8px] px-2 py-0.5 rounded-full font-bold uppercase">En cola</div>
-                                        <div className="p-2 flex items-center justify-between bg-gray-50 border-t border-brand-light/10">
-                                            <div className="flex gap-1">
-                                                <button 
-                                                    type="button"
-                                                    onClick={() => moverImagen(i, 'subir')}
-                                                    disabled={i === 0}
-                                                    className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
-                                                    title="Subir orden"
-                                                >
-                                                    <ArrowLeft className="w-4 h-4" />
-                                                </button>
-                                                <button 
-                                                    type="button"
-                                                    onClick={() => moverImagen(i, 'bajar')}
-                                                    disabled={i === (form.imagenes.length - 1)}
-                                                    className="p-1.5 rounded-md hover:bg-brand-primary hover:text-white transition-colors disabled:opacity-20 text-brand-dark"
-                                                    title="Bajar orden"
-                                                >
-                                                    <ArrowRight className="w-4 h-4" />
-                                                </button>
-                                            </ div>
-                                        
-                                            <button type="button" onClick={() => removerFotoLocal(i)} className="mt-2 text-[10px] font-bold text-red-600 uppercase hover:underline">
-                                                <X size={14}/>
-                                            </button>
-                                        </ div>
                                     </div>
                                 ))}
                             </div>
 
-                            {/* Input de subida */}
-                            <div className="mt-8 border-2 border-dashed border-brand-light/40 rounded-xl p-8 text-center bg-gray-50 hover:bg-brand-light/5 transition relative group">
+                            <div className="mt-6 border-2 border-dashed border-brand-light/40 rounded-xl p-8 text-center bg-gray-50 hover:bg-brand-light/5 transition relative group">
                                 <input type="file" multiple accept="image/*" onChange={handleSeleccionarFotos} className="absolute inset-0 opacity-0 cursor-pointer z-10" />
-                                <Upload className="w-10 h-10 text-brand-muted mx-auto mb-2 group-hover:text-brand-primary transition-colors" />
-                                <p className="text-xs font-bold uppercase tracking-widest text-brand-muted">Añadir nuevas fotos a la galería</p>
+                                <Upload className="w-8 h-8 text-brand-muted mx-auto mb-2 group-hover:text-brand-primary transition-colors" />
+                                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted">Click para añadir fotos a la mezcla</p>
                             </div>
                         </div>
                     </div>
