@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { getActivas } from '../services/api';
 import { getTipoLabel, type Propiedad, TipoPropiedad } from '../types/propiedad';
-import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown } from 'lucide-react';
+import { Filter, Search, MapPin, Bed, Bath, Car, ChevronDown, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectFade } from 'swiper/modules';
@@ -13,6 +13,7 @@ export const AlquileresPage = () => {
   const [propiedades, setPropiedades] = useState<Propiedad[]>([]);
   const [filtradas, setFiltradas] = useState<Propiedad[]>([]);
   const location = useLocation();
+  const [_loading, setLoading] = useState(true);
 
   const [filtroTexto, setFiltroTexto] = useState("");
   const [filtroTipo, setFiltroTipo] = useState("Todos");
@@ -25,10 +26,15 @@ export const AlquileresPage = () => {
     const query = params.get("q");
     if (query) setFiltroTexto(query);
     window.scrollTo(0, 0);
+
+    setLoading(true);
+
     getActivas().then(data => {
         const alquileres = data.filter((p: any) => p.estadoOperacion === "Alquiler");
         setPropiedades(alquileres);
         setFiltradas(alquileres);
+    }).finally(() => {
+        setLoading(false)
     });
   }, [location]);
 
@@ -62,6 +68,17 @@ export const AlquileresPage = () => {
     setFiltradas(resultado);
   }, [filtroTexto, filtroTipo, precioMin, precioMax, dormitorios, propiedades]);
 
+  if (_loading) {
+    return (
+        <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+            <Loader2 className="w-12 h-12 text-brand-primary animate-spin mb-4" />
+            <p className="font-body text-xs uppercase tracking-[0.3em] text-brand-muted animate-pulse">
+                Buscando propiedades en venta...
+            </p>
+        </div>
+    );
+  }
+  
   return (
     <div className="min-h-screen bg-gray-50 pt-32 pb-12 font-body">
         <SEO title="Propiedades en Alquiler" description="Alquileres destacados en la ciudad de Paraná." />

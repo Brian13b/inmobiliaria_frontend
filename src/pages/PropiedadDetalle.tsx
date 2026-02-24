@@ -2,10 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getPropiedadById, enviarMensaje } from '../services/api';
 import { type Propiedad } from '../types/propiedad';
-import { 
-    MapPin, ArrowLeft, Camera, Copy, X, User, Phone, 
-    Mail, Send, Loader2, Ruler, Zap, Droplets, Flame, Wifi, ShieldCheck, 
-    Compass, Navigation2, Check, ArrowUpCircle
+import { MapPin, ArrowLeft, Camera, Copy, X, User, Phone, Mail, Send, Loader2, Ruler, Zap, Droplets, Flame, Wifi, ShieldCheck, Compass, Navigation2, Check, ArrowUpCircle
 } from 'lucide-react'; 
 import { FaWhatsapp } from 'react-icons/fa';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -26,7 +23,7 @@ export const PropiedadDetalle = () => {
     const [propiedad, setPropiedad] = useState<Propiedad | null>(null);
     const [_loading, setLoading] = useState(true);
     const [fotoActual, setFotoActual] = useState(1); 
-    const [zoomImage, setZoomImage] = useState<string | null>(null);
+    const [zoomIndex, setZoomIndex] = useState<number | null>(null);
     const [form, setForm] = useState({ nombre: "", telefono: "", email: "", mensaje: "" });
     const [enviando, setEnviando] = useState(false);
 
@@ -62,6 +59,14 @@ export const PropiedadDetalle = () => {
             toast.error("Error al enviar.");
         } finally { setEnviando(false); }
     };
+
+    const navegarZoom = (direccion: number) => {
+        if (zoomIndex === null || !propiedad.imagenes) return;
+        let nuevoIndex = zoomIndex + direccion;
+        if (nuevoIndex < 0) nuevoIndex = propiedad.imagenes.length - 1;
+        if (nuevoIndex >= propiedad.imagenes.length) nuevoIndex = 0;
+        setZoomIndex(nuevoIndex);
+    };
     
     const copiarLink = () => {
         navigator.clipboard.writeText(window.location.href);
@@ -77,11 +82,47 @@ export const PropiedadDetalle = () => {
 
     return (
         <div className="min-h-screen bg-white pb-20 pt-24 font-body">
-            {/* Modal Zoom */}
-            {zoomImage && (
-                <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out" onClick={() => setZoomImage(null)}>
-                    <button className="absolute top-6 right-6 text-white hover:text-brand-light transition"><X size={40}/></button>
-                    <img src={zoomImage} className="max-w-full max-h-full object-contain shadow-2xl" alt="Zoom" />
+            {/* Modal Zoom Mejorado */}
+            {zoomIndex !== null && propiedad.imagenes && (
+                <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4">
+                    {/* Botón Cerrar */}
+                    <button 
+                        className="absolute top-6 right-6 text-white/50 hover:text-white z-[110] transition"
+                        onClick={() => setZoomIndex(null)}
+                    >
+                        <X size={40}/>
+                    </button>
+
+                    {/* Flecha Izquierda */}
+                    <button 
+                        className="absolute left-4 text-white/30 hover:text-white transition p-4 z-[110]"
+                        onClick={(e) => { e.stopPropagation(); navegarZoom(-1); }}
+                    >
+                        <ArrowLeft size={48} />
+                    </button>
+
+                    {/* Imagen Completa */}
+                    <div className="w-full h-full flex items-center justify-center p-4 md:p-12" onClick={() => setZoomIndex(null)}>
+                        <img 
+                            src={propiedad.imagenes[zoomIndex].url} 
+                            className="max-w-full max-h-full object-contain shadow-2xl animate-fade-in" 
+                            alt="Zoom" 
+                            onClick={(e) => e.stopPropagation()} 
+                        />
+                    </div>
+
+                    {/* Flecha Derecha */}
+                    <button 
+                        className="absolute right-4 text-white/30 hover:text-white transition p-4 z-[110]"
+                        onClick={(e) => { e.stopPropagation(); navegarZoom(1); }}
+                    >
+                        <ArrowLeft size={48} className="rotate-180" />
+                    </button>
+
+                    {/* Contador */}
+                    <div className="absolute bottom-10 text-white/50 font-bold tracking-widest uppercase text-xs">
+                        Foto {zoomIndex + 1} de {propiedad.imagenes.length}
+                    </div>
                 </div>
             )}
 
@@ -305,9 +346,14 @@ export const PropiedadDetalle = () => {
                                 className="h-full w-full"
                             >
                                 {propiedad.imagenes?.length ? propiedad.imagenes.map((img, i) => (
-                                    <SwiperSlide key={i} onClick={() => setZoomImage(img.url)}>
-                                        <img src={img.url} className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105" alt={propiedad.titulo} loading="lazy"/>
-                                    </SwiperSlide>
+                                <SwiperSlide key={i} onClick={() => setZoomIndex(i)}>
+                                    <img 
+                                        src={img.url} 
+                                        className="w-full h-full object-cover transition-transform duration-1000 hover:scale-105 cursor-zoom-in" 
+                                        alt={propiedad.titulo} 
+                                        loading="lazy"
+                                    />
+                                </SwiperSlide>
                                 )) : (
                                     <SwiperSlide><img src="https://placehold.co/800x1200?text=Consultar+Fotos" className="w-full h-full object-cover" alt="S/D" /></SwiperSlide>
                                 )}
