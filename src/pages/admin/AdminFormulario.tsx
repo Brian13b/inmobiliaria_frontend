@@ -379,9 +379,7 @@ export const AdminFormulario = () => {
                                         <div 
                                             {...provided.droppableProps} 
                                             ref={provided.innerRef} 
-                                            // Usamos flex-wrap pero con un ancho definido para que dnd no se pierda
                                             className="flex flex-wrap gap-4 w-full min-h-[120px]"
-                                            style={{ display: 'flex', flexWrap: 'wrap' }}
                                         >
                                             {form.imagenes?.map((img, index) => (
                                                 <Draggable key={img.id.toString()} draggableId={img.id.toString()} index={index}>
@@ -390,14 +388,13 @@ export const AdminFormulario = () => {
                                                             ref={provided.innerRef}
                                                             {...provided.draggableProps}
                                                             {...provided.dragHandleProps}
-                                                            // El estilo inline es vital para que dnd mantenga la posición al arrastrar
                                                             style={{
                                                                 ...provided.draggableProps.style,
-                                                                userSelect: 'none'
+                                                                transform: provided.draggableProps.style?.transform,
                                                             }}
-                                                            className={`relative h-24 w-24 md:h-32 md:w-32 rounded-lg overflow-hidden group border transition-all ${
+                                                            className={`relative h-24 w-24 md:h-32 md:w-32 rounded-lg overflow-hidden group border transition-shadow ${
                                                                 snapshot.isDragging 
-                                                                ? "border-brand-primary shadow-2xl scale-105 z-50 ring-2 ring-brand-primary" 
+                                                                ? "border-brand-primary shadow-2xl z-50 ring-2 ring-brand-primary" 
                                                                 : "border-brand-light/20 shadow-inner"
                                                             }`}
                                                         >
@@ -424,20 +421,18 @@ export const AdminFormulario = () => {
                                                     )}
                                                 </Draggable>
                                             ))}
+                                            
                                             {provided.placeholder}
 
-                                            {/* Previews de fotos nuevas: fuera del flujo del draggable para no confundir al placeholder */}
-                                            <div className="flex flex-wrap gap-4">
-                                                {previews.map((p, i) => (
-                                                    <div key={`new-${i}`} className="relative h-24 w-24 md:h-32 md:w-32 rounded-lg overflow-hidden border-2 border-dashed border-brand-primary/50 shadow-md">
-                                                        <img src={p} className="w-full h-full object-cover opacity-60" alt="Nueva" />
-                                                        <div className="absolute top-0 right-0 bg-brand-primary text-white text-[8px] px-1.5 py-0.5 font-bold uppercase">Nuevo</div>
-                                                        <button type="button" onClick={() => removerFotoLocal(i)} className="absolute bottom-1 right-1 bg-white/90 p-1 rounded-md text-red-600 shadow-sm">
-                                                            <X size={14}/>
-                                                        </button>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                            {previews.map((p, i) => (
+                                                <div key={`new-${i}`} className="relative h-24 w-24 md:h-32 md:w-32 rounded-lg overflow-hidden border-2 border-dashed border-brand-primary/50 shadow-md bg-white">
+                                                    <img src={p} className="w-full h-full object-cover opacity-60" alt="Nueva" />
+                                                    <div className="absolute top-0 right-0 bg-brand-primary text-white text-[8px] px-1.5 py-0.5 font-bold uppercase">Nuevo</div>
+                                                    <button type="button" onClick={() => removerFotoLocal(i)} className="absolute bottom-1 right-1 bg-white/90 p-1 rounded-md text-red-600 shadow-sm border border-gray-100 hover:bg-red-50">
+                                                        <X size={14}/>
+                                                    </button>
+                                                </div>
+                                            ))}
                                         </div>
                                     )}
                                 </Droppable>
