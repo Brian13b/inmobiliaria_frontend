@@ -169,28 +169,27 @@ export const AdminFormulario = () => {
                 propiedadId = nueva.id;
             }
 
-            const imagenesFinales = [];
-            for (const img of form.imagenes) {
-                if (img.esNueva) {
-                    const urlSubida = await uploadImagen(propiedadId, img.archivo);
-                    imagenesFinales.push({ id: "provisorio", url: urlSubida }); 
-                } else {
-                    imagenesFinales.push(img);
+            const fotosNuevas = form.imagenes.filter(img => img.esNueva);
+            if (fotosNuevas.length > 0) {
+                for (const img of fotosNuevas) {
+                    await uploadImagen(propiedadId, img.archivo);
                 }
             }
 
-            if (esEdicion) {
-                const dataActualizada = await getPropiedadById(propiedadId);
-                const mapaUrlId = new Map(dataActualizada.imagenes.map((i: any) => [i.url, i.id]));
-                
-                const idsOrdenados = form.imagenes.map(img => {
-                    return img.esNueva ? mapaUrlId.get(img.url) : img.id; 
-                }).filter(id => id !== undefined);
+            const propiedadConIdsReales = await getPropiedadById(propiedadId);
+            
+            const mapaUrlId = new Map(propiedadConIdsReales.imagenes.map((i: any) => [i.url, i.id]));
 
-                await updateImagenesOrden(propiedadId, idsOrdenados);
-            }
+            const ordenDefinitivoIds = form.imagenes.map(img => {
+                if (img.esNueva) {
+                    return mapaUrlId.get(img.url); 
+                }
+                return img.id;
+            }).filter(id => id != null);
 
-            toast.success("¡Guardado con éxito!");
+            await updateImagenesOrden(propiedadId, ordenDefinitivoIds);
+
+            toast.success("¡Propiedad y orden de fotos guardados correctamente!");
             navigate("/admin/propiedades");
         } catch (error) {
             toast.error("Error al guardar");
