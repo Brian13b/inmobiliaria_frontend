@@ -73,7 +73,7 @@ export const AlquileresPage = () => {
         <div className="min-h-screen flex flex-col items-center justify-center bg-white">
             <Loader2 className="w-12 h-12 text-brand-primary animate-spin mb-4" />
             <p className="font-body text-xs uppercase tracking-[0.3em] text-brand-muted animate-pulse">
-                Buscando propiedades en venta...
+                Buscando propiedades en alquiler...
             </p>
         </div>
     );
