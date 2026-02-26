@@ -41,7 +41,7 @@ export const Footer = () => {
 
       <div className="border-t border-brand-light/10 pt-8 text-center text-sm tracking-[0.2em] uppercase font-bold text-brand-light/50">
         © 2026 Bottazzi Inmobiliaria - Paraná, Entre Ríos. Todos los derechos reservados. | Realizado por 
-        <a href="https://wa.me/5493434676232" target="_blank" className="ml-1 text-brand-light hover:text-white underline underline-offset-4">Brian Battauz</a>
+        <a href="https://www.gbsolucionesdigitales.com.ar" target="_blank" className="ml-1 text-brand-light hover:text-white underline underline-offset-4">GB Soluciones Digitales</a>
       </div>
     </footer>
   );
