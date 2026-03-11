@@ -1,6 +1,6 @@
 # 🏡 Inmobiliaria Web - Frontend
 
-Cliente web moderno y responsivo para la búsqueda y visualización de propiedades. Construido con **React 19** y **Vite**, enfocado en la velocidad y la experiencia de usuario (UX).
+Cliente web moderno, responsivo y de alto rendimiento para la búsqueda y gestión de propiedades inmobiliarias. Construido con **React 19** y **Vite**, con un enfoque estricto en la experiencia de usuario (UX), Core Web Vitals y diseño Mobile-First.
 
 ![React](https://img.shields.io/badge/React-19-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
@@ -9,11 +9,11 @@ Cliente web moderno y responsivo para la búsqueda y visualización de propiedad
 
 ## 🎨 Características
 
-* **Diseño Moderno:** UI limpia construida con Tailwind CSS.
-* **Interactivo:** Carruseles de imágenes automáticos (Swiper.js).
-* **Rápido:** Build optimizado con Vite.
-* **Filtros en Tiempo Real:** Búsqueda por ubicación, precio y características.
-* **Responsivo:** Adaptado a móviles, tablets y escritorio.
+* **Diseño Moderno & UI:** Interfaz limpia y escalable construida con Tailwind CSS y componentes modulares.
+* **Gestión Multimedia:** Carruseles interactivos optimizados para eventos táctiles (Swiper.js) y renderizado de imágenes de alta resolución.
+* **Filtros Complejos en Tiempo Real:** Motor de búsqueda por ubicación, rango de precio, tipo de operación y características del inmueble.
+* **Panel Administrativo (CMS):** Acceso privado protegido mediante JWT para la gestión del catálogo (CRUD de propiedades).
+* **Performance:** Build optimizado con Vite, logrando tiempos de carga mínimos y una experiencia fluida.
 
 ## 🛠️ Stack Tecnológico
 
@@ -23,6 +23,7 @@ Cliente web moderno y responsivo para la búsqueda y visualización de propiedad
 * **Iconos:** Lucide React.
 * **Routing:** React Router DOM v7.
 * **HTTP Client:** Axios.
+* **Despliegue:** Vercel
 
 ## 🚀 Instalación y Uso
 
@@ -48,15 +49,15 @@ Cliente web moderno y responsivo para la búsqueda y visualización de propiedad
 ## 🗺️ Roadmap & Updates
 
 ### ✅ Versión 1.0 (Lanzamiento Actual)
-- [x] Landing Page con propiedades destacadas (Swiper Carousel).
-- [x] Página de detalle de propiedad con galería.
-- [x] Conexión full-stack con Backend en Koyeb.
-- [x] Despliegue en Netlify con configuración de redirecciones SPA.
+- [x] Landing Page con propiedades destacadas.
+- [x] Página de detalle de propiedad con galería interactiva.
+- [x] Buscador con filtros dinámicos.
+- [x] Panel Administrativo privado (JWT).
 - [x] Diseño Responsive Mobile-First.
+- [x] Despliegue en Vercel
 
 ### 🚧 En Progreso (v1.1)
-- [x] Panel de Administración (Login/ABM de propiedades).
-- [x] Formulario de contacto funcional con validaciones.
+- [ ] Formulario de contacto funcional con validaciones.
 - [ ] Modo Oscuro (Dark Mode).
 
 ### 🔮 Futuro (v2.0)
