@@ -174,7 +174,7 @@ export const VentasPage = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                         {filtradas.map(prop => (
-                            <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white rounded-2xl shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 border border-brand-light/10 overflow-hidden group flex flex-col">
+                            <Link to={`/propiedades/${prop.slug}`} key={prop.id} className="bg-white rounded-2xl shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-500 border border-brand-light/10 overflow-hidden group flex flex-col">
                                 <div className="h-64 relative overflow-hidden shrink-0">
                                     <Swiper 
                                         modules={[EffectFade]} 

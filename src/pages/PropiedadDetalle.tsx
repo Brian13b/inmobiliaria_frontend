@@ -32,7 +32,7 @@ export const PropiedadDetalle = () => {
     };
 
     useEffect(() => {
-        if (id) getPropiedadById(Number(id)).then(setPropiedad).finally(() => setLoading(false));
+        if (id) getPropiedadById(id).then(setPropiedad).finally(() => setLoading(false));
     }, [id]);
 
     if (!propiedad) return <div className="pt-32 text-center font-body text-brand-muted uppercase tracking-widest animate-pulse">Cargando detalles...</div>;

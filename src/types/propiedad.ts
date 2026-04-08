@@ -20,6 +20,7 @@ export interface ImagenPropiedad {
 
 export interface Propiedad {
     id: number;
+    slug: string;
     titulo: string;
     descripcion: string;
     precio: number;

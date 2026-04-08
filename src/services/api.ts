@@ -21,8 +21,8 @@ export const getPropiedades = async () => {
     return response.data;
 };
 
-export const getPropiedadById = async (id: number) => {
-    const response = await api.get(`/Propiedades/${id}`);
+export const getPropiedadById = async (idOrSlug: string | number) => {
+    const response = await api.get(`/Propiedades/${idOrSlug}`);
     return response.data;
 };
 
