@@ -19,7 +19,7 @@ const getOrientacionLabel = (o: number) => ["Norte", "Sur", "Este", "Oeste", "No
 const getDisposicionLabel = (d: number) => ["Frente", "Contrafrente", "Lateral", "Interno"][d] || "S/D";
 
 export const PropiedadDetalle = () => {
-    const { id } = useParams();
+    const { slug } = useParams();
     const [propiedad, setPropiedad] = useState<Propiedad | null>(null);
     const [_loading, setLoading] = useState(true);
     const [fotoActual, setFotoActual] = useState(1); 
@@ -32,8 +32,8 @@ export const PropiedadDetalle = () => {
     };
 
     useEffect(() => {
-        if (id) getPropiedadById(id).then(setPropiedad).finally(() => setLoading(false));
-    }, [id]);
+        if (slug) getPropiedadById(slug).then(setPropiedad).finally(() => setLoading(false));
+    }, [slug]);
 
     if (!propiedad) return <div className="pt-32 text-center font-body text-brand-muted uppercase tracking-widest animate-pulse">Cargando detalles...</div>;
 

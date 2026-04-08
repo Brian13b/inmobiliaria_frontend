@@ -54,7 +54,7 @@ function App() {
             <Route path="/alquileres" element={<AlquileresPage />} />
             <Route path="/tasaciones" element={<Tasacion />} />
             <Route path="/contacto" element={<ContactoPage />} />
-            <Route path="/propiedad/:id" element={<PropiedadDetalle />} />
+            <Route path="/propiedades/:slug" element={<PropiedadDetalle />} />
 
             <Route path="/login" element={<LoginPage />} />
             
