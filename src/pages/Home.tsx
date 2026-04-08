@@ -135,7 +135,7 @@ export const HomePage = () => {
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {destacadas.map(prop => (
-                            <Link to={`/propiedad/${prop.id}`} key={prop.id} className="bg-white border border-brand-light/20 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 group overflow-hidden block">
+                            <Link to={`/propiedades/${prop.slug}`} key={prop.id} className="bg-white border border-brand-light/20 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 group overflow-hidden block">
                                 <div className="h-48 bg-gray-200 overflow-hidden relative">
                                     <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-brand-dark text-[10px] font-bold px-3 py-1 rounded shadow-sm z-20 uppercase tracking-wider">
                                         {getTipoLabel(prop.tipo)}
