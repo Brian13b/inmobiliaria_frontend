@@ -160,10 +160,20 @@ export const PropiedadDetalle = () => {
                             <p className="text-brand-muted text-lg flex items-center gap-2 mt-4">
                                 <MapPin className="w-5 h-5 text-brand-primary" /> {propiedad.direccion}, {propiedad.barrio && `${propiedad.barrio},`} {propiedad.ciudad}
                             </p>
-                            <div className="mt-8 flex items-baseline gap-2 text-brand-primary">
-                                <span className="text-2xl font-body font-light">{propiedad.moneda}</span>
-                                <span className="text-5xl font-body font-bold tracking-tight">{propiedad.precio > 0 ? `${propiedad.precio.toLocaleString()}` : "Consultar"}</span>
-                                {propiedad.precioExpensas > 0 && <span className="text-brand-muted text-sm ml-4 font-body">+ ${propiedad.precioExpensas.toLocaleString()} expensas</span>}
+                            <div className="mt-8 flex flex-col md:flex-row md:items-baseline gap-2 md:gap-4 text-brand-primary">
+                                <div className="flex items-baseline gap-2">
+                                    <span className="text-2xl font-body font-light">{propiedad.moneda}</span>
+                                    <span className="text-5xl font-body font-bold tracking-tight">{propiedad.precio > 0 ? `${propiedad.precio.toLocaleString()}` : "Consultar"}</span>
+                                </div>
+                                
+                                {/* Etiquetas de Expensas/Tasas para Alquileres */}
+                                {propiedad.estadoOperacion === 'Alquiler' && (propiedad.pagaExpensas || propiedad.pagaTasas) && (
+                                    <div className="flex gap-2 text-[11px] font-bold text-brand-muted uppercase tracking-[0.2em] bg-gray-100 px-3 py-1.5 rounded-full border border-brand-light/20 w-fit mt-2 md:mt-0">
+                                        {propiedad.pagaExpensas && <span>+ Expensas</span>}
+                                        {propiedad.pagaExpensas && propiedad.pagaTasas && <span>|</span>}
+                                        {propiedad.pagaTasas && <span>+ Tasas</span>}
+                                    </div>
+                                )}
                             </div>
                         </div>
 

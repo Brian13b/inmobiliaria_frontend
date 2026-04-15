@@ -212,9 +212,19 @@ export const AlquileresPage = () => {
                                     </div>
 
                                     <div className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t border-brand-light/10 pt-4">
-                                        <span className="text-xl md:text-lg lg:text-2xl font-body font-bold text-brand-primary truncate">
-                                            {prop.precio > 0 ? `${prop.moneda} ${prop.precio.toLocaleString()}` : "Consultar"}
-                                        </span>
+                                        <div className="flex flex-col">
+                                            <span className="text-xl md:text-lg lg:text-2xl font-body font-bold text-brand-primary truncate">
+                                                {prop.precio > 0 ? `${prop.moneda} ${prop.precio.toLocaleString()}` : "Consultar"}
+                                            </span>
+                                            {(prop.pagaExpensas || prop.pagaTasas) && (
+                                                <div className="flex gap-1 text-[9px] font-bold text-brand-muted uppercase tracking-widest mt-0.5">
+                                                    {prop.pagaExpensas && <span>+ EXPENSAS</span>}
+                                                    {prop.pagaExpensas && prop.pagaTasas && <span>|</span>}
+                                                    {prop.pagaTasas && <span>+ TASAS</span>}
+                                                </div>
+                                            )}
+                                        </div>
+                                        
                                         <span className="text-sm font-bold uppercase tracking-[0.2em] text-brand-secondary border-b-2 border-brand-light/30 pb-1 whitespace-nowrap group-hover:border-brand-primary transition-all">
                                             Ver Ficha
                                         </span>

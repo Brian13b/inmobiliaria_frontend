@@ -19,6 +19,8 @@ export const AdminFormulario = () => {
         precio: 0,
         moneda: "USD",
         precioExpensas: 0,
+        pagaExpensas: false,
+        pagaTasas: false,
         direccion: "",
         barrio: "",
         ciudad: "Paraná",
@@ -80,6 +82,8 @@ export const AdminFormulario = () => {
                     barrio: data.barrio || "",
                     ciudad: data.ciudad || "Paraná",
                     precioExpensas: data.precioExpensas || 0,
+                    pagaExpensas: data.pagaExpensas || false,
+                    pagaTasas: data.pagaTasas || false,
                     imagenes: data.imagenes || []
                 });
             });
@@ -411,6 +415,21 @@ export const AdminFormulario = () => {
                                     <option value="Venta">Venta</option>
                                     <option value="Alquiler">Alquiler</option>
                                 </select>
+
+                                {form.estadoOperacion === 'Alquiler' && (
+                                    <div className="p-3 bg-brand-light/10 rounded-lg border border-brand-light/20 space-y-2">
+                                        <p className="text-[10px] uppercase font-bold text-brand-primary tracking-widest mb-2">Adicionales de Alquiler</p>
+                                        <label className="flex items-center gap-3 cursor-pointer group">
+                                            <input type="checkbox" name="pagaExpensas" checked={form.pagaExpensas} onChange={handleChange} className="w-4 h-4 rounded border-brand-light text-brand-primary focus:ring-brand-primary" />
+                                            <span className="text-xs font-bold uppercase tracking-widest text-brand-muted group-hover:text-brand-dark transition-colors">Abona Expensas</span>
+                                        </label>
+                                        <label className="flex items-center gap-3 cursor-pointer group">
+                                            <input type="checkbox" name="pagaTasas" checked={form.pagaTasas} onChange={handleChange} className="w-4 h-4 rounded border-brand-light text-brand-primary focus:ring-brand-primary" />
+                                            <span className="text-xs font-bold uppercase tracking-widest text-brand-muted group-hover:text-brand-dark transition-colors">Abona Tasas</span>
+                                        </label>
+                                    </div>
+                                )}
+                                
                                 <select name="tipo" value={form.tipo} onChange={handleChange} className={inputClass}>
                                     <option value={TipoPropiedad.Casa}>Casa</option>
                                     <option value={TipoPropiedad.Departamento}>Departamento</option>

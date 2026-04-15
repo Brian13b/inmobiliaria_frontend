@@ -24,8 +24,10 @@ export interface Propiedad {
     titulo: string;
     descripcion: string;
     precio: number;
-    moneda: string; // "USD" | "ARS"
+    moneda: string;
     precioExpensas: number;
+    pagaExpensas: boolean; 
+    pagaTasas: boolean;
     
     // Ubicación
     direccion: string;
@@ -43,7 +45,7 @@ export interface Propiedad {
     superficieCubierta: number;   
     antiguedad: number;           
 
-    // Ficha Técnica (Enums de C#)
+    // Ficha Técnica
     estado: number;               // 0: Excelente, 1: Muy Bueno, etc.
     orientacion: number;          // 0: Norte, 1: Sur, etc.
     disposicion: number;          // 0: Frente, 1: Contrafrente, etc.
