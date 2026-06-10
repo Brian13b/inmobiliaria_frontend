@@ -101,7 +101,13 @@ export const AdminFormulario = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
-        const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+        let finalValue: any = value;
+        if (type === 'checkbox') {
+            finalValue = (e.target as HTMLInputElement).checked;
+        } else if (name === 'antiguedad' && value === '') {
+            finalValue = null;
+        }
+        
         setForm(prev => ({ ...prev, [name]: finalValue }));
     };
 
@@ -160,7 +166,7 @@ export const AdminFormulario = () => {
                 cocheras: Number(form.cocheras),
                 superficieTotal: Number(form.superficieTotal),
                 superficieCubierta: Number(form.superficieCubierta),
-                antiguedad: Number(form.antiguedad),
+                antiguedad: form.antiguedad !== null ? Number(form.antiguedad) : null,
                 estado: form.estado !== null ? Number(form.estado) : null,
                 orientacion: form.orientacion !== null ? Number(form.orientacion) : null,
                 disposicion: form.disposicion !== null ? Number(form.disposicion) : null,

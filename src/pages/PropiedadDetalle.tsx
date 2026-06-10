@@ -82,7 +82,7 @@ export const PropiedadDetalle = () => {
 
     return (
         <div className="min-h-screen bg-white pb-20 pt-24 font-body">
-            {/* Modal Zoom Mejorado */}
+            {/* Modal Zoom  */}
             {zoomIndex !== null && propiedad.imagenes && (
                 <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4">
                     {/* Botón Cerrar */}
@@ -215,7 +215,13 @@ export const PropiedadDetalle = () => {
                                     <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Cocheras</span>
                                 </div>
                                 <div className="text-center md:border-x border-brand-light/20 group">
-                                    <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">{propiedad.antiguedad === 0 ? "A Estrenar" : `${propiedad.antiguedad} años`}</p>
+                                    <p className="font-body text-2xl text-brand-dark group-hover:text-brand-primary transition-colors">
+                                        {propiedad.antiguedad == null 
+                                            ? "S/D" 
+                                            : propiedad.antiguedad === 0 
+                                                ? "A Estrenar" 
+                                                : `${propiedad.antiguedad} años`}
+                                    </p>
                                     <span className="text-sm text-brand-muted uppercase font-bold tracking-[0.2em]">Antigüedad</span>
                                 </div>
                                 <div className="text-center group">
